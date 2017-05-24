@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PostsController@index');
+Route::get('/posts/{id}', 'PostsController@show')
+      ->where('id', '[1-9][0-9]*');
+Route::get('/posts/create', 'PostsController@create');
+Route::post('/posts', 'PostsController@store');

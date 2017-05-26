@@ -54,3 +54,14 @@ textarea {
   color: green;
   background: Lavender;
 }
+
+.error {
+  font-size: 12px;
+  color: tomato;
+  padding: 3px 0;
+  display: block;
+}
+
+h2 {
+  font-size: 16px;
+}

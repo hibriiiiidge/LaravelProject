@@ -1,15 +1,39 @@
 @extends('layouts.default')
 
-@section('title', 'Laravel POST')
+@section('title')
+  LARAVEL LIST
+@endsection
 
 @section('content')
   <h1>
-    <a href="{{ url('/posts/create') }}" class="pull-right fs12">ADD NEW</a>
-    POST
+    <a href="{{ action('PostsController@create') }}" class="pull-right fs12">NEW POST</a>
+    POSTS
   </h1>
-  @forelse ($posts as $post)
-    <li><a href="{{ url('/posts', $post->id) }}">{{ $post->title }}</a></li>
-  @empty
-    <li>No POST YET</li>
-  @endforelse
+  <ul>
+    @forelse ($posts as $post)
+      <li>
+        <a href="{{ action('PostsController@show', $post->id) }}">{{ $post->title }}</a>
+        <a href="{{ action('PostsController@edit', $post->id) }}">[EDIT]</a>
+        <form action="{{ action('PostsController@destroy', $post->id) }}" id="form_{{ $post->id }}" method="post" style="display:inline">
+          {{ csrf_field() }}
+          {{ method_field('delete') }}
+          <p><a href="#" data-id="{{ $post->id }}" onclick="deletePost(this);" class="fs12">[X]</a></p>
+        </form>
+        {{-- <a href="{{ action('PostsController@destroy', $post->id) }}">[X]</a> --}}
+      </li>
+    @empty
+      <li>NO Post yet</li>
+    @endforelse
+  </ul>
+
+<script>
+function deletePost(e){
+  'use strict'
+
+  if(confirm('Are you sure?')){
+    document.getElementById("form_" + e.dataset.id).submit();
+  }
+}
+</script>
+
 @endsection

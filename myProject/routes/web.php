@@ -11,20 +11,22 @@
 |
 */
 
-Route::get('/', 'PostsController@index');
-Route::get('/posts/{id}', 'PostsController@show')
-      ->where('id', '[1-9][0-9]*');
-Route::get('/posts/create', 'PostsController@create');
-Route::post('/posts/store', 'PostsController@store');
-Route::get('/posts/edit/{id}', 'PostsController@edit')
-      ->where('id', '[1-9][0-9]*');
-Route::patch('/posts/{id}', 'PostsController@update')
-      ->where('id', '[1-9][0-9]*');
-Route::delete('/posts/{id}', 'PostsController@destroy')
-      ->where('id', '[1-9][0-9]*');
-// Route::get('/posts/destroy/{id}', 'PostsController@destroy')
-//       ->where('id', '[1-9][0-9]*');
+Route::get('/', function () {
+    if (Auth::guest()) {
+      return view('auth.login');
+    }
+    else{
+      return view('user.home');
+    }
+});
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('/posts/comments/{post_id}', 'CommentsController@store');
-// Route::get('/posts/{post_id}/comments/{comment_id}', 'CommentsController@destroy');
-Route::delete('/posts/{post_id}/comments/{comment_id}', 'CommentsController@destroy');
+//user
+Route::get('/users', 'UsersController@index');
+Route::get('/users/edit/{id}', 'UsersController@edit')
+        ->where('id', '[1-9][0-9]*');
+Route::patch('/users/update/{id}', 'UsersController@update')
+        ->where('id', '[1-9][0-9]*');
+Route::delete('/users/destroy/{id}', 'UsersController@destroy')
+        ->where('id', '[1-9][0-9]*');

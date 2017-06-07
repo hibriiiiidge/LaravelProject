@@ -10,6 +10,7 @@ use App\BaseType;
 
 class UsersController extends Controller
 {
+  //スタッフ一覧表示
   public function index(){
     $users = DB::table('users')
             ->select('users.id AS u_id','users.name AS u_name', 'base_types.name AS b_name', 'users.email AS u_email', 'role_types.name AS r_name')
@@ -22,12 +23,14 @@ class UsersController extends Controller
     return view('user.index', ['users' => $users]);
   }
 
+  //スタッフ編集
   public function edit($id){
     $user = User::findOrFail($id);
     $baseTypes = BaseType::all();
     return view('user.edit', ['user' => $user, 'baseTypes' => $baseTypes]);
   }
 
+  //スタッフupdate
   public function update(Request $request, $id){
     $this->validate($request, [
       'base'      => 'required|integer',
@@ -38,19 +41,19 @@ class UsersController extends Controller
       'updter'    => 'required|string',
     ]);
     $user = User::findOrFail($id);
-    $user->base   = $request->base;
-    $user->name   = $request->name;
-    $user->email  = $request->email;
-    $user->role   = $request->role;
-    $user->status = $request->status;
-    $user->updter = $request->updter;
+    $user->base   = $request->base;       //所属拠点
+    $user->name   = $request->name;       //氏名
+    $user->email  = $request->email;      //メールアドレス
+    $user->role   = $request->role;       //役割（ポジション）
+    $user->status = $request->status;     //状態
+    $user->updter = $request->updter;     //update担当者
     $user->save();
     return redirect('/users');
   }
 
   public function destroy($id){
     $user = User::findOrFail($id);
-    $user->status = 'X';
+    $user->status = 'X';                  //論理削除、状態を"X"へ
     $user->save();
     return redirect('/users');
   }

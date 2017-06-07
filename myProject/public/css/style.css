@@ -1,0 +1,79 @@
+/*@TODO  stylesheetを別途用意する*/
+#rgst_btn{
+  float: right;
+}
+#wrap_main_container{
+  width: 65%;
+  float: left;
+}
+#progress_container{
+  width: 20%;
+  float: left;
+  height: 700px;
+  border-left: 1px solid #808080;
+  border-right: 1px solid #808080;
+  background-color: #fcfcfc;
+  font-size: 10px;
+}
+#progress_container .progress_block{
+  background-color: #dfdfdf;
+  padding: 5px;
+}
+#progress_container #progress_memo{
+  width: 100%;
+}
+#wrap_main_container input[type="text"],
+#wrap_main_container input[type="email"] {
+  background-color: transparent;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  box-shadow: none;
+  border-radius: 0px;
+}
+.progress_table>.table-striped>tbody>tr:nth-of-type(odd) {
+  background-color: #efefef;
+}
+.progress_table>.table-striped>tbody>tr>th{
+ width: 35%;
+}
+
+#summary_container{
+  width: 15%;
+  float: left;
+}
+
+#summary_container .panel-group .panel+.panel{
+  margin: 0px;
+}
+#summary_container .panel-group .panel,
+#summary_container .panel{
+  border-radius: 0px;
+}
+
+#summary_container .panel-body{
+  padding: 3px;
+}
+
+#summary_container .panel-body ul{
+  list-style: none;
+  margin: 0px;
+  font-size: 10px;
+  padding: 0px;
+}
+
+#summary_container .panel-heading{
+  padding: 5px 5px;
+  background-color: #eeeeee;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+#summary_container .panel-heading .panel-title{
+  font-size: 12px;
+}
+
+#summary_container #summary_memo{
+  width: 100%;
+  border: none;
+}

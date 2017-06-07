@@ -12,6 +12,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+
 </head>
 <body>
     <div id="app">
@@ -29,14 +31,18 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/home') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{ config('app.name', 'U2-System') }}
                     </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <li>
+                          <a href="{{ action('ClientsController@create') }}">
+                            新規登録
+                          </a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -56,7 +62,7 @@
                                     <a href="{{ action('UsersController@index') }}">スタッフリスト</a>
                                   </li>
                                   <li>
-                                    <a href="#">拠点リスト</a>
+                                    <a href="#">拠点リスト(未構築)</a>{{-- @TODO --}}
                                   </li>
                                 </ul>
                             </li>

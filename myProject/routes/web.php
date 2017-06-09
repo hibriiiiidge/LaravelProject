@@ -34,3 +34,6 @@ Route::delete('/user/destroy/{id}', 'UsersController@destroy')
 //client
 Route::get('/client/create', 'ClientsController@create');       //新規登録ページ
 Route::post('/client/store', 'ClientsController@store');        //登録
+
+//client & request_detail
+Route::get('/client/{client_id}/show/{requestDetail_id}', 'ClientsController@edit');

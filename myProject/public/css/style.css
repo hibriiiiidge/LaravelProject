@@ -1,4 +1,9 @@
 /*@TODO  stylesheetを別途用意する*/
+
+#app{
+  font-size: 12px;
+}
+
 #rgst_btn{
   float: right;
 }
@@ -6,6 +11,13 @@
   width: 65%;
   float: left;
 }
+
+#client_table>tbody>tr>th,
+#request_table>tbody>tr>th{
+  width: 15%;
+}
+
+
 #progress_container{
   width: 20%;
   float: left;
@@ -73,7 +85,7 @@
   font-size: 12px;
 }
 
-#summary_container #summary_memo{
+#summary_container #summary_memo_sub{
   width: 100%;
   border: none;
 }

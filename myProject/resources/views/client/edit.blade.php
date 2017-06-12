@@ -374,9 +374,34 @@
       </div><!--TAB request END-->
       <div class="tab-pane fade" id="item_tab">
           <div class="item_container">
-              <div id="" class="top_shops clearfix grid">
-                <h1>商品</h1>
+            <div class="col-lg-12">
+              <div class="panel panel-default">
+                  <div class="panel-body">
+                    <div class="table-responsive">
+                      <table class="table table-striped table-hover" id="request_table">
+                        <tr class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
+                          <th><label for="category" class="col-lg-12 control-label">カテゴリー</label></th>
+                          <td>
+                            <div class="col-lg-12">
+                                <select id="category" class="form-control" name="category" autofocus>
+                                    <option value="">未選択</option>
+                                    <option value="1" {{ $items[0]->category == 1 ? 'selected': '' }}>パソコン</option> {{-- @TODO 複数の商品登録の処理 --}}
+                                    <option value="2" {{ $items[0]->category == 2 ? 'selected': '' }}>オーディオ</option>
+                                    <option value="3" {{ $items[0]->category == 3 ? 'selected': '' }}>カメラ</option>
+                                </select>
+                                @if ($errors->has('category'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('category') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
               </div>
+            </div>
           </div>
       </div><!--TAB item END-->
     </div><!-- TAB All END -->

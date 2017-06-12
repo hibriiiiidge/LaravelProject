@@ -243,7 +243,6 @@
                     <div class="panel-body">
                       <div class="table-responsive">
                         <table class="table table-striped table-hover" id="request_table">
-
                           <tr class="form-group{{ $errors->has('urgency') ? ' has-error' : '' }}">
                             <th><label for="urgency" class="col-lg-12 control-label">緊急度</label></th>
                             <td>
@@ -376,9 +375,38 @@
       </div><!--TAB request END-->
       <div class="tab-pane fade" id="item_tab">
           <div class="item_container">
-              <div id="" class="top_shops clearfix grid">
-                <h1>商品</h1>
+            <div class="col-lg-12">
+              <div class="panel panel-default">
+                  <div class="panel-body">
+                    <div class="table-responsive">
+                      <table class="table table-striped table-hover" id="request_table">
+                        <tr class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
+                          <th><label for="category" class="col-lg-12 control-label">カテゴリー</label></th>
+                          <td>
+                            <div class="col-lg-12">
+                                <select id="category" class="form-control" name="category" autofocus>
+                                    <option value="">未選択</option>
+                                    <option value="1">パソコン</option>
+                                    <option value="2">オーディオ</option>
+                                    <option value="3">カメラ</option>
+                                </select>
+                                @if ($errors->has('category'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('category') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+
+                      <div class="item_hidden">
+                        <input type="hidden" name="item_status" value="◯">
+                      </div>
+                    </div>
+                  </div>
               </div>
+            </div>
           </div>
       </div><!--TAB item END-->
     </div><!-- TAB All END -->
@@ -394,45 +422,6 @@
       </select>
       <textarea name="progress_memo" rows="3" placeholder="伝達事項" id="progress_memo"></textarea>
     </div>
-    {{-- <div class="progress_table">
-      <table class="table table-striped table-hover">
-        <tbody>
-          <tr>
-            <th>
-              6月7日(水)<br/>
-              <span>11:30</span>
-            </th>
-            <td>
-              交渉中<br/>
-              <span>家族で相談して決めるとのこと。詳細は不明。</span><br/>
-              <span>高橋</span>
-            </td>
-          </tr>
-          <tr>
-            <th>
-              6月6日(火)<br/>
-              <span>10:30</span>
-            </th>
-            <td>
-              見積済<br/>
-              <span>メールのみ</span><br/>
-              <span>高橋</span>
-            </td>
-          </tr>
-          <tr>
-            <th>
-              6月5日(月)<br/>
-              <span>10:10</span>
-            </th>
-            <td>
-              要返信<br/>
-              <span>無し</span><br/>
-              <span>高橋</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div> --}}
   </div>
   <div id="summary_container">
     <!-- ここからアコーディオン（Collapse） -->
@@ -448,9 +437,9 @@
         <div id="summary_tab" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
           <div class="panel-body">
             <ul>
-              <li>拠点：東京</li>
-              <li>性別：男性</li>
-              <li>電話番号:09011112222</li>
+              <li>拠点:</li>
+              <li>性別：</li>
+              <li>電話番号:</li>
             </ul>
           </div>
         </div>

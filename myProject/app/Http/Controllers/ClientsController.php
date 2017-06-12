@@ -7,6 +7,7 @@ use App\Client;
 use App\BaseType;
 use App\RequestDetail;
 use App\RequestProgress;
+use App\Item;
 use Illuminate\Support\Facades\DB;
 
 class ClientsController extends Controller
@@ -145,6 +146,17 @@ class ClientsController extends Controller
       $rProgress->rgster          = $request->rgster;
       $rProgress->updter          = $request->updter;
       $rProgress->save();
+      ///////////////////////////////////////////////////////////////
+      ////                  item
+      ///////////////////////////////////////////////////////////////
+      $item = new Item();
+      $item->id = ($rDetail->request_id)."_1"; //新規登録なので連番は必ず"1"からスタート $item->id = 依頼ID+"_n"; (n>0)
+      $item->request_id = $rDetail->request_id;
+      $item->category   = $request->category;
+      $item->status     = $request->item_status;
+      $item->rgster     = $request->rgster;
+      $item->updter     = $request->updter;
+      $item->save();
       return redirect()->action('ClientsController@edit', ['clientId'=>$client->id, 'requestDetailId'=>$rDetail->request_id]);
     }
 
@@ -158,6 +170,8 @@ class ClientsController extends Controller
                       ->where('request_id', '=', $requestDetailId)
                       ->orderBy('dt', 'desc')
                       ->get();
-      return view('client.edit', ['client'=>$client, 'requestDetail'=>$requestDetail[0], 'baseTypes'=>$baseTypes, 'rProgresses'=>$rProgresses ]);
+      $items = Item::where('request_id', $requestDetailId)->latest('created_at')->get();
+      // dd($items[0]->category);
+      return view('client.edit', ['client'=>$client, 'requestDetail'=>$requestDetail[0], 'baseTypes'=>$baseTypes, 'rProgresses'=>$rProgresses, 'items'=>$items]);
     }
 }

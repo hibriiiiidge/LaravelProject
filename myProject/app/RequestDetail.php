@@ -20,4 +20,9 @@ class RequestDetail extends Model
   public function request_progresses(){
     return $this->hasMany('App\RequestProgress', 'request_id', 'request_id');
   }
+  //request_detail->items
+  public function items(){
+    return $this->hasMany('App\Item', 'request_id', 'request_id');
+  }
+
 }

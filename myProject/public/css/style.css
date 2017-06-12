@@ -12,13 +12,13 @@
   float: left;
 }
 
-#client_table>tbody>tr>th,
-#request_table>tbody>tr>th{
+.table>tbody>tr>th{
   width: 15%;
 }
 
 
 #progress_container{
+  overflow: scroll;
   width: 20%;
   float: left;
   height: 700px;

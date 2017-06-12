@@ -37,3 +37,4 @@ Route::post('/client/store', 'ClientsController@store');        //登録
 
 //client & request_detail
 Route::get('/client/{client_id}/show/{requestDetail_id}', 'ClientsController@edit');
+Route::patch('/client/{client_id}/show/{requestDetail_id}', 'ClientsController@update');

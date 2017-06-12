@@ -15,9 +15,15 @@ class ClientsController extends Controller
     public function create(){
       //拠点一覧を取得
       $baseTypes = BaseType::all();
-      return view('client.register', ['baseTypes' => $baseTypes]);
+      $client = new Client();
+      $rDetail = new RequestDetail();
+      return view('client.register', ['baseTypes' => $baseTypes, 'client'=>$client, 'requestDetail'=>$rDetail]);
     }
 
+    /**
+     * 顧客・依頼・商品情報の新規登録処理
+     *
+     */
     public function store(Request $request){
       // $this->validate($request, [
       //   'attribute'   => 'required|integer',
@@ -39,25 +45,10 @@ class ClientsController extends Controller
       ///////////////////////////////////////////////////////////////
       ////                        Client
       ///////////////////////////////////////////////////////////////
-      // @TODO Client Modelにまとめるべき処理
-      ////顧客ID 7桁の0埋め ex. '0000001', '0002034'
-      $zeroCnt = 6;
-      /**
-       * @param  int 桁埋めする"0"の個数
-       * @return str "000000"
-       */
-      function zeroNum(int $n){
-        $zeroAry = array();
-        for ($i=0; $i < $n ; $i++) {
-          array_push($zeroAry, '0');
-        }
-        $zeroStr = implode("", $zeroAry);
-        return $zeroStr;
-      }
-
-      $zero = zeroNum($zeroCnt);
-      //Clientが既に存在していたら
-      //最新のID番号を取得し、+1して、新規のClientの番号とする
+      $client = new Client();
+      //IDの生成
+      $zero = $client->zeroNum($client::ZEROCNT);
+      //Clientが既に存在していたら、最新のID番号を取得し、+1して、新規のClientの番号とする
       $latestId = DB::table('clients')->select('id')->latest()->first();
       if($latestId){
         $latestCNum = 1+intval($latestId->id);
@@ -67,27 +58,11 @@ class ClientsController extends Controller
       else{
         $latestCNo = $zero."1";
       }
-
       //nameの整形
-      $fullname = str_replace(array(' ', '　'), '', $request->name); //スペース詰め
-      /**
-       * 姓と名の分割処理
-       * @param string name
-       * @return array [last_name, first_name]
-       */
-      function split_name($name){
-        $nameAry = [];
-        $name = str_replace('　', ' ', $name);
-        $name = trim($name);
-        $name = preg_replace('/\s+/', ' ', $name);
-        $nameAry = explode(' ', $name);
-        return $nameAry;
-      }
-      list($last_name, $first_name) = split_name($request->name);
-      list($last_kana, $first_kana) = split_name($request->kana);
+      $fullname = $client->chgFullName($request->name); //スペース詰め
+      list($last_name, $first_name) = $client->split_name($request->name);
+      list($last_kana, $first_kana) = $client->split_name($request->kana);
 
-      //Client
-      $client = new Client();
       $client->id               = $latestCNo;
       $client->attribute        = $request->attribute;
       $client->base             = $request->base;
@@ -135,7 +110,7 @@ class ClientsController extends Controller
       $rDetail->status          = $request->status;
       $rDetail->save();
       ///////////////////////////////////////////////////////////////
-      ////                  request_detail
+      ////                  request_progress
       ///////////////////////////////////////////////////////////////
       $rProgress = new RequestProgress();
       $rProgress->request_id      = $rDetail->request_id;
@@ -160,6 +135,10 @@ class ClientsController extends Controller
       return redirect()->action('ClientsController@edit', ['clientId'=>$client->id, 'requestDetailId'=>$rDetail->request_id]);
     }
 
+    /**
+     * 顧客・依頼・商品情報の編集画面への遷移
+     *
+     */
     public function edit($clientId, $requestDetailId){
       $client = Client::findOrFail($clientId);
       $requestDetail = RequestDetail::where('request_id', $requestDetailId)->get();
@@ -171,7 +150,83 @@ class ClientsController extends Controller
                       ->orderBy('dt', 'desc')
                       ->get();
       $items = Item::where('request_id', $requestDetailId)->latest('created_at')->get();
-      // dd($items[0]->category);
       return view('client.edit', ['client'=>$client, 'requestDetail'=>$requestDetail[0], 'baseTypes'=>$baseTypes, 'rProgresses'=>$rProgresses, 'items'=>$items]);
+    }
+
+    /**
+     * 顧客・依頼・商品情報の更新処理
+     *
+     */
+    public function update(Request $request, $clientId, $requestDetailId){
+      ///////////////////////////////////////////////////////////////
+      ////                        Client
+      ///////////////////////////////////////////////////////////////
+      $client = Client::findOrFail($clientId);
+      //nameの整形
+      $fullname = $client->chgFullName($request->name); //スペース詰め
+      list($last_name, $first_name) = $client->split_name($request->name);
+      list($last_kana, $first_kana) = $client->split_name($request->kana);
+      $client->attribute        = $request->attribute;
+      $client->base             = $request->base;
+      $client->fullname         = $fullname;
+      $client->name             = $last_name;
+      $client->kana             = $last_kana;
+      $client->first_name       = $first_name;
+      $client->first_name_kana  = $first_kana;
+      $client->gender           = $request->gender;
+      $client->job              = $request->job;
+      $client->birthday         = $request->birthday;
+      $client->tel              = $request->tel;
+      $client->fax              = $request->fax;
+      $client->mail             = $request->mail;
+      $client->postal_code      = $request->postal_code;
+      $client->prefecture       = $request->prefecture;
+      $client->address          = $request->address;
+      $client->memo             = $request->memo;
+      $client->updter           = $request->updter;
+      $client->save();
+      ///////////////////////////////////////////////////////////////
+      ////                  request_detail
+      ///////////////////////////////////////////////////////////////
+      //概要メモの判定
+      $summary_memo = $request->memo_type == 'main' ? $request->summary_memo_main :  $request->summary_memo_sub;
+      $rDetail = RequestDetail::where('request_id', '=', $requestDetailId)->first();
+      $rDetail->urgency         = $request->urgency;
+      $rDetail->reason          = $request->reason;
+      $rDetail->buy_way         = $request->buy_way;
+      $rDetail->contact_way     = $request->contact_way;
+      $rDetail->route           = $request->route;
+      $rDetail->competitive_flg = $request->competitive_flg;
+      $rDetail->summary_memo    = $summary_memo;
+      $rDetail->updter          = $request->updter;
+      $rDetail->save();
+      ///////////////////////////////////////////////////////////////
+      ////                  request_progress
+      ///////////////////////////////////////////////////////////////
+      $rProgress = new RequestProgress();
+      $latestRP  = DB::table('request_progresses')
+                        ->where('request_id', '=', $requestDetailId)
+                        ->select('flow_no', 'progress_status')->latest('created_at')->first();
+      if($latestRP->progress_status !== intval($request->progress_status)){ //進捗があったら更新
+        $flowNo = intval($latestRP->flow_no)+1;
+        $rProgress->request_id      = $requestDetailId;
+        $rProgress->flow_no         = $flowNo;
+        $rProgress->progress_status = $request->progress_status;
+        $rProgress->progress_memo   = $request->progress_memo;
+        $rProgress->status          = $request->status; //@TODO progressのステータス設定
+        $rProgress->rgster          = $request->rgster;
+        $rProgress->updter          = $request->updter;
+        $rProgress->save();
+      }
+      ///////////////////////////////////////////////////////////////
+      ////                  item
+      ///////////////////////////////////////////////////////////////
+      $items = $rDetail->items; //request_detailsに紐づくitemの取得
+      $item = Item::where('id', '=', $items[0]->id)->first();
+      $item->category   = $request->category;
+      $item->status     = $request->item_status;
+      $item->updter     = $request->updter;
+      $item->save();
+      return redirect()->action('ClientsController@edit', ['clientId'=>$client->id, 'requestDetailId'=>$rDetail->request_id]);
     }
 }

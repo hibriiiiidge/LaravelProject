@@ -109,11 +109,13 @@
                                 </select>
                             </div>
                         </div>
-
-                        <div>
+                        {{-- <div>
                           <input type="hidden" name="rgster" value="{{ Auth::user()->id }}">
                           <input type="hidden" name="updter" value="{{ Auth::user()->id }}">
-                        </div>
+                        </div> --}}
+                        {{-- 一時的にログインしていなくてもユーザを登録できるようにするため  --}}
+                        <input type="hidden" name="rgster" value="1">
+                        <input type="hidden" name="updter" value="1">
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">

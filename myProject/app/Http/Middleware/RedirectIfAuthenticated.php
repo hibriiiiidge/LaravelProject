@@ -17,6 +17,7 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
+      //新規ユーザ登録時にそのまま登録ユーザとしてログインする処理
         // if (Auth::guard($guard)->check()) {
         //     return redirect('/home');
         // }

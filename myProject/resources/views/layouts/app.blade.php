@@ -41,6 +41,7 @@
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
+                    @unless (Auth::guest())
                     <ul class="nav navbar-nav">
                         <li>
                           <a href="{{ action('ClientsController@create') }}">
@@ -48,14 +49,20 @@
                           </a>
                         </li>
                     </ul>
+                    @endunless
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
+                            <li>
+                              <a href="{{ route('login') }}">Login</a>
+                            </li>
+                            <li>
+                              <a href="{{ route('register') }}">新規スタッフ登録</a>
+                            </li>
                         @else
-                          @if ( Auth::user()->role==1) {{-- @TODO 環境変数--}}
+                          @if ( Auth::user()->role==1) {{-- @TODO config設定 定数--}}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     リスト <span class="caret"></span>
@@ -77,7 +84,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                  @if ( Auth::user()->role==1)
+                                  @if ( Auth::user()->role==1) {{-- @TODO config設定 定数--}}
                                     <li>
                                       <a href="{{ route('register') }}">新規スタッフ登録</a>
                                     </li>

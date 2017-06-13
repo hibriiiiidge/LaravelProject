@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\DB;
 class ClientsController extends Controller
 {
     public function create(){
-      //拠点一覧を取得
-      $baseTypes = BaseType::all();
-      $client = new Client();
-      $rDetail = new RequestDetail();
-      return view('client.register', ['baseTypes' => $baseTypes, 'client'=>$client, 'requestDetail'=>$rDetail]);
+      $baseTypes  = BaseType::all(); //拠点一覧を取得
+      $client     = new Client();
+      $rDetail    = new RequestDetail();
+      $item       = new Item();
+      return view('client.register', ['baseTypes' => $baseTypes, 'client'=>$client, 'requestDetail'=>$rDetail, 'item'=>$item]);
     }
 
     /**
@@ -25,6 +25,7 @@ class ClientsController extends Controller
      *
      */
     public function store(Request $request){
+      //dd($request);
       // $this->validate($request, [
       //   'attribute'   => 'required|integer',
       //   'base'        => 'required|integer',
@@ -124,14 +125,23 @@ class ClientsController extends Controller
       ///////////////////////////////////////////////////////////////
       ////                  item
       ///////////////////////////////////////////////////////////////
-      $item = new Item();
-      $item->id = ($rDetail->request_id)."_1"; //新規登録なので連番は必ず"1"からスタート $item->id = 依頼ID+"_n"; (n>0)
-      $item->request_id = $rDetail->request_id;
-      $item->category   = $request->category;
-      $item->status     = $request->item_status;
-      $item->rgster     = $request->rgster;
-      $item->updter     = $request->updter;
-      $item->save();
+      for ($i=0; $i < count($request->category); $i++) {
+        $item_n = $i+1;
+        $item = new Item();
+        $item->id                 = ($rDetail->request_id)."_".$item_n;
+        $item->no_underscore_id   = ($rDetail->request_id).$item_n;
+        $item->request_id         = $rDetail->request_id;
+        $item->category           = $request->category[$i];
+        $item->name               = $request->item_name[$i];
+        $item->outside_condition  = current(array_slice($request->outside_condition, $i, 1, true));
+        $item->inside_condition   = current(array_slice($request->inside_condition, $i, 1, true));
+        $item->cooling_off_flg    = current(array_slice($request->cooling_off_flg, $i, 1, true));
+        $item->memo               = current(array_slice($request->item_memo, $i, 1, true));
+        $item->status             = $request->item_status;
+        $item->rgster             = $request->rgster;
+        $item->updter             = $request->updter;
+        $item->save();
+      }
       return redirect()->action('ClientsController@edit', ['clientId'=>$client->id, 'requestDetailId'=>$rDetail->request_id]);
     }
 
@@ -150,6 +160,7 @@ class ClientsController extends Controller
                       ->orderBy('dt', 'desc')
                       ->get();
       $items = Item::where('request_id', $requestDetailId)->latest('created_at')->get();
+      //dd($items);
       return view('client.edit', ['client'=>$client, 'requestDetail'=>$requestDetail[0], 'baseTypes'=>$baseTypes, 'rProgresses'=>$rProgresses, 'items'=>$items]);
     }
 
@@ -222,11 +233,21 @@ class ClientsController extends Controller
       ////                  item
       ///////////////////////////////////////////////////////////////
       $items = $rDetail->items; //request_detailsに紐づくitemの取得
-      $item = Item::where('id', '=', $items[0]->id)->first();
-      $item->category   = $request->category;
-      $item->status     = $request->item_status;
-      $item->updter     = $request->updter;
-      $item->save();
+      for ($i=0; $i < count($items); $i++) {
+        $items[$i]->category           = $request->category[$i];
+        $items[$i]->name               = $request->item_name[$i];
+        $items[$i]->name               = $request->item_name[$i];
+        $items[$i]->outside_condition  = $request->outside_condition[$items[$i]->no_underscore_id];
+        $items[$i]->inside_condition   = $request->inside_condition[$items[$i]->no_underscore_id];
+        $items[$i]->cooling_off_flg    = $request->cooling_off_flg[$items[$i]->no_underscore_id];
+        $items[$i]->memo               = $request->item_memo[$i];
+        $items[$i]->status             = $request->item_status;
+        $items[$i]->updter             = $request->updter;
+        $items[$i]->save();
+      }
+
+      if(count($items) == count($request->category)){
+      }
       return redirect()->action('ClientsController@edit', ['clientId'=>$client->id, 'requestDetailId'=>$rDetail->request_id]);
     }
 }

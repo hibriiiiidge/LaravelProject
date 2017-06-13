@@ -34,7 +34,7 @@
           @include('client.request_partial', ['requestDetail'=>$requestDetail])
       </div><!--TAB request END-->
       <div class="tab-pane fade" id="item_tab">
-          @include('client.item_partial')
+          @include('client.item_partial', ['item'=>$item])
       </div><!--TAB item END-->
     </div><!-- TAB All END -->
   </div><!-- #wrap_main_container -->
@@ -89,87 +89,4 @@
   </div>
   <input type="hidden" name="memo_type" value="">
 </form>
-<script type="text/javascript">
-  $(function(){
-    //summary_memoのmainとsubのどちらを最後に編集したかを判定し、hiddenに値を持たせる処理
-    $('.memo').focusout(function(e){
-      $("input[name='memo_type']").val($(this).data('type'));
-    });
-
-    $('body').on('click', '#add_item', addItem);
-
-    function addItem(){
-      $('li#add_btn').before('<li><a href="#item2_tab" data-toggle="tab">商品2</a></li>');
-      $('#item_tab').after(
-        $("<div></div>", {Id:"item2_tab", addClass: "tab-pane fade"})
-      );
-      $("#item2_tab").prepend(
-        $("<div></div>", {Id:"item2_cont", addClass: "item_container"})
-      );
-      $("#item2_cont").prepend(
-        $("<div></div>", {Id:"item2_panel", addClass: "col-lg-12 item-panel"})
-      );
-      $("#item2_panel").prepend(
-        $("<div></div>", {Id:"item2_panel_def", addClass: "panel panel-default"})
-      );
-      $("#item2_panel_def").prepend(
-        $("<div></div>", {Id:"item2_panel_body", addClass: "panel-body"})
-      );
-      $("#item2_panel_body").prepend(
-        $("<div></div>", {Id:"item2_tbl_res", addClass: "table-responsive"})
-      );
-      $("#item2_tbl_res").prepend(
-        $("<table></table>", {Id:"item2_request_table", addClass: "table table-striped table-hover"})
-      );
-      $("#item2_request_table").prepend(
-        $("<tbody></tbody>")
-      );
-      $("#item2_request_table>tbody").prepend(
-        $("<tr></tr>", {Id:"item2_cat", addClass: "form-group"})
-      );
-          $("#item2_cat").append(
-            $("<th></th>")
-          );
-          $("#item2_cat").append(
-            $("<td></td>")
-          );
-              $("#item2_cat>th").prepend(
-                '<label for="category" class="col-lg-12 control-label">カテゴリー</label>'
-              );
-              $("#item2_cat>td").prepend(
-                $("<div></div>", {addClass: "col-lg-12"})
-              );
-              $("#item2_cat>td>div").prepend(
-                $("<select></select>", {Id:"item2_category", addClass: "form-control", name:"category"})
-              );
-              $("#item2_category").prepend(
-                '<option value="">未選択</option><option value="1">パソコン</option><option value="2">オーディオ</option><option value="3">カメラ</option>'
-              );
-      $("#item2_request_table>tbody").append(
-        $("<tr></tr>", {Id:"item2_name", addClass: "form-group"})
-      );
-          $("#item2_name").append(
-            $("<th></th>")
-          );
-          $("#item2_name").append(
-            $("<td></td>")
-          );
-              $("#item2_name>th").prepend(
-                '<label for="category" class="col-lg-12 control-label">商品名</label>'
-              );
-              $("#item2_name>td").prepend(
-                $("<div></div>", {addClass: "col-lg-12"})
-              );
-              $("#item2_name>td>div").prepend(
-                '<input id="item_name" type="text" class="form-control" name="item_name">'
-              );
-
-      $("#item2_tbl_res").prepend(
-        $("<div></div>", {Id:"item2_item_hidden", addClass: "item_hidden"})
-      );
-
-    }
-
-  });
-</script>
 @endsection

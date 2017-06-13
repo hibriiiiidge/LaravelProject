@@ -21,8 +21,12 @@
       <ul class="nav nav-tabs" style="margin-bottom: -1.5px;">
           <li class="active"><a href="#client_tab" data-toggle="tab">顧客</a></li>
           <li><a href="#request_tab" data-toggle="tab">依頼</a></li>
-          <li><a href="#item_tab" data-toggle="tab">商品</a></li>
-          <li><a href="#add_item_tab" data-toggle="tab">+追加</a></li>
+          @foreach ($items as $item)
+            <li>
+              <a href="#item_tab_{{ $item->no_underscore_id }}" data-toggle="tab">商品</a>
+            </li>
+          @endforeach
+          <li id="add_btn"><a href="#add_item_tab" id="add_item" data-toggle="tab">+追加</a></li>
       </ul>
   </div>
   <div id="wrap_main_container">
@@ -34,9 +38,11 @@
       <div class="tab-pane fade" id="request_tab">
           @include('client.request_partial', ['requestDetail'=>$requestDetail])
       </div><!--TAB request END-->
-      <div class="tab-pane fade" id="item_tab">
-        @include('client.item_partial')
-      </div><!--TAB item END-->
+      @foreach ($items as $item)
+        <div class="tab-pane fade" id="item_tab_{{ $item->no_underscore_id }}">
+          @include('client.item_partial', ['item'=>$item])
+        </div><!--TAB item END-->
+      @endforeach
     </div><!-- TAB All END -->
   </div><!-- #wrap_main_container -->
   <div id="progress_container">
@@ -108,12 +114,4 @@
   </div>
   <input type="hidden" name="memo_type" value="">
 </form>
-<script type="text/javascript">
-  $(function(){
-    //summary_memoのmainとsubのどちらを最後に編集したかを判定し、hiddenに値を持たせる処理
-    $('.memo').focusout(function(e){
-      $("input[name='memo_type']").val($(this).data('type'));
-    });
-  });
-</script>
 @endsection

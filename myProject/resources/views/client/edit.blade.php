@@ -114,4 +114,9 @@
   </div>
   <input type="hidden" name="memo_type" value="">
 </form>
+<form action="{{ action('ClientsController@destroy', [$client->id, $requestDetail->request_id]) }}" method="post" id="deleteTabForm">
+  {{ csrf_field() }}
+  {{ method_field('delete') }}
+  <input type="hidden" name="deleteItemId" id="deleteItemId" value="">
+</form>
 @endsection

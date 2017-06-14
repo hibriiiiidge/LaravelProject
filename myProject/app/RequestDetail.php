@@ -22,7 +22,7 @@ class RequestDetail extends Model
   }
   //request_detail->items
   public function items(){
-    return $this->hasMany('App\Item', 'request_id', 'request_id');
+    return $this->hasMany('App\Item', 'request_id', 'request_id')->where('status', '<>', 'X')->orderBy('count', 'ASC');
   }
 
 }

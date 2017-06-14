@@ -1,11 +1,12 @@
 $(function(){
+
   //summary_memoのmainとsubのどちらを最後に編集したかを判定し、hiddenに値を持たせる処理
   $('.memo').focusout(function(e){
     $("input[name='memo_type']").val($(this).data('type'));
   });
-  //Itemの入力フォームをDOMで生成
-  $('body').on('click', '#add_item', chkItem);
 
+  //Itemの入力フォームをDOMで生成する処理
+  $('body').on('click', '#add_item', chkItem);
   //一つ前の商品入力フォームのカテゴリーが選択されていたら、次のフォームを生成可能
   function chkItem(){
       var trgtTab   = $("li#add_btn").prev(); //[追加]ボタンの一つ前のtabの要素を取得
@@ -16,14 +17,14 @@ $(function(){
       addItem();
     }
   }
-
+  //次の商品入力フォームを生成する処理
   function addItem(){
     var ts = $.now();
     // tab
-    $('li#add_btn').before('<li><a href="#item_tab_'+ts+'" data-toggle="tab">商品</a></li>');
+    $('li#add_btn').before('<li id="item_li_tab_'+ts+'"><a href="#item_tab_'+ts+'" data-toggle="tab">商品</a></li>');
 
     // content
-    $('#item_tab').after(
+    $('#myTabContent').append(
       $("<div></div>", {Id:"item_tab_"+ts, addClass: "tab-pane fade"})
     );
     $("#item_tab_"+ts).prepend(
@@ -109,6 +110,7 @@ $(function(){
                   $("<div></div>", {addClass: "col-lg-12"})
                 );
                 $("#outside_condition_"+ts+">td>div").prepend(
+                  '<input type="radio" class="outside_condition" name="outside_condition['+ts+']" value="0" checked>未確認' +
                   '<input type="radio" class="outside_condition" name="outside_condition['+ts+']" value="1">新品' +
                   '<input type="radio" class="outside_condition" name="outside_condition['+ts+']" value="2">ほぼ新品' +
                   '<input type="radio" class="outside_condition" name="outside_condition['+ts+']" value="3">非常に良い' +
@@ -133,6 +135,7 @@ $(function(){
                   $("<div></div>", {addClass: "col-lg-12"})
                 );
                 $("#inside_condition_"+ts+">td>div").prepend(
+                  '<input type="radio" class="inside_condition" name="inside_condition['+ts+']" value="0" checked>未確認' +
                   '<input type="radio" class="inside_condition" name="inside_condition['+ts+']" value="1">保証品' +
                   '<input type="radio" class="inside_condition" name="inside_condition['+ts+']" value="2">未開封品' +
                   '<input type="radio" class="inside_condition" name="inside_condition['+ts+']" value="3">未使用品' +
@@ -156,9 +159,9 @@ $(function(){
                   $("<div></div>", {addClass: "col-lg-12"})
                 );
                 $("#cooling_off_flg_"+ts+">td>div").prepend(
+                  '<input type="radio" class="cooling_off_flg" name="cooling_off_flg['+ts+']" value="0" checked>未確認' +
                   '<input type="radio" class="cooling_off_flg" name="cooling_off_flg['+ts+']" value="1">対象' +
-                  '<input type="radio" class="cooling_off_flg" name="cooling_off_flg['+ts+']" value="2">対象外' +
-                  '<input type="radio" class="cooling_off_flg" name="cooling_off_flg['+ts+']" value="3">不明'
+                  '<input type="radio" class="cooling_off_flg" name="cooling_off_flg['+ts+']" value="2">対象外'
                 );
         //item_name
         $("#item_request_table_"+ts+">tbody").append(
@@ -182,6 +185,30 @@ $(function(){
     $("#item_tbl_res_"+ts).prepend(
       $("<div></div>", {Id:"item_hidden_"+ts, addClass: "item_hidden"})
     );
+    $("#item_tab_"+ts).append(
+      $("<div></div>", {Id:"item_delete_"+ts, addClass: "delete_btn"})
+    );
+        $("#item_delete_"+ts).prepend(
+          '<button type="button" id="delete_btn_'+ts+'" class="btn btn-danger">削除</button>'
+        );
+  }
+
+  //削除ボタンがクリックされたた対象のタブを削除する処理
+  $('body').on('click', '.delete_btn', deleteTab);
+  function deleteTab(){
+    if(confirm('商品情報を削除しますか？')){
+      //idからタイムスタンプを取得
+      var deleteId = $(this).attr('id');
+      var splitTs  = deleteId.split("delete");
+      //１つ前のliをactive状態に変更し、ターゲットのliを削除
+      var preLi = $("#item_li_tab"+splitTs[1]).prev();
+      $(preLi).addClass('active');
+      $("#item_li_tab"+splitTs[1]).remove();
+      //１つ前のtabを"active in"状態に変更し、ターゲットのitem_tabを削除(逆ではNG)
+      var preTab = $("#item_tab"+splitTs[1]).prev();
+      $(preTab).addClass('active in');
+      $("#item_tab"+splitTs[1]).remove();
+    }
   }
 
 });

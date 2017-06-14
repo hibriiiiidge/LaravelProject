@@ -10,7 +10,7 @@
                 </th>
                 <td>
                   <div class="col-lg-12">
-                      <select id="category" class="form-control" name="category[]" autofocus>
+                      <select id="category{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" class="form-control" name="category[]" autofocus>
                           <option value="">未選択</option>
                           <option value="1" {{ $item->category == 1 ? 'selected': '' }}>パソコン</option>
                           <option value="2" {{ $item->category == 2 ? 'selected': '' }}>オーディオ</option>
@@ -23,14 +23,15 @@
                 <th><label for="item_name" class="col-lg-12 control-label">商品名</label></th>
                 <td>
                   <div class="col-lg-12">
-                      <input id="item_name" type="text" class="form-control" name="item_name[]" value="{{ old('item_name', $item->name) }}">
+                      <input id="item_name{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" type="text" class="form-control" name="item_name[]" value="{{ old('item_name', $item->name) }}">
                   </div>
                 </td>
               </tr>
               <tr class="form-group{{ $errors->has('outside_condition') ? ' has-error' : '' }}">
-                <th><label for="outside_condition" class="col-lg-12 control-label">外観の状態</label></th>
+                <th><label for="outside_condition" id="" class="col-lg-12 control-label">外観の状態</label></th>
                 <td>
                   <div class="col-lg-12">
+                    <input type="radio" class="outside_condition" name="outside_condition[{{$item->no_underscore_id}}]" value="0" {{ $item->outside_condition == 0 ? 'checked': '' }} checked>未確認
                     <input type="radio" class="outside_condition" name="outside_condition[{{$item->no_underscore_id}}]" value="1" {{ $item->outside_condition == 1 ? 'checked': '' }}>新品
                     <input type="radio" class="outside_condition" name="outside_condition[{{$item->no_underscore_id}}]" value="2" {{ $item->outside_condition == 2 ? 'checked': '' }}>ほぼ新品
                     <input type="radio" class="outside_condition" name="outside_condition[{{$item->no_underscore_id}}]" value="3" {{ $item->outside_condition == 3 ? 'checked': '' }}>非常に良い
@@ -44,6 +45,7 @@
                 <th><label for="inside_condition" class="col-lg-12 control-label">動作状況</label></th>
                 <td>
                   <div class="col-lg-12">
+                    <input type="radio" class="inside_condition" name="inside_condition[{{$item->no_underscore_id}}]" value="0" {{ $item->inside_condition == 0 ? 'checked': '' }} checked>未確認
                     <input type="radio" class="inside_condition" name="inside_condition[{{$item->no_underscore_id}}]" value="1" {{ $item->inside_condition == 1 ? 'checked': '' }}>保証品
                     <input type="radio" class="inside_condition" name="inside_condition[{{$item->no_underscore_id}}]" value="2" {{ $item->inside_condition == 2 ? 'checked': '' }}>未開封品
                     <input type="radio" class="inside_condition" name="inside_condition[{{$item->no_underscore_id}}]" value="3" {{ $item->inside_condition == 3 ? 'checked': '' }}>未使用品
@@ -56,9 +58,9 @@
                 <th><label for="cooling_off_flg" class="col-lg-12 control-label">クーリングオフの有無</label></th>
                 <td>
                   <div class="col-lg-12">
+                    <input type="radio" class="cooling_off_flg" name="cooling_off_flg[{{$item->no_underscore_id}}]" value="0" {{ $item->cooling_off_flg == 3 ? 'checked': '' }} checked>未確認
                     <input type="radio" class="cooling_off_flg" name="cooling_off_flg[{{$item->no_underscore_id}}]" value="1" {{ $item->cooling_off_flg == 1 ? 'checked': '' }}>対象
                     <input type="radio" class="cooling_off_flg" name="cooling_off_flg[{{$item->no_underscore_id}}]" value="2" {{ $item->cooling_off_flg == 2 ? 'checked': '' }}>対象外
-                    <input type="radio" class="cooling_off_flg" name="cooling_off_flg[{{$item->no_underscore_id}}]" value="3" {{ $item->cooling_off_flg == 3 ? 'checked': '' }}>不明
                   </div>
                 </td>
               </tr>
@@ -78,4 +80,7 @@
         </div>
     </div>
   </div>
+</div>
+<div id="item_delete_{{$item->no_underscore_id}}" class="delete_btn_edit">
+  <button type="button" id="delete_btn_{{$item->no_underscore_id}}" class="btn btn-danger">削除</button>
 </div>

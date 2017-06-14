@@ -89,3 +89,9 @@
   width: 100%;
   border: none;
 }
+
+#wrap_main_container .delete_btn,
+#wrap_main_container .delete_btn_edit{
+  float: right;
+  margin-right: 30px;
+}

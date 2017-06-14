@@ -19,6 +19,7 @@
   crossorigin="anonymous"></script>
   <!-- JS -->
     <script type="text/javascript" src="/js/add_item.js"></script>
+    <script type="text/javascript" src="/js/add_item_edit.js"></script>
 
 </head>
 <body>

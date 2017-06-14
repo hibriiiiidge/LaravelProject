@@ -131,12 +131,13 @@ class ClientsController extends Controller
         $item->id                 = ($rDetail->request_id)."_".$item_n;
         $item->no_underscore_id   = ($rDetail->request_id).$item_n;
         $item->request_id         = $rDetail->request_id;
+        $item->count              = $item_n;
         $item->category           = $request->category[$i];
         $item->name               = $request->item_name[$i];
-        $item->outside_condition  = current(array_slice($request->outside_condition, $i, 1, true));
-        $item->inside_condition   = current(array_slice($request->inside_condition, $i, 1, true));
-        $item->cooling_off_flg    = current(array_slice($request->cooling_off_flg, $i, 1, true));
-        $item->memo               = current(array_slice($request->item_memo, $i, 1, true));
+        $item->outside_condition  = $request->outside_condition ? current(array_slice($request->outside_condition, $i, 1, true)) : null;
+        $item->inside_condition   = $request->inside_condition ? current(array_slice($request->inside_condition, $i, 1, true)) : null;
+        $item->cooling_off_flg    = $request->cooling_off_flg ? current(array_slice($request->cooling_off_flg, $i, 1, true)) : null;
+        $item->memo               = $request->item_memo ? current(array_slice($request->item_memo, $i, 1, true)) : null;
         $item->status             = $request->item_status;
         $item->rgster             = $request->rgster;
         $item->updter             = $request->updter;
@@ -151,7 +152,7 @@ class ClientsController extends Controller
      */
     public function edit($clientId, $requestDetailId){
       $client = Client::findOrFail($clientId);
-      $requestDetail = RequestDetail::where('request_id', $requestDetailId)->get();
+      $requestDetail = RequestDetail::where('request_id', $requestDetailId)->first();
       $baseTypes = BaseType::all();
       $rProgresses = DB::table('request_progresses')
                       ->select('request_progresses.created_at AS dt', 'request_progresses.progress_memo AS memo', 'users.name AS name', 'request_progresses.progress_status AS status')
@@ -159,9 +160,9 @@ class ClientsController extends Controller
                       ->where('request_id', '=', $requestDetailId)
                       ->orderBy('dt', 'desc')
                       ->get();
-      $items = Item::where('request_id', $requestDetailId)->latest('created_at')->get();
+      $items = Item::where('request_id', $requestDetailId)->where('status', '<>', 'X')->orderBy('created_at', 'ASC')->get();
       //dd($items);
-      return view('client.edit', ['client'=>$client, 'requestDetail'=>$requestDetail[0], 'baseTypes'=>$baseTypes, 'rProgresses'=>$rProgresses, 'items'=>$items]);
+      return view('client.edit', ['client'=>$client, 'requestDetail'=>$requestDetail, 'baseTypes'=>$baseTypes, 'rProgresses'=>$rProgresses, 'items'=>$items]);
     }
 
     /**
@@ -169,6 +170,7 @@ class ClientsController extends Controller
      *
      */
     public function update(Request $request, $clientId, $requestDetailId){
+      //dd($request);
       ///////////////////////////////////////////////////////////////
       ////                        Client
       ///////////////////////////////////////////////////////////////
@@ -224,7 +226,7 @@ class ClientsController extends Controller
         $rProgress->flow_no         = $flowNo;
         $rProgress->progress_status = $request->progress_status;
         $rProgress->progress_memo   = $request->progress_memo;
-        $rProgress->status          = $request->status; //@TODO progressのステータス設定
+        $rProgress->status          = $request->status; //@TODO nullableに変更
         $rProgress->rgster          = $request->rgster;
         $rProgress->updter          = $request->updter;
         $rProgress->save();
@@ -233,21 +235,65 @@ class ClientsController extends Controller
       ////                  item
       ///////////////////////////////////////////////////////////////
       $items = $rDetail->items; //request_detailsに紐づくitemの取得
-      for ($i=0; $i < count($items); $i++) {
+      $dbItemsCnt = count($items);
+      for ($i=0; $i < $dbItemsCnt; $i++) {
         $items[$i]->category           = $request->category[$i];
-        $items[$i]->name               = $request->item_name[$i];
         $items[$i]->name               = $request->item_name[$i];
         $items[$i]->outside_condition  = $request->outside_condition[$items[$i]->no_underscore_id];
         $items[$i]->inside_condition   = $request->inside_condition[$items[$i]->no_underscore_id];
         $items[$i]->cooling_off_flg    = $request->cooling_off_flg[$items[$i]->no_underscore_id];
         $items[$i]->memo               = $request->item_memo[$i];
-        $items[$i]->status             = $request->item_status;
         $items[$i]->updter             = $request->updter;
         $items[$i]->save();
       }
 
-      if(count($items) == count($request->category)){
+      $newItemsCnt = count($request->category) - $dbItemsCnt;
+
+      if($newItemsCnt>0){
+        for ($i=0; $i < $newItemsCnt; $i++) {
+          $latestId = DB::table('items')->select('id')->where('request_id', $requestDetailId)->orderBy('count', 'DESC')->take(1)->first();
+          $latestNo = explode("_", $latestId->id);
+          $item_n = intval($latestNo[1])+1;
+          $n = $dbItemsCnt+$i;
+          $item = new Item();
+          $item->id                 = ($rDetail->request_id)."_".$item_n;
+          $item->no_underscore_id   = ($rDetail->request_id).$item_n;
+          $item->count              = $item_n;
+          $item->request_id         = $rDetail->request_id;
+          $item->category           = $request->category[$n];
+          $item->name               = $request->item_name[$n];
+          $item->outside_condition  = $request->outside_condition ? current(array_slice($request->outside_condition, $n, 1, true)) : null;
+          $item->inside_condition   = $request->inside_condition ? current(array_slice($request->inside_condition, $n, 1, true)) : null;
+          $item->cooling_off_flg    = $request->cooling_off_flg ? current(array_slice($request->cooling_off_flg, $n, 1, true)) : null;
+          $item->memo               = $request->item_memo ? current(array_slice($request->item_memo, $n, 1, true)) : null;
+          $item->status             = $request->status;
+          $item->rgster             = $request->rgster;
+          $item->updter             = $request->updter;
+          $item->save();
+        }
       }
       return redirect()->action('ClientsController@edit', ['clientId'=>$client->id, 'requestDetailId'=>$rDetail->request_id]);
+    }
+
+
+    /**
+     *
+     */
+    public function destroy(Request $request, $clientId, $requestDetailId){
+      $client = Client::findOrFail($clientId);
+      $requestDetail = RequestDetail::where('request_id', $requestDetailId)->first();
+      $baseTypes = BaseType::all();
+      $rProgresses = DB::table('request_progresses')
+                      ->select('request_progresses.created_at AS dt', 'request_progresses.progress_memo AS memo', 'users.name AS name', 'request_progresses.progress_status AS status')
+                      ->leftJoin('users', 'users.id', '=', 'request_progresses.rgster')
+                      ->where('request_id', '=', $requestDetailId)
+                      ->orderBy('dt', 'desc')
+                      ->get();
+      $item = Item::where('no_underscore_id', $request->deleteItemId)->first();
+      $item->status = "X";
+      $item->save();
+      $items = Item::where('request_id', $requestDetailId)->where('status', '<>', 'X')->orderBy('created_at', 'ASC')->get();
+      //dd($items);
+      return view('client.edit', ['client'=>$client, 'requestDetail'=>$requestDetail, 'baseTypes'=>$baseTypes, 'rProgresses'=>$rProgresses, 'items'=>$items]);
     }
 }

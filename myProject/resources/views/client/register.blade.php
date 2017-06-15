@@ -34,7 +34,7 @@
           @include('client.request_partial', ['requestDetail'=>$requestDetail])
       </div><!--TAB request END-->
       <div class="tab-pane fade" id="item_tab">
-          @include('client.item_partial', ['item'=>$item])
+          @include('client.item_partial', ['item'=>$item, 'itemsCnt'=>$itemsCnt])])
       </div><!--TAB item END-->
     </div><!-- TAB All END -->
   </div><!-- #wrap_main_container -->

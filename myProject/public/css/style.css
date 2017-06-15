@@ -95,3 +95,136 @@
   float: right;
   margin-right: 30px;
 }
+
+
+/*request list table*/
+#request_list_container .table>thead>tr>th,
+#request_list_container .table>tbody>tr>th,
+#request_list_container .table>tbody>tr>td{
+  border-left: 1px solid #e0e0e0;
+  padding: 5px;
+}
+#request_list_container .table>tbody>tr>th.th_requestid{
+  width: 100px;
+}
+#request_list_container .table>tbody>tr>th>.in_requestid{
+  width: 100px;
+  overflow: hidden;
+}
+#request_list_container .table>tbody>tr>td.td_urgency,
+#request_list_container .table>tbody>tr>td.td_req_cnt,
+#request_list_container .table>tbody>tr>td.td_buy_cnt{
+  width: 10px;
+}
+#request_list_container .table>tbody>tr>td>.in_urgency,
+#request_list_container .table>tbody>tr>td>.in_req_cnt,
+#request_list_container .table>tbody>tr>td>.in_buy_cnt{
+  width: 10px;
+  overflow: hidden;
+  margin: auto;
+  text-align: center;
+}
+#request_list_container .table>tbody>tr>td.td_base{
+  width: 36px;
+}
+#request_list_container .table>tbody>tr>td>.in_base{
+  width: 36px;
+  overflow: hidden;
+}
+#request_list_container .table>tbody>tr>td.td_status{
+  width: 40px;
+}
+#request_list_container .table>tbody>tr>td>.in_status{
+  width: 40px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+#request_list_container .table>tbody>tr>td.td_buyway{
+  width: 31px;
+}
+#request_list_container .table>tbody>tr>td>.in_buyway{
+  width: 31px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+#request_list_container .table>tbody>tr>td.td_cname{
+  width: 70px;
+}
+#request_list_container .table>tbody>tr>td>.in_cname{
+  width: 70px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+#request_list_container .table>tbody>tr>td.td_iname{
+  min-width: 200px;
+}
+#request_list_container .table>tbody>tr>td>.in_iname{
+  min-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+#request_list_container .table>tbody>tr>td.td_prefecture{
+  width: 40px;
+}
+#request_list_container .table>tbody>tr>td>.in_prefecture{
+  width: 40px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+#request_list_container .table>tbody>tr>td.td_route{
+  width: 55px;
+}
+#request_list_container .table>tbody>tr>td>.in_route{
+  width: 55px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+#request_list_container .table>tbody>tr>td.td_req_stf,
+#request_list_container .table>tbody>tr>td.td_est_stf,
+#request_list_container .table>tbody>tr>td.td_xxx_stf,
+#request_list_container .table>tbody>tr>td.td_yyy_stf{
+  width: 60px;
+}
+#request_list_container .table>tbody>tr>td>.in_req_stf,
+#request_list_container .table>tbody>tr>td>.in_est_stf,
+#request_list_container .table>tbody>tr>td>.in_xxx_stf,
+#request_list_container .table>tbody>tr>td>.in_yyy_stf{
+  width: 60px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#request_list_container .table>tbody>tr>td.td_buy_price,
+#request_list_container .table>tbody>tr>td.td_sell_price,
+#request_list_container .table>tbody>tr>td.td_profit{
+  width: 50px;
+}
+#request_list_container .table>tbody>tr>td>.in_buy_price,
+#request_list_container .table>tbody>tr>td>.in_sell_price,
+#request_list_container .table>tbody>tr>td>.in_profit{
+  width: 50px;
+  overflow: hidden;
+  text-align: right;
+}
+#request_list_container .table>tbody>tr>td.td_profit_rate{
+  width: 30px;
+}
+#request_list_container .table>tbody>tr>td>.in_profit_rate{
+  width: 30px;
+  overflow: hidden;
+  text-align: right;
+}
+#request_list_container .table>tbody>tr>td.td_latest_dt{
+  width: 60px;
+}
+#request_list_container .table>tbody>tr>td>.in_latest_dt{
+  width: 60px;
+  overflow: hidden;
+}

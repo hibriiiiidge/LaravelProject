@@ -40,7 +40,7 @@
       </div><!--TAB request END-->
       @foreach ($items as $item)
         <div class="tab-pane fade" id="item_tab_{{ $item->no_underscore_id }}">
-          @include('client.item_partial', ['item'=>$item])
+            @include('client.item_partial', ['item'=>$item, 'itemsCnt'=>$itemsCnt])
         </div><!--TAB item END-->
       @endforeach
     </div><!-- TAB All END -->
@@ -49,10 +49,10 @@
     <div class="progress_block">
       <label for="progress_status">進捗状況</label>
       <select id="progress_status" name="progress_status">
-        <option value="1">要返信</option>
-        <option value="2">見積済</option>
-        <option value="3">交渉中</option>
-        <option value="4">荷着待</option>
+        <option value="1"{{ $latestSts == 1 ? 'selected' : '' }}>要返信</option>
+        <option value="2"{{ $latestSts == 2 ? 'selected' : '' }}>見積済</option>
+        <option value="3"{{ $latestSts == 3 ? 'selected' : '' }}>交渉中</option>
+        <option value="4"{{ $latestSts == 4 ? 'selected' : '' }}>荷着待</option>
       </select>
       <textarea name="progress_memo" rows="3" placeholder="伝達事項" id="progress_memo"></textarea>
     </div>

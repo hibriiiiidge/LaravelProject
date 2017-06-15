@@ -17,9 +17,6 @@
   src="https://code.jquery.com/jquery-1.12.4.min.js"
   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
   crossorigin="anonymous"></script>
-  <!-- JS -->
-    <script type="text/javascript" src="/js/add_item.js"></script>
-    <script type="text/javascript" src="/js/add_item_edit.js"></script>
 
 </head>
 <body>
@@ -49,6 +46,11 @@
                         <li>
                           <a href="{{ action('ClientsController@create') }}">
                             新規登録
+                          </a>
+                        </li>
+                        <li>
+                          <a href="{{ action('RequestsController@index') }}">
+                            依頼一覧
                           </a>
                         </li>
                     </ul>
@@ -114,5 +116,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/item_ctrl.js') }}"></script>
+
 </body>
 </html>

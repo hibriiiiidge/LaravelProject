@@ -81,6 +81,8 @@
     </div>
   </div>
 </div>
-<div id="item_delete_{{$item->no_underscore_id}}" class="delete_btn_edit">
-  <button type="button" id="delete_btn_{{$item->no_underscore_id}}" class="btn btn-danger">削除</button>
-</div>
+@if ($itemsCnt && $itemsCnt > 1)
+  <div id="item_delete_{{$item->no_underscore_id}}" class="delete_btn_edit">
+    <button type="button" id="delete_btn_{{$item->no_underscore_id}}" class="btn btn-danger">削除</button>
+  </div>
+@endif

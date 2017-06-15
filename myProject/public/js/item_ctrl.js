@@ -193,7 +193,7 @@ $(function(){
         );
   }
 
-  //削除ボタンがクリックされたた対象のタブを削除する処理
+  //新規登録(register)ページで削除ボタンがクリックされたた対象のタブを削除する処理
   $('body').on('click', '.delete_btn', deleteTab);
   function deleteTab(){
     if(confirm('商品情報を削除しますか？')){
@@ -209,6 +209,15 @@ $(function(){
       $(preTab).addClass('active in');
       $("#item_tab"+splitTs[1]).remove();
     }
+  }
+
+  //編集(edit)ページで削除ボタンがクリックされたた対象のタブを削除する処理
+  $('body').on('click', '.delete_btn_edit', deleteTabEdit);
+  function deleteTabEdit(){
+    var deleteId = $(this).attr('id');
+    var splitTs  = deleteId.split("delete_");
+    $("#deleteItemId").val(splitTs[1]);
+    $("#deleteTabForm").submit(); //action('ClientsController@destroy')がサブミットされる
   }
 
 });

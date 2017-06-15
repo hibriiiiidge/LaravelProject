@@ -12,6 +12,8 @@ class RequestDetail extends Model
     'rgster', 'updter', 'reason'
   ];
 
+  protected $touches = array('client');
+
   //request_datail->client
   public function client(){
     return $this->belongsTo('App\Client');

@@ -39,3 +39,6 @@ Route::post('/client/store', 'ClientsController@store');        //登録
 Route::get('/client/{client_id}/show/{requestDetail_id}', 'ClientsController@edit'); //詳細表示
 Route::patch('/client/{client_id}/show/{requestDetail_id}', 'ClientsController@update'); //update
 Route::delete('/client/{client_id}/show/{requestDetail_id}', 'ClientsController@destroy'); //削除
+
+//request
+Route::get('/request', 'RequestsController@index');         //一覧表示

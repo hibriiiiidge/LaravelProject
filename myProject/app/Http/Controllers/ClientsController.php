@@ -12,12 +12,17 @@ use Illuminate\Support\Facades\DB;
 
 class ClientsController extends Controller
 {
+    /**
+     * 顧客・依頼・商品情報の新規登録画面への繊維
+     *
+     */
     public function create(){
       $baseTypes  = BaseType::all(); //拠点一覧を取得
       $client     = new Client();
       $rDetail    = new RequestDetail();
       $item       = new Item();
-      return view('client.register', ['baseTypes' => $baseTypes, 'client'=>$client, 'requestDetail'=>$rDetail, 'item'=>$item]);
+      $itemsCnt   = 1;              //削除ボタンの表示・非表示と連動 商品入力フォームの数が ">0" の時に削除ボタンが表示
+      return view('client.register', ['baseTypes' => $baseTypes, 'client'=>$client, 'requestDetail'=>$rDetail, 'item'=>$item, 'itemsCnt'=>$itemsCnt]);
     }
 
     /**
@@ -25,7 +30,7 @@ class ClientsController extends Controller
      *
      */
     public function store(Request $request){
-      //dd($request);
+      //@TODO バリデーション
       // $this->validate($request, [
       //   'attribute'   => 'required|integer',
       //   'base'        => 'required|integer',
@@ -86,7 +91,7 @@ class ClientsController extends Controller
       $client->updter           = $request->updter;
       $client->status           = $request->status;
       $client->save();
-      //dd($client);
+
       ///////////////////////////////////////////////////////////////
       ////                  request_detail
       ///////////////////////////////////////////////////////////////
@@ -110,6 +115,7 @@ class ClientsController extends Controller
       $rDetail->updter          = $request->updter;
       $rDetail->status          = $request->status;
       $rDetail->save();
+
       ///////////////////////////////////////////////////////////////
       ////                  request_progress
       ///////////////////////////////////////////////////////////////
@@ -122,6 +128,7 @@ class ClientsController extends Controller
       $rProgress->rgster          = $request->rgster;
       $rProgress->updter          = $request->updter;
       $rProgress->save();
+
       ///////////////////////////////////////////////////////////////
       ////                  item
       ///////////////////////////////////////////////////////////////
@@ -151,6 +158,7 @@ class ClientsController extends Controller
      *
      */
     public function edit($clientId, $requestDetailId){
+      //@TODO destroyと同じ処理をまとめる
       $client = Client::findOrFail($clientId);
       $requestDetail = RequestDetail::where('request_id', $requestDetailId)->first();
       $baseTypes = BaseType::all();
@@ -160,9 +168,10 @@ class ClientsController extends Controller
                       ->where('request_id', '=', $requestDetailId)
                       ->orderBy('dt', 'desc')
                       ->get();
+      $latestSts = $rProgresses[0]->status;
       $items = Item::where('request_id', $requestDetailId)->where('status', '<>', 'X')->orderBy('created_at', 'ASC')->get();
-      //dd($items);
-      return view('client.edit', ['client'=>$client, 'requestDetail'=>$requestDetail, 'baseTypes'=>$baseTypes, 'rProgresses'=>$rProgresses, 'items'=>$items]);
+      $itemsCnt = count($items);
+      return view('client.edit', ['client'=>$client, 'requestDetail'=>$requestDetail, 'baseTypes'=>$baseTypes, 'rProgresses'=>$rProgresses, 'latestSts'=>$latestSts, 'items'=>$items, 'itemsCnt'=>$itemsCnt]);
     }
 
     /**
@@ -170,7 +179,6 @@ class ClientsController extends Controller
      *
      */
     public function update(Request $request, $clientId, $requestDetailId){
-      //dd($request);
       ///////////////////////////////////////////////////////////////
       ////                        Client
       ///////////////////////////////////////////////////////////////
@@ -234,8 +242,8 @@ class ClientsController extends Controller
       ///////////////////////////////////////////////////////////////
       ////                  item
       ///////////////////////////////////////////////////////////////
-      $items = $rDetail->items; //request_detailsに紐づくitemの取得
-      $dbItemsCnt = count($items);
+      $items = $rDetail->items;     //request_detailsに紐づくitemの取得 status<>"X"の条件
+      $dbItemsCnt = count($items);  //request_detailsに紐づくitemの数
       for ($i=0; $i < $dbItemsCnt; $i++) {
         $items[$i]->category           = $request->category[$i];
         $items[$i]->name               = $request->item_name[$i];
@@ -247,13 +255,12 @@ class ClientsController extends Controller
         $items[$i]->save();
       }
 
-      $newItemsCnt = count($request->category) - $dbItemsCnt;
+      $newItemsCnt = count($request->category) - $dbItemsCnt; //edit画面で新規に追加されたitem数 categoryは必須項目
 
       if($newItemsCnt>0){
         for ($i=0; $i < $newItemsCnt; $i++) {
           $latestId = DB::table('items')->select('id')->where('request_id', $requestDetailId)->orderBy('count', 'DESC')->take(1)->first();
-          $latestNo = explode("_", $latestId->id);
-          $item_n = intval($latestNo[1])+1;
+          $item_n = intval($latestId->count)+1; //カウント+1 status<>'X'も含む通し番号
           $n = $dbItemsCnt+$i;
           $item = new Item();
           $item->id                 = ($rDetail->request_id)."_".$item_n;
@@ -277,9 +284,10 @@ class ClientsController extends Controller
 
 
     /**
-     *
+     * edit画面からitemを削除する際の処理
      */
     public function destroy(Request $request, $clientId, $requestDetailId){
+      //@TODO editと同一処理をまとめる
       $client = Client::findOrFail($clientId);
       $requestDetail = RequestDetail::where('request_id', $requestDetailId)->first();
       $baseTypes = BaseType::all();
@@ -289,11 +297,14 @@ class ClientsController extends Controller
                       ->where('request_id', '=', $requestDetailId)
                       ->orderBy('dt', 'desc')
                       ->get();
+      $latestSts = $rProgresses[0]->status;
+
+      //論理削除
       $item = Item::where('no_underscore_id', $request->deleteItemId)->first();
       $item->status = "X";
       $item->save();
       $items = Item::where('request_id', $requestDetailId)->where('status', '<>', 'X')->orderBy('created_at', 'ASC')->get();
-      //dd($items);
-      return view('client.edit', ['client'=>$client, 'requestDetail'=>$requestDetail, 'baseTypes'=>$baseTypes, 'rProgresses'=>$rProgresses, 'items'=>$items]);
+      $itemsCnt = count($items);
+      return view('client.edit', ['client'=>$client, 'requestDetail'=>$requestDetail, 'baseTypes'=>$baseTypes, 'rProgresses'=>$rProgresses, 'latestSts'=>$latestSts, 'items'=>$items, 'itemsCnt'=>$itemsCnt]);
     }
 }

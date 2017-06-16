@@ -91,13 +91,15 @@
 }
 
 #wrap_main_container .delete_btn,
-#wrap_main_container .delete_btn_edit{
+#wrap_main_container .delete_btn_edit,
+#wrap_main_container .return_btn_edit{
   float: right;
   margin-right: 30px;
 }
 
 
 /*request list table*/
+/* @TODO:ブレイクポイントの設定  */
 #request_list_container .table>thead>tr>th,
 #request_list_container .table>tbody>tr>th,
 #request_list_container .table>tbody>tr>td{
@@ -187,14 +189,14 @@
 }
 #request_list_container .table>tbody>tr>td.td_req_stf,
 #request_list_container .table>tbody>tr>td.td_est_stf,
-#request_list_container .table>tbody>tr>td.td_xxx_stf,
-#request_list_container .table>tbody>tr>td.td_yyy_stf{
+#request_list_container .table>tbody>tr>td.td_agr_stf,
+#request_list_container .table>tbody>tr>td.td_fin_stf{
   width: 60px;
 }
 #request_list_container .table>tbody>tr>td>.in_req_stf,
 #request_list_container .table>tbody>tr>td>.in_est_stf,
-#request_list_container .table>tbody>tr>td>.in_xxx_stf,
-#request_list_container .table>tbody>tr>td>.in_yyy_stf{
+#request_list_container .table>tbody>tr>td>.in_agr_stf,
+#request_list_container .table>tbody>tr>td>.in_fin_stf{
   width: 60px;
   overflow: hidden;
   white-space: nowrap;
@@ -227,4 +229,30 @@
 #request_list_container .table>tbody>tr>td>.in_latest_dt{
   width: 60px;
   overflow: hidden;
+}
+
+
+/*return*/
+.return_block{
+  font-size: 30px;
+  font-weight: bold;
+  color: red;
+  text-align: center;
+}
+.reason_block{
+  display: block;
+  margin-left: 80px;
+}
+.return_title{
+  widows: 100px;
+  font-size: 12px;
+  color: red;
+  float: left;
+}
+.return_reason{
+  font-size: 12px;
+  color: red;
+  float: left;
+  text-align: left;
+  margin-bottom: 20px;
 }

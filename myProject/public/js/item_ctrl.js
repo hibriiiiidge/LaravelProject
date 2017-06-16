@@ -220,4 +220,18 @@ $(function(){
     $("#deleteTabForm").submit(); //action('ClientsController@destroy')がサブミットされる
   }
 
+  //編集(edit)ページで返品ボタンがクリックされたた対象のタブのカラーを変える処理
+  $('body').on('click', '.return_btn_edit', returnTabEdit);
+  function returnTabEdit(){
+    var returnId = $(this).attr('id');
+    var splitTs  = returnId.split("return_");
+    $("#return_item_"+splitTs[1]).val(splitTs[1]);
+    $("#return_reason_"+splitTs[1]).css({
+      'display' : '',
+      'background-color' : '#cbb956'
+    });
+    //$("#deleteItemId").val(splitTs[1]);
+    //$("#deleteTabForm").submit(); //action('ClientsController@destroy')がサブミットされる
+  }
+
 });

@@ -10,10 +10,10 @@ class Item extends Model
       'id', 'request_id', 'category', 'status', 'rgster', 'updter'
     ];
 
-    protected $touches = array('request_datail');
+    protected $touches = array('request_detail');
 
-    //item->request_datail
-    public function request_datail(){
+    //item->request_detail
+    public function request_detail(){
       return $this->belongsTo('App\RequestDetail', 'request_id', 'request_id');
     }
 }

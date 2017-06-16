@@ -34,7 +34,7 @@
           @include('client.request_partial', ['requestDetail'=>$requestDetail])
       </div><!--TAB request END-->
       <div class="tab-pane fade" id="item_tab">
-          @include('client.item_partial', ['item'=>$item, 'itemsCnt'=>$itemsCnt])])
+          @include('client.item_partial', ['item'=>$item, 'itemsCnt'=>$itemsCnt, 'latestSts'=>$latestSts])
       </div><!--TAB item END-->
     </div><!-- TAB All END -->
   </div><!-- #wrap_main_container -->
@@ -46,6 +46,9 @@
         <option value="2">見積済</option>
         <option value="3">交渉中</option>
         <option value="4">荷着待</option>
+        <option value="5">査定済</option>
+        <option value="6">最終確認済</option>
+        <option value="7">販売完了</option>
       </select>
       <textarea name="progress_memo" rows="3" placeholder="伝達事項" id="progress_memo"></textarea>
     </div>

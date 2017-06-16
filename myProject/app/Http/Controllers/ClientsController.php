@@ -21,8 +21,9 @@ class ClientsController extends Controller
       $client     = new Client();
       $rDetail    = new RequestDetail();
       $item       = new Item();
-      $itemsCnt   = 1;              //削除ボタンの表示・非表示と連動 商品入力フォームの数が ">0" の時に削除ボタンが表示
-      return view('client.register', ['baseTypes' => $baseTypes, 'client'=>$client, 'requestDetail'=>$rDetail, 'item'=>$item, 'itemsCnt'=>$itemsCnt]);
+      $itemsCnt   = 1; //削除ボタンの表示・非表示と連動 商品入力フォームの数が ">0" の時に削除ボタンが表示
+      $latestSts  = null;
+      return view('client.register', ['baseTypes' => $baseTypes, 'client'=>$client, 'requestDetail'=>$rDetail, 'item'=>$item, 'itemsCnt'=>$itemsCnt, 'latestSts'=>$latestSts]);
     }
 
     /**
@@ -179,6 +180,7 @@ class ClientsController extends Controller
      *
      */
     public function update(Request $request, $clientId, $requestDetailId){
+      //dd($request);
       ///////////////////////////////////////////////////////////////
       ////                        Client
       ///////////////////////////////////////////////////////////////
@@ -243,6 +245,7 @@ class ClientsController extends Controller
       ////                  item
       ///////////////////////////////////////////////////////////////
       $items = $rDetail->items;     //request_detailsに紐づくitemの取得 status<>"X"の条件
+      //dd($items);
       $dbItemsCnt = count($items);  //request_detailsに紐づくitemの数
       for ($i=0; $i < $dbItemsCnt; $i++) {
         $items[$i]->category           = $request->category[$i];
@@ -252,6 +255,10 @@ class ClientsController extends Controller
         $items[$i]->cooling_off_flg    = $request->cooling_off_flg[$items[$i]->no_underscore_id];
         $items[$i]->memo               = $request->item_memo[$i];
         $items[$i]->updter             = $request->updter;
+        if($items[$i]->no_underscore_id == $request->return_items[$i]){
+          $items[$i]->status = "R";
+          $items[$i]->return_reason = $request->return_reasons[$i];
+        }
         $items[$i]->save();
       }
 
@@ -259,7 +266,7 @@ class ClientsController extends Controller
 
       if($newItemsCnt>0){
         for ($i=0; $i < $newItemsCnt; $i++) {
-          $latestId = DB::table('items')->select('id')->where('request_id', $requestDetailId)->orderBy('count', 'DESC')->take(1)->first();
+          $latestId = DB::table('items')->select('count')->where('request_id', $requestDetailId)->orderBy('count', 'DESC')->take(1)->first();
           $item_n = intval($latestId->count)+1; //カウント+1 status<>'X'も含む通し番号
           $n = $dbItemsCnt+$i;
           $item = new Item();

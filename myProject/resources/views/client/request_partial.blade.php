@@ -17,11 +17,6 @@
                             <option value="4" {{ $requestDetail->urgency == 4 ? 'selected': '' }}>D</option>
                             <option value="5" {{ $requestDetail->urgency == 5 ? 'selected': '' }}>E</option>
                         </select>
-                        @if ($errors->has('urgency'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('urgency') }}</strong>
-                            </span>
-                        @endif
                     </div>
                   </td>
                 </tr>
@@ -36,49 +31,28 @@
                           <option value="3" {{ $requestDetail->reason == 3 ? 'selected': '' }}>遺品整理のため</option>
                           <option value="3" {{ $requestDetail->reason == 4 ? 'selected': '' }}>その他</option>
                       </select>
-                      @if ($errors->has('reason'))
-                          <span class="help-block">
-                              <strong>{{ $errors->first('reason') }}</strong>
-                          </span>
-                      @endif
                     </div>
                   </td>
                 </tr>
                 <tr class="form-group{{ $errors->has('buy_way') ? ' has-error' : '' }}">
                   <th><label for="buy_way" class="col-lg-12 control-label">買取方法</label></th>
                   <td>
-                    <div class="col-lg-12">
-                      <select id="buy_way" class="form-control" name="buy_way" autofocus>
-                          <option value="">未選択</option>
-                          <option value="1" {{ $requestDetail->buy_way == 1 ? 'selected': '' }}>宅配買取</option>
-                          <option value="2" {{ $requestDetail->buy_way == 2 ? 'selected': '' }}>出張買取</option>
-                          <option value="3" {{ $requestDetail->buy_way == 3 ? 'selected': '' }}>店頭買取</option>
-                          <option value="4" {{ $requestDetail->buy_way == 4 ? 'selected': '' }}>未定</option>
-                      </select>
-                      @if ($errors->has('buy_way'))
-                          <span class="help-block">
-                              <strong>{{ $errors->first('buy_way') }}</strong>
-                          </span>
-                      @endif
+                    <div id="buy_way" class="col-lg-12">
+                        {{-- <input type="radio" name="buy_way" value="0" {{ $requestDetail->buy_way == 0 ? 'checked': '' }} checked>未定 --}}
+                        <input type="radio" name="buy_way" value="1" {{ $requestDetail->buy_way == 1 ? 'checked': '' }}>宅配買取
+                        <input type="radio" name="buy_way" value="2" {{ $requestDetail->buy_way == 2 ? 'checked': '' }}>出張買取
+                        <input type="radio" name="buy_way" value="3" {{ $requestDetail->buy_way == 3 ? 'checked': '' }}>店頭買取
                     </div>
                   </td>
                 </tr>
                 <tr class="form-group{{ $errors->has('contact_way') ? ' has-error' : '' }}">
                   <th><label for="contact_way" class="col-lg-12 control-label">連絡方法</label></th>
                   <td>
-                    <div class="col-lg-12">
-                      <select id="contact_way" class="form-control" name="contact_way" autofocus>
-                          <option value="">未選択</option>
-                          <option value="1" {{ $requestDetail->contact_way == 1 ? 'selected': '' }}>電話</option>
-                          <option value="2" {{ $requestDetail->contact_way == 2 ? 'selected': '' }}>メール</option>
-                          <option value="3" {{ $requestDetail->contact_way == 3 ? 'selected': '' }}>FAX</option>
-                          <option value="4" {{ $requestDetail->contact_way == 4 ? 'selected': '' }}>連絡拒否</option>
-                      </select>
-                      @if ($errors->has('buy_way'))
-                          <span class="help-block">
-                              <strong>{{ $errors->first('buy_way') }}</strong>
-                          </span>
-                      @endif
+                    <div id="contact_way" class="col-lg-12">
+                        <input type="radio" name="contact_way" value="1" {{ $requestDetail->buy_way == 1 ? 'checked': '' }}>電話
+                        <input type="radio" name="contact_way" value="2" {{ $requestDetail->buy_way == 2 ? 'checked': '' }}>メール
+                        <input type="radio" name="contact_way" value="3" {{ $requestDetail->buy_way == 3 ? 'checked': '' }}>FAX
+                        <input type="radio" name="contact_way" value="9" {{ $requestDetail->buy_way == 9 ? 'checked': '' }}>連絡拒否
                     </div>
                   </td>
                 </tr>
@@ -104,14 +78,9 @@
                   <th><label for="competitive_flg" class="col-lg-12 control-label">相見積</label></th>
                   <td>
                     <div class="col-lg-12">
+                        {{-- <input type="radio" name="competitive_flg" value="0" {{ $requestDetail->competitive_flg == 0 ? 'checked': '' }} checked>不明 --}}
                         <input type="radio" name="competitive_flg" value="1" {{ $requestDetail->competitive_flg == 1 ? 'checked': '' }}>有
                         <input type="radio" name="competitive_flg" value="2" {{ $requestDetail->competitive_flg == 2 ? 'checked': '' }}>無
-                        <input type="radio" name="competitive_flg" value="3" {{ $requestDetail->competitive_flg == 3 ? 'checked': '' }}>不明
-                        @if ($errors->has('competitive_flg'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('competitive_flg') }}</strong>
-                            </span>
-                        @endif
                     </div>
                   </td>
                 </tr>

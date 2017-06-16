@@ -17,8 +17,8 @@
         <th>依</th>
         <th>受付</th>
         <th>見積済</th>
-        <th>不明</th>
-        <th>不明</th>
+        <th>最終確認</th>
+        <th>完了</th>
         <th>買</th>
         <th>買取額</th>
         <th>販売額</th>
@@ -51,32 +51,32 @@
             <div class="in_cname">{{ $request->c_name." ".$request->c_fname }}</div>
           </td>
           <td class="td_iname">
-            <div class="in_iname">Apple macbook pro 13 black</div>
+            <div class="in_iname">{{ $request->i_name ? $request->i_name : '(未入)' }}</div>
           </td>
           <td class="td_prefecture">
-            <div class="in_prefecture">神奈川県</div>
+            <div class="in_prefecture">{{ $request->prefecture ? $request->prefecture : '(未入)' }}</div>
           </td>
           <td class="td_route">
-            <div class="in_route">PC専門サイト</div>
+            <div class="in_route">{{ $request->route ? $request->route : '(未入)' }}</div>
           </td>
 
           <td class="td_req_cnt">
-            <div class="in_req_cnt">2</div>
+            <div class="in_req_cnt">{{ $request->i_cnt }}</div>
           </td>
           <td class="td_req_stf">
-            <div class="in_req_stf">宮田 太郎</div>
+            <div class="in_req_stf">{{ $request->req_stf }}</div>
           </td>
           <td class="td_est_stf">
-            <div class="in_est_stf">中川 太郎</div>
+            <div class="in_est_stf">{{ $request->est_stf ? $request->est_stf : '' }}</div>
           </td>
-          <td class="td_xxx_stf">
-            <div class="in_xxx_stf">玉城 太郎</div>
+          <td class="td_agr_stf">
+            <div class="in_agr_stf">{{ $request->agr_stf ? $request->agr_stf : '' }}</div>
           </td>
-          <td class="td_yyy_stf">
-            <div class="in_yyy_stf">宮坂 太郎</div>
+          <td class="td_fin_stf">
+            <div class="in_fin_stf">{{ $request->fin_stf ? $request->fin_stf : '' }}</div>
           </td>
           <td class="td_buy_cnt">
-            <div class="in_buy_cnt">2</div>
+            <div class="in_buy_cnt">{{ $request->b_cnt ? $request->b_cnt : '' }}</div>
           </td>
           <td class="td_buy_price">
             <div class="in_buy_price">100,000</div>

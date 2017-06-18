@@ -31,6 +31,7 @@ class ClientsController extends Controller
      *
      */
     public function store(Request $request){
+      //dd($request);
       //@TODO バリデーション
       // $this->validate($request, [
       //   'attribute'   => 'required|integer',
@@ -146,6 +147,20 @@ class ClientsController extends Controller
         $item->inside_condition   = $request->inside_condition ? current(array_slice($request->inside_condition, $i, 1, true)) : null;
         $item->cooling_off_flg    = $request->cooling_off_flg ? current(array_slice($request->cooling_off_flg, $i, 1, true)) : null;
         $item->memo               = $request->item_memo ? current(array_slice($request->item_memo, $i, 1, true)) : null;
+
+        $item->estimate_price               = str_replace(',', '', $request->estimate_price[$i]);
+        $item->expsell_min_price            = $request->expsell_min_price[$i];
+        $item->expsell_max_price            = $request->expsell_max_price[$i];
+        $item->exp_min_profit               = $request->exp_min_profit[$i];
+        $item->exp_max_profit               = $request->exp_max_profit[$i];
+        $item->exp_min_profit_rate          = $request->exp_min_profit_rate[$i];
+        $item->exp_max_profit_rate          = $request->exp_max_profit_rate[$i];
+        $item->buy_price                    = $request->buy_price[$i];
+        $item->sell_price                   = $request->sell_price[$i];
+        $item->profit                       = $request->profit[$i];
+        $item->profit_rate                  = $request->profit_rate[$i];
+
+        //$item->number               = $request->number[$i];
         $item->status             = $request->item_status;
         $item->rgster             = $request->rgster;
         $item->updter             = $request->updter;

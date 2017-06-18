@@ -256,3 +256,22 @@
   text-align: left;
   margin-bottom: 20px;
 }
+
+/*price*/
+.tr_price{
+  padding-right: 0px;
+}
+.price{
+  float: left;
+  text-align: right;
+}
+.yen{
+  float: left;
+  line-height: 4em;
+}
+.wave{
+  float: left;
+  text-align: right;
+  line-height: 4em;
+  margin-left: 15px;
+}

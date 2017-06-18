@@ -72,7 +72,7 @@
               </th>
               <td>
                 {{ $rProgress->status }}<br/>
-                <span>{{ $rProgress->memo }}</span><br/>
+                <span>{{ $rProgress->memo ? $rProgress->memo :"(伝達事項なし)" }}</span><br/>
                 <span>{{ $rProgress->name }}</span>
               </td>
             </tr>

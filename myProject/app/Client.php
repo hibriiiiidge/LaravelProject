@@ -13,7 +13,7 @@ class Client extends Model
     protected $fillable = [
       'id', 'attribute', 'base', 'name', 'kana', 'gender', 'job', 'birth', 'tel',
       'mail', 'postal_code', 'prefecture', 'address', 'memo', 'status', 'rgster', 'updter',
-      'fullname','first_name','first_name_kana','fax'
+      'fullname','first_name','first_name_kana','fax', 'fullkana'
     ];
 
     public $incrementing = false;

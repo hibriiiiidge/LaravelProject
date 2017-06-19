@@ -69,12 +69,14 @@ class ClientsController extends Controller
       //nameの整形
       $fullname = $client->chgFullName($request->name); //スペース詰め
       list($last_name, $first_name) = $client->split_name($request->name);
+      $fullkana = $client->chgFullName($request->kana); //スペース詰め
       list($last_kana, $first_kana) = $client->split_name($request->kana);
 
       $client->id               = $latestCNo;
       $client->attribute        = $request->attribute;
       $client->base             = $request->base;
       $client->fullname         = $fullname;
+      $client->fullkana         = $fullkana;
       $client->name             = $last_name;
       $client->kana             = $last_kana;
       $client->first_name       = $first_name;
@@ -137,28 +139,27 @@ class ClientsController extends Controller
       for ($i=0; $i < count($request->category); $i++) {
         $item_n = $i+1;
         $item = new Item();
-        $item->id                 = ($rDetail->request_id)."_".$item_n;
-        $item->no_underscore_id   = ($rDetail->request_id).$item_n;
-        $item->request_id         = $rDetail->request_id;
-        $item->count              = $item_n;
-        $item->category           = $request->category[$i];
-        $item->name               = $request->item_name[$i];
-        $item->outside_condition  = $request->outside_condition ? current(array_slice($request->outside_condition, $i, 1, true)) : null;
-        $item->inside_condition   = $request->inside_condition ? current(array_slice($request->inside_condition, $i, 1, true)) : null;
-        $item->cooling_off_flg    = $request->cooling_off_flg ? current(array_slice($request->cooling_off_flg, $i, 1, true)) : null;
-        $item->memo               = $request->item_memo ? current(array_slice($request->item_memo, $i, 1, true)) : null;
-
-        $item->estimate_price               = str_replace(',', '', $request->estimate_price[$i]);
-        $item->expsell_min_price            = $request->expsell_min_price[$i];
-        $item->expsell_max_price            = $request->expsell_max_price[$i];
-        $item->exp_min_profit               = $request->exp_min_profit[$i];
-        $item->exp_max_profit               = $request->exp_max_profit[$i];
-        $item->exp_min_profit_rate          = $request->exp_min_profit_rate[$i];
-        $item->exp_max_profit_rate          = $request->exp_max_profit_rate[$i];
-        $item->buy_price                    = $request->buy_price[$i];
-        $item->sell_price                   = $request->sell_price[$i];
-        $item->profit                       = $request->profit[$i];
-        $item->profit_rate                  = $request->profit_rate[$i];
+        $item->id                   = ($rDetail->request_id)."_".$item_n;
+        $item->no_underscore_id     = ($rDetail->request_id).$item_n;
+        $item->request_id           = $rDetail->request_id;
+        $item->count                = $item_n;
+        $item->category             = $request->category[$i];
+        $item->name                 = $request->item_name[$i];
+        $item->outside_condition    = $request->outside_condition ? current(array_slice($request->outside_condition, $i, 1, true)) : null;
+        $item->inside_condition     = $request->inside_condition ? current(array_slice($request->inside_condition, $i, 1, true)) : null;
+        $item->cooling_off_flg      = $request->cooling_off_flg ? current(array_slice($request->cooling_off_flg, $i, 1, true)) : null;
+        $item->memo                 = $request->item_memo ? current(array_slice($request->item_memo, $i, 1, true)) : null;
+        $item->estimate_price       = $request->estimate_price[$i] ? str_replace(',', '', $request->estimate_price[$i]) : null;
+        $item->expsell_min_price    = $request->expsell_min_price[$i] ? str_replace(',', '', $request->expsell_min_price[$i]): null;
+        $item->expsell_max_price    = $request->expsell_max_price[$i] ? str_replace(',', '', $request->expsell_max_price[$i]): null;
+        $item->exp_min_profit       = $request->exp_min_profit[$i] ? str_replace(',', '', $request->exp_min_profit[$i]): null;
+        $item->exp_max_profit       = $request->exp_max_profit[$i] ? str_replace(',', '', $request->exp_max_profit[$i]): null;
+        $item->exp_min_profit_rate  = $request->exp_min_profit_rate[$i];
+        $item->exp_max_profit_rate  = $request->exp_max_profit_rate[$i];
+        $item->buy_price            = $request->buy_price[$i] ? str_replace(',', '', $request->buy_price[$i]): null;
+        $item->sell_price           = $request->sell_price[$i] ? str_replace(',', '', $request->sell_price[$i]): null;
+        $item->profit               = $request->profit[$i] ? str_replace(',', '', $request->profit[$i]): null;
+        $item->profit_rate          = $request->profit_rate[$i];
 
         //$item->number               = $request->number[$i];
         $item->status             = $request->item_status;
@@ -203,10 +204,12 @@ class ClientsController extends Controller
       //nameの整形
       $fullname = $client->chgFullName($request->name); //スペース詰め
       list($last_name, $first_name) = $client->split_name($request->name);
+      $fullkana = $client->chgFullName($request->kana); //スペース詰め
       list($last_kana, $first_kana) = $client->split_name($request->kana);
       $client->attribute        = $request->attribute;
       $client->base             = $request->base;
       $client->fullname         = $fullname;
+      $client->fullkana         = $fullkana;
       $client->name             = $last_name;
       $client->kana             = $last_kana;
       $client->first_name       = $first_name;
@@ -263,12 +266,23 @@ class ClientsController extends Controller
       //dd($items);
       $dbItemsCnt = count($items);  //request_detailsに紐づくitemの数
       for ($i=0; $i < $dbItemsCnt; $i++) {
-        $items[$i]->category           = $request->category[$i];
-        $items[$i]->name               = $request->item_name[$i];
-        $items[$i]->outside_condition  = $request->outside_condition[$items[$i]->no_underscore_id];
-        $items[$i]->inside_condition   = $request->inside_condition[$items[$i]->no_underscore_id];
-        $items[$i]->cooling_off_flg    = $request->cooling_off_flg[$items[$i]->no_underscore_id];
-        $items[$i]->memo               = $request->item_memo[$i];
+        $items[$i]->category             = $request->category[$i];
+        $items[$i]->name                 = $request->item_name[$i];
+        $items[$i]->outside_condition    = $request->outside_condition[$items[$i]->no_underscore_id];
+        $items[$i]->inside_condition     = $request->inside_condition[$items[$i]->no_underscore_id];
+        $items[$i]->cooling_off_flg      = $request->cooling_off_flg[$items[$i]->no_underscore_id];
+        $items[$i]->memo                 = $request->item_memo[$i];
+        $items[$i]->estimate_price       = $request->estimate_price[$i] ? str_replace(',', '', $request->estimate_price[$i]) : null;
+        $items[$i]->expsell_min_price    = $request->expsell_min_price[$i] ? str_replace(',', '', $request->expsell_min_price[$i]): null;
+        $items[$i]->expsell_max_price    = $request->expsell_max_price[$i] ? str_replace(',', '', $request->expsell_max_price[$i]): null;
+        $items[$i]->exp_min_profit       = $request->exp_min_profit[$i] ? str_replace(',', '', $request->exp_min_profit[$i]): null;
+        $items[$i]->exp_max_profit       = $request->exp_max_profit[$i] ? str_replace(',', '', $request->exp_max_profit[$i]): null;
+        $items[$i]->exp_min_profit_rate  = $request->exp_min_profit_rate[$i];
+        $items[$i]->exp_max_profit_rate  = $request->exp_max_profit_rate[$i];
+        $items[$i]->buy_price            = $request->buy_price[$i] ? str_replace(',', '', $request->buy_price[$i]): null;
+        $items[$i]->sell_price           = $request->sell_price[$i] ? str_replace(',', '', $request->sell_price[$i]): null;
+        $items[$i]->profit               = $request->profit[$i] ? str_replace(',', '', $request->profit[$i]): null;
+        $items[$i]->profit_rate          = $request->profit_rate[$i];
         $items[$i]->updter             = $request->updter;
         if($items[$i]->no_underscore_id == $request->return_items[$i]){
           $items[$i]->status = "R";
@@ -295,6 +309,19 @@ class ClientsController extends Controller
           $item->inside_condition   = $request->inside_condition ? current(array_slice($request->inside_condition, $n, 1, true)) : null;
           $item->cooling_off_flg    = $request->cooling_off_flg ? current(array_slice($request->cooling_off_flg, $n, 1, true)) : null;
           $item->memo               = $request->item_memo ? current(array_slice($request->item_memo, $n, 1, true)) : null;
+
+          $item->estimate_price       = $request->estimate_price[$n] ? str_replace(',', '', $request->estimate_price[$n]) : null;
+          $item->expsell_min_price    = $request->expsell_min_price[$n] ? str_replace(',', '', $request->expsell_min_price[$n]): null;
+          $item->expsell_max_price    = $request->expsell_max_price[$n] ? str_replace(',', '', $request->expsell_max_price[$n]): null;
+          $item->exp_min_profit       = $request->exp_min_profit[$n] ? str_replace(',', '', $request->exp_min_profit[$n]): null;
+          $item->exp_max_profit       = $request->exp_max_profit[$n] ? str_replace(',', '', $request->exp_max_profit[$n]): null;
+          $item->exp_min_profit_rate  = $request->exp_min_profit_rate[$n];
+          $item->exp_max_profit_rate  = $request->exp_max_profit_rate[$n];
+          $item->buy_price            = $request->buy_price[$n] ? str_replace(',', '', $request->buy_price[$n]): null;
+          $item->sell_price           = $request->sell_price[$n] ? str_replace(',', '', $request->sell_price[$n]): null;
+          $item->profit               = $request->profit[$n] ? str_replace(',', '', $request->profit[$n]): null;
+          $item->profit_rate          = $request->profit_rate[$n];
+
           $item->status             = $request->status;
           $item->rgster             = $request->rgster;
           $item->updter             = $request->updter;

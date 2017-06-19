@@ -1,7 +1,13 @@
 /*@TODO  stylesheetを別途用意する*/
 
 #app{
+  height: 100%;
   font-size: 12px;
+}
+
+.navbar{
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
 #rgst_btn{
@@ -274,4 +280,15 @@
   text-align: right;
   line-height: 4em;
   margin-left: 15px;
+}
+
+/*search form*/
+#form_title{
+  padding: 25px;
+  padding-bottom: 0px;
+  font-weight: bold;
+}
+#form_container{
+  padding: 25px;
+  padding-top: 10px;
 }

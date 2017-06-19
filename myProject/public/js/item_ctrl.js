@@ -272,7 +272,7 @@ $(function(){
                 $("#exp_profit_"+ts+">td").append(
                   '<span class="yen">円</span>'
                 );
-      //exp_min_profit_rate, exp_max_profrate
+      //exp_min_profit_rate, exp_max_profit_rate
       $("#item_request_table_"+ts+">tbody").append(
         $("<tr></tr>", {Id:"exp_profrate_"+ts, addClass: "form-group"})
       );
@@ -301,7 +301,7 @@ $(function(){
                 $("<div></div>", {addClass: "col-lg-2 tr_price max_price"})
               );
               $("#exp_profrate_"+ts+">td>div.max_price").prepend(
-                '<input id="exp_max_profrate_'+ts+'" type="text" class="form-control price exp_max_profrate" name="exp_max_profrate[]">'
+                '<input id="exp_max_profit_rate_'+ts+'" type="text" class="form-control price exp_max_profit_rate" name="exp_max_profit_rate[]">'
               );
               $("#exp_profrate_"+ts+">td").append(
                 '<span class="yen">％</span>'
@@ -586,11 +586,11 @@ $(function(){
     var expMaxPrate = Math.round((Number(expMaxPro)/Number(expSellMaxPrc))*100);
     if(id[1]){
       $("#exp_max_profit_"+id[1]).val(separate(expMaxPro));
-      $("#exp_max_profrate_"+id[1]).val(expMaxPrate);
+      $("#exp_max_profit_rate_"+id[1]).val(expMaxPrate);
     }
     else{
       $("#exp_max_profit").val(separate(expMaxPro));
-      $("#exp_max_profrate").val(expMaxPrate);
+      $("#exp_max_profit_rate").val(expMaxPrate);
     }
   }
 
@@ -650,66 +650,6 @@ $(function(){
       $("#profit_rate").val(profitRate);
     }
   }
-
-  //粗利額と粗利率を自動入力する処理
-  // $('body').on('focusout', '.estimate_price', chkCalMaxProfit);       //focusoutをトリガーに設置
-  // $('body').on('focusout', '.expsell_max_price', chkCalMaxProfit);    //
-  // //見積額と最低見込販売額が入力されているかのチェック
-  // function chkCalMaxProfit(){
-  //   var expSellMaxPrc = merge($(".expsell_max_price").val());
-  //   var expSellMaxPrcId = $(".expsell_max_price").attr('id');
-  //   var id = expSellMaxPrcId.split("price");
-  //   //新規登録か編集画面からの登録かをidの有無で判断
-  //   var estP = id[1] ? merge($("#estimate_price_"+id[1]).val()): merge($("#estimate_price").val());
-  //   //入力されていたら、最低見込粗利額と粗利率を自動計算し、入力する処理を発動
-  //   if(expSellMaxPrc && estP){
-  //     calMaxProfit(expSellMaxPrc, estP, id);
-  //   }
-  // }
-  // //最低見込粗利額と粗利率を自動計算し、入力する処理
-  // function calMaxProfit(expSellMaxPrc, estP, id){
-  //   var expMaxPro   = Number(expSellMaxPrc)-Number(estP);
-  //   var expMaxPrate = Math.round((Number(expMaxPro)/Number(expSellMaxPrc))*100);
-  //   if(id[1]){
-  //     $("#exp_max_profit_"+id[1]).val(separate(expMaxPro));
-  //     $("#exp_max_profrate_"+id[1]).val(expMaxPrate);
-  //   }
-  //   else{
-  //     $("#exp_max_profit").val(separate(expMaxPro));
-  //     $("#exp_max_profrate").val(expMaxPrate);
-  //   }
-  // }
-  //
-  // //粗利額と粗利率を自動入力する処理
-  // $('body').on('focusout', '.buy_price', chkCalProfit);       //focusoutをトリガーに設置
-  // $('body').on('focusout', '.sell_price', chkCalProfit);    //
-  // //見積額と最低見込販売額が入力されているかのチェック
-  // function chkCalProfit(){
-  //   var sellPrc = merge($(".sell_price").val());
-  //   var sellPrcId = $(".sell_price").attr('id');
-  //   var id = sellPrcId.split("price");
-  //   //新規登録か編集画面からの登録かをidの有無で判断
-  //   var buyP = id[1] ? merge($("#buy_price"+id[1]).val()): merge($("#buy_price").val());
-  //   //入力されていたら、最低見込粗利額と粗利率を自動計算し、入力する処理を発動
-  //   if(sellPrc && buyP){
-  //     calProfit(sellPrc, buyP, id);
-  //   }
-  // }
-  // //最低見込粗利額と粗利率を自動計算し、入力する処理
-  // function calProfit(sellPrc, buyP, id){
-  //   var profit   = Number(sellPrc)-Number(buyP);
-  //   var prorate = Math.round((Number(profit)/Number(sellPrc))*100);
-  //   if(id[1]){
-  //     $("#profit_"+id[1]).val(separate(profit));
-  //     $("#profit_rate"+id[1]).val(prorate);
-  //   }
-  //   else{
-  //     $("#profit").val(separate(profit));
-  //     $("#profit_rate").val(prorate);
-  //   }
-  // }
-
-
 
   // @TODO カテゴリーが変更された場合の処理
   //各カテゴリー毎の確認項目を特記事項の下に表示させる

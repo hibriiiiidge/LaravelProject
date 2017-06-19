@@ -12,7 +12,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/component.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
     <script
   src="https://code.jquery.com/jquery-1.12.4.min.js"
   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
@@ -21,6 +23,8 @@
 </head>
 <body>
     <div id="app">
+      <div id="st-container" class="st-container container">
+        <div class="st-pusher">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -112,11 +116,15 @@
             </div>
         </nav>
         @yield('content')
+        </div><!-- /st-pusher -->
+        @yield('search')
+      </div>
     </div>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/item_ctrl.js') }}"></script>
-
+    <script src="{{ asset('js/classie.js') }}"></script>
+    <script src="{{ asset('js/sidebarEffects.js') }}"></script>
 </body>
 </html>

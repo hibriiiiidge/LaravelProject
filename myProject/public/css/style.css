@@ -21,8 +21,16 @@
 .table>tbody>tr>th{
   width: 15%;
 }
+/***************************/
+/*マスタデータ一覧テーブル*/
+/***************************/
+.master_table .table>tbody>tr>th{
+  width: 5%;
+}
 
-
+/***************************/
+/*新規顧客・依頼・商品登録ページ*/
+/***************************/
 #progress_container{
   overflow: scroll;
   width: 20%;
@@ -41,7 +49,7 @@
   width: 100%;
 }
 #wrap_main_container input[type="text"],
-#wrap_main_container input[type="email"] {
+#wrap_main_container input[type="email"]{
   background-color: transparent;
   border-top: none;
   border-left: none;
@@ -104,6 +112,9 @@
 }
 
 
+/***************************/
+/*依頼一覧ページ*/
+/***************************/
 /*request list table*/
 /* @TODO:ブレイクポイントの設定  */
 #request_list_container .table>thead>tr>th,
@@ -230,15 +241,14 @@
   text-align: right;
 }
 #request_list_container .table>tbody>tr>td.td_latest_dt{
-  width: 60px;
+  width: 76px;
 }
 #request_list_container .table>tbody>tr>td>.in_latest_dt{
-  width: 60px;
+  width: 65px;
   overflow: hidden;
 }
 
-
-/*return*/
+/*return 返品*/
 .return_block{
   font-size: 30px;
   font-weight: bold;
@@ -282,7 +292,9 @@
   margin-left: 15px;
 }
 
-/*search form*/
+/***************************/
+/*検索ページ,窓*/
+/***************************/
 #form_title{
   padding: 25px;
   padding-bottom: 0px;
@@ -291,4 +303,40 @@
 #form_container{
   padding: 25px;
   padding-top: 10px;
+}
+#form_container .form-group,
+#form_container .control-label,
+#form_container .s_input_wrap,
+#form_container .s_input{
+  height: 50%;
+  font-size: 10px;
+}
+#form_container .s_select{
+  height: 25px;
+  font-size: 10px;
+}
+#form_container .s_input{
+  background-color: #ffffff;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  box-shadow: none;
+  border-radius: 0px;
+}
+#form_container .from_dt{
+  padding-right: 10px;
+}
+#form_container .s_wave{
+  padding: 4px;
+  text-align: center;
+}
+#form_container .input_dt{
+  padding: 5px;
+}
+#form_container .input-group-addon{
+  font-size: 10px;
+  padding: 4px;
+}
+#form_container .input-daterange{
+  padding-left: 10px;
 }

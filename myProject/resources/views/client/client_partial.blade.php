@@ -10,11 +10,6 @@
                       <div class="col-lg-12">
                           <input type="radio" name="attribute" value="1" {{ $client->attribute == 1 ? 'checked': '' }}>個人
                           <input type="radio" name="attribute" value="2" {{ $client->attribute == 2 ? 'checked': '' }}>法人
-                          @if ($errors->has('attribute'))
-                              <span class="help-block">
-                                  <strong>{{ $errors->first('attribute') }}</strong>
-                              </span>
-                          @endif
                       </div>
                     </td>
                   </tr>
@@ -28,11 +23,6 @@
                               <option value="{{ $baseType->id }}" {{ $client->base == $baseType->id ? 'selected': '' }}>{{ $baseType->name }}</option>
                             @endforeach
                           </select>
-                          @if ($errors->has('base'))
-                              <span class="help-block">
-                                  <strong>{{ $errors->first('base') }}</strong>
-                              </span>
-                          @endif
                       </div>
                     </td>
                   </tr>
@@ -41,11 +31,6 @@
                     <td>
                       <div class="col-lg-12">
                           <input id="kana" type="text" class="form-control" name="kana" value="{{ old('kana', $client->kana.' '.$client->first_name_kana) }}" autofocus>
-                          @if ($errors->has('kana'))
-                              <span class="help-block">
-                                  <strong>{{ $errors->first('kana') }}</strong>
-                              </span>
-                          @endif
                       </div>
                     </td>
                   </tr>
@@ -54,11 +39,6 @@
                     <td>
                       <div class="col-lg-12">
                           <input id="name" type="text" class="form-control" name="name" value="{{ old('name', $client->name.' '.$client->first_name) }}" autofocus>
-                          @if ($errors->has('name'))
-                              <span class="help-block">
-                                  <strong>{{ $errors->first('name') }}</strong>
-                              </span>
-                          @endif
                       </div>
                     </td>
                   </tr>
@@ -69,11 +49,6 @@
                           <input type="radio" name="gender" value="1" {{ $client->gender == 1 ? 'checked': '' }}>男性
                           <input type="radio" name="gender" value="2" {{ $client->gender == 2 ? 'checked': '' }}>女性
                           <input type="radio" name="gender" value="3" {{ $client->gender == 3 ? 'checked': '' }}>不明
-                          @if ($errors->has('gender'))
-                              <span class="help-block">
-                                  <strong>{{ $errors->first('gender') }}</strong>
-                              </span>
-                          @endif
                       </div>
                     </td>
                   </tr>
@@ -90,11 +65,6 @@
                           <input type="radio" name="job" value="7" {{ $client->job == 7 ? 'checked': '' }}>フリーター
                           <input type="radio" name="job" value="8" {{ $client->job == 8 ? 'checked': '' }}>年金受給者
                           <input type="radio" name="job" value="9" {{ $client->job == 9 ? 'checked': '' }}>その他
-                          @if ($errors->has('job'))
-                              <span class="help-block">
-                                  <strong>{{ $errors->first('gender') }}</strong>
-                              </span>
-                          @endif
                       </div>
                     </td>
                   </tr>
@@ -103,11 +73,6 @@
                     <td>
                       <div class="col-lg-12">
                         <input id="birthday" type="text" class="form-control" name="birthday" value="{{ old('birthday', $client->birthday) }}">
-                        @if ($errors->has('birthday'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('birthday') }}</strong>
-                            </span>
-                        @endif
                       </div>
                     </td>
                   </tr>
@@ -116,11 +81,6 @@
                     <td>
                       <div class="col-lg-12">
                           <input id="tel" type="text" class="form-control" name="tel" value="{{ old('tel', $client->tel) }}">
-                          @if ($errors->has('tel'))
-                              <span class="help-block">
-                                  <strong>{{ $errors->first('tel') }}</strong>
-                              </span>
-                          @endif
                       </div>
                     </td>
                   </tr>
@@ -129,11 +89,6 @@
                     <td>
                       <div class="col-lg-12">
                           <input id="fax" type="text" class="form-control" name="fax" value="{{ old('fax', $client->fax) }}">
-                          @if ($errors->has('fax'))
-                              <span class="help-block">
-                                  <strong>{{ $errors->first('fax') }}</strong>
-                              </span>
-                          @endif
                       </div>
                     </td>
                   </tr>
@@ -141,12 +96,7 @@
                     <th><label for="postal_code" class="col-lg-12 control-label">郵便番号</label></th>
                     <td>
                       <div class="col-lg-12">
-                          <input id="postal_code" type="text" class="form-control" name="postal_code" value="{{ old('postal_code', $client->postal_code) }}">
-                          @if ($errors->has('postal_code'))
-                              <span class="help-block">
-                                  <strong>{{ $errors->first('postal_code') }}</strong>
-                              </span>
-                          @endif
+                          <input id="postal_code" type="text" class="form-control postal_code" name="postal_code" value="{{ old('postal_code', $client->postal_code) }}">
                       </div>
                     </td>
                   </tr>
@@ -154,16 +104,12 @@
                     <th><label for="prefecture" class="col-lg-12 control-label">都道府県</label></th>
                     <td>
                       <div class="col-lg-12">
-                          <select id="prefecture" class="form-control" name="prefecture" autofocus>
-                              <option value="">未選択</option>
-                              <option value="1" {{ $client->prefecture == 1 ? 'selected': '' }}>埼玉県</option>
-                              <option value="2" {{ $client->prefecture == 2 ? 'selected': '' }}>東京都</option>
-                          </select>
-                          @if ($errors->has('prefecture'))
-                              <span class="help-block">
-                                  <strong>{{ $errors->first('prefecture') }}</strong>
-                              </span>
-                          @endif
+                        <select id="prefecture" class="form-control" name="prefecture" autofocus>
+                          <option value="">未選択</option>
+                          @foreach ($prefs as $index => $name)
+                            <option value="{{ $index }}" {{ $client->prefecture == $index ? 'selected': '' }}>{{ $name }}</option>
+                          @endforeach
+                        </select>
                       </div>
                     </td>
                   </tr>
@@ -172,11 +118,6 @@
                     <td>
                       <div class="col-lg-12">
                           <input id="address" type="text" class="form-control" name="address" value="{{ old('address', $client->address) }}">
-                          @if ($errors->has('address'))
-                              <span class="help-block">
-                                  <strong>{{ $errors->first('address') }}</strong>
-                              </span>
-                          @endif
                       </div>
                     </td>
                   </tr>
@@ -185,11 +126,6 @@
                     <td>
                       <div class="col-lg-12">
                           <input id="mail" type="email" class="form-control" name="mail" value="{{ old('mail', $client->mail) }}">
-                          @if ($errors->has('mail'))
-                              <span class="help-block">
-                                  <strong>{{ $errors->first('mail') }}</strong>
-                              </span>
-                          @endif
                       </div>
                     </td>
                   </tr>

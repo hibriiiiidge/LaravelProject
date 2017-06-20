@@ -57,19 +57,14 @@ class RequestsController extends Controller
                           ->leftJoin('clients AS C', 'C.id', '=', 'RD.client_id')
                           ->where('RD.status', '<>', 'X')
                           ->when($name, function ($query) use ($name) {
-                            return $query->where('C.fullname', '=', $name);
+                            return $query->where('C.fullname', 'LIKE', '%'.$name.'%');
                           })
                           ->when($kana, function ($query) use ($kana) {
-                            return $query->where('C.fullkana', '=', $kana);
+                            return $query->where('C.fullkana', 'LIKE', '%'.$kana.'%');
                           })
                           ->orderBy('RD.created_at', 'DESC')
                           ->paginate(5);
-    if($kana){
       return view('request.index', ['request_results'=>$request_results, 'name'=>$name, 'kana'=>$kana]);
-    }
-    else{
-      return view('request.index', ['request_results'=>$request_results, 'name'=>$name]);
-    }
   }
 
 }

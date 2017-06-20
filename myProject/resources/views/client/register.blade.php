@@ -3,14 +3,14 @@
 @section('content')
 <form class="form-horizontal" role="form" method="POST" action="{{ action('ClientsController@store') }}">
   {{ csrf_field() }}
-  <div class="">
+  {{-- <div class="">
       <button type="submit" class="btn btn-info" style="float:right;">
           検索
       </button>
   </div>
   <div class="">
     <input type="text" name="search" value="" width="100px" style="float:right;">
-  </div>
+  </div>--}}
   <div id="rgst_btn">
       <button type="submit" class="btn btn-primary">
           登録
@@ -28,7 +28,7 @@
     <div id="myTabContent" class="tab-content" style="padding-top: 5px;border-top: 1px #eee solid;">
     <!--TAB CLIENT START-->
       <div class="tab-pane fade in active" id="client_tab">
-          @include('client.client_partial', ['client'=>$client])
+          @include('client.client_partial', ['client'=>$client, 'prefs'=>$prefs])
       </div><!--TAB client END-->
       <div class="tab-pane fade" id="request_tab">
           @include('client.request_partial', ['requestDetail'=>$requestDetail])

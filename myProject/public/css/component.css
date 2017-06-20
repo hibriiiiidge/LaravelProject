@@ -114,6 +114,8 @@ html,
 .st-effect-search.st-container {
 	-webkit-perspective: 1500px;
 	perspective: 1500px;
+	min-height: 1000px;
+	height:100%;
 }
 
 .st-effect-search .st-pusher {

@@ -23,7 +23,16 @@ class ClientsController extends Controller
       $item       = new Item();
       $itemsCnt   = 1; //削除ボタンの表示・非表示と連動 商品入力フォームの数が ">0" の時に削除ボタンが表示
       $latestSts  = null;
-      return view('client.register', ['baseTypes' => $baseTypes, 'client'=>$client, 'requestDetail'=>$rDetail, 'item'=>$item, 'itemsCnt'=>$itemsCnt, 'latestSts'=>$latestSts]);
+      $prefs = config('pref'); //都道府県取得
+      return view('client.register', [
+        'baseTypes'     =>  $baseTypes,
+        'client'        =>  $client,
+        'requestDetail' =>  $rDetail,
+        'item'          =>  $item,
+        'itemsCnt'      =>  $itemsCnt,
+        'latestSts'     =>  $latestSts,
+        'prefs'         =>  $prefs
+      ]);
     }
 
     /**
@@ -188,7 +197,17 @@ class ClientsController extends Controller
       $latestSts = $rProgresses[0]->status;
       $items = Item::where('request_id', $requestDetailId)->where('status', '<>', 'X')->orderBy('created_at', 'ASC')->get();
       $itemsCnt = count($items);
-      return view('client.edit', ['client'=>$client, 'requestDetail'=>$requestDetail, 'baseTypes'=>$baseTypes, 'rProgresses'=>$rProgresses, 'latestSts'=>$latestSts, 'items'=>$items, 'itemsCnt'=>$itemsCnt]);
+      $prefs = config('pref');
+      return view('client.edit', [
+        'client'          =>  $client,
+        'requestDetail'   =>  $requestDetail,
+        'baseTypes'       =>  $baseTypes,
+        'rProgresses'     =>  $rProgresses,
+        'latestSts'       =>  $latestSts,
+        'items'           =>  $items,
+        'itemsCnt'        =>  $itemsCnt,
+        'prefs'           =>  $prefs
+      ]);
     }
 
     /**

@@ -15,11 +15,10 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/component.css') }}" rel="stylesheet">
     <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
-    <script
-  src="https://code.jquery.com/jquery-1.12.4.min.js"
-  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
-  crossorigin="anonymous"></script>
-
+    <!-- Datepicker for Bootstrap -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker.min.css">
+    <!-- font-awesome -->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -82,7 +81,7 @@
                                     <a href="{{ action('UsersController@index') }}">スタッフリスト</a>
                                   </li>
                                   <li>
-                                    <a href="#">拠点リスト(未構築)</a>{{-- @TODO --}}
+                                    <a href="{{ action('BaseTypesController@index') }}">拠点リスト</a>{{-- @TODO --}}
                                   </li>
                                 </ul>
                             </li>
@@ -96,6 +95,9 @@
                                   @if ( Auth::user()->role==1) {{-- @TODO config設定 定数--}}
                                     <li>
                                       <a href="{{ route('register') }}">新規スタッフ登録</a>
+                                    </li>
+                                    <li>
+                                      <a href="{{ action('BaseTypesController@create') }}">新規拠点登録</a>
                                     </li>
                                   @endif
                                     <li>
@@ -126,5 +128,21 @@
     <script src="{{ asset('js/item_ctrl.js') }}"></script>
     <script src="{{ asset('js/classie.js') }}"></script>
     <script src="{{ asset('js/sidebarEffects.js') }}"></script>
+    <script src="{{ asset('js/postal_code_to_address.js') }}"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <!-- Datepicker for Bootstrap -->
+     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
+     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/locales/bootstrap-datepicker.ja.min.js"></script>
+    <!-- bootstrap-datepicker -->
+     <script>
+       $('.input-daterange').datepicker({
+         format: "yyyy/mm/dd",
+         language: "ja",
+         autoclose: true, //日付選択で自動的にカレンダーを閉じる
+         orientation:'bottom right' //カレンダーの位置
+       });
+     </script>
+
 </body>
 </html>

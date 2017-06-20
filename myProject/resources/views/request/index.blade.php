@@ -10,9 +10,9 @@
     @if ($name)
       {{ $name }}
     @endif
-    {{-- @if ($kana)
+    @if ($kana)
       {{ $kana }}
-    @endif --}}
+    @endif
   </div>
   <table class="table table-striped table-hover">
     <thead>
@@ -48,7 +48,7 @@
             </div>
           </th>
           <td class="td_urgency">
-            <div class="in_urgency">{{ $rr->urgency }}</div>
+            <div class="in_urgency">{{ chkStr($rr->urgency) }}</div>
           </td>
           <td class="td_base">
             <div class="in_base">{{ $rr->base }}</div>
@@ -57,38 +57,38 @@
             <div class="in_status">{{ $rr->latest_status }}</div>
           </td>
           <td class="td_buyway">
-            <div class="in_buyway">{{ $rr->buy_way ? $rr->buy_way : '(未入)' }}</div>
+            <div class="in_buyway">{{ chkStr($rr->buy_way) }}</div>
           </td>
           <td class="td_cname">
             <div class="in_cname">{{ $rr->c_name." ".$rr->c_fname }}</div>
           </td>
           <td class="td_iname">
-            <div class="in_iname">{{ $rr->i_name ? $rr->i_name : '(未入)' }}</div>
+            <div class="in_iname">{{ chkStr($rr->i_name) }}</div>
           </td>
           <td class="td_prefecture">
-            <div class="in_prefecture">{{ $rr->prefecture ? $rr->prefecture : '(未入)' }}</div>
+            <div class="in_prefecture">{{ chkStr($rr->prefecture) }}</div>
           </td>
           <td class="td_route">
-            <div class="in_route">{{ $rr->route ? $rr->route : '(未入)' }}</div>
+            <div class="in_route">{{ chkStr($rr->route) }}</div>
           </td>
 
           <td class="td_req_cnt">
-            <div class="in_req_cnt">{{ $rr->i_cnt }}</div>
+            <div class="in_req_cnt">{{ chkStr($rr->i_cnt) }}</div>
           </td>
           <td class="td_req_stf">
-            <div class="in_req_stf">{{ $rr->req_stf }}</div>
+            <div class="in_req_stf">{{ chkStr($rr->req_stf) }}</div>
           </td>
           <td class="td_est_stf">
-            <div class="in_est_stf">{{ $rr->est_stf ? $rr->est_stf : '' }}</div>
+            <div class="in_est_stf">{{ chkStr($rr->est_stf) }}</div>
           </td>
           <td class="td_agr_stf">
-            <div class="in_agr_stf">{{ $rr->agr_stf ? $rr->agr_stf : '' }}</div>
+            <div class="in_agr_stf">{{ chkStr($rr->agr_stf) }}</div>
           </td>
           <td class="td_fin_stf">
-            <div class="in_fin_stf">{{ $rr->fin_stf ? $rr->fin_stf : '' }}</div>
+            <div class="in_fin_stf">{{ chkStr($rr->fin_stf) }}</div>
           </td>
           <td class="td_buy_cnt">
-            <div class="in_buy_cnt">{{ $rr->b_cnt ? $rr->b_cnt : '' }}</div>
+            <div class="in_buy_cnt">{{ chkStr($rr->b_cnt) }}</div>
           </td>
           <td class="td_buy_price">
             <div class="in_buy_price">{{ nf_TP($rr->buy_price) }}</div>
@@ -100,11 +100,11 @@
             <div class="in_profit">{{ nf_TP($rr->profit) }}</div>
           </td>
           <td class="td_profit_rate">
-            <div class="in_profit_rate">{{ $rr->profit_rate ? round($rr->profit_rate).'%': '-%'}}</div>
+            <div class="in_profit_rate">{{ chkStr($rr->profit_rate).'%' }}</div>
           </td>
           <td class="td_latest_dt">
             {{-- @TODO ヘルパー関数の定義 表記変更 --}}
-            <div class="in_latest_dt">{{ $rr->dt }}</div>
+            <div class="in_latest_dt">{{ chgDtFrmt($rr->dt) }}</div>
           </td>
         </tr>
       @empty
@@ -115,8 +115,7 @@
     </tbody>
   </table>
 
-  {{-- $request_results->appends( ['name'=>$request_results['params']['name'] ])->links() --}}
-  {{-- {{ $request_results->appends(['name'=>$name, 'kana'=>$kana])->links() }} --}}
+  {{ $request_results->appends(['name'=>$name, 'kana'=>$kana])->links() }}
 </div>
 @endsection
 

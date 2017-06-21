@@ -15,17 +15,19 @@
                     <td>拠点</td>
                     <td>アカウント</td>
                     <td>ポジション</td>
+                    <td>在籍状況</td>
                     <td>編集</td>
-                    <td>削除</td>
+                    {{-- <td>削除</td> --}}
                   </thead>
                   <tbody>
                   @foreach ($users as $user)
-                    <tr>
+                    <tr class="{{ $user->u_status=='X' ? 'statusX':'' }}">
                       <th>{{ $user->u_id }}</th>
                       <td>{{ $user->u_name }}</td>
                       <td>{{ $user->b_name }}</td>
                       <td>{{ $user->u_email }}</td>
                       <td>{{ $user->r_name }}</td>
+                      <td>{{ $user->u_status }}</td>
                       <td>
                         <a href="{{ action('UsersController@edit', $user->u_id) }}">
                           <button type="button" class="btn-sm btn-warning">
@@ -33,7 +35,7 @@
                           </button>
                         </a>
                       </td>
-                      <td>
+                      {{-- <td>
                         <form action="{{ action('UsersController@destroy', $user->u_id) }}" id="form_{{ $user->u_id }}" method="post">
                           {{ csrf_field() }}
                           {{ method_field('delete') }}
@@ -43,7 +45,7 @@
                             </button>
                           </a>
                         </form>
-                      </td>
+                      </td> --}}
                     </tr>
                   @endforeach
                 </tbody>
@@ -54,11 +56,11 @@
     </div>
 </div>
 
-<script>
+{{-- <script>
   function deleteUser(e){
     if(confirm('本当に削除しますか？')){
       document.getElementById('form_' + e.dataset.id).submit();
     }
   }
-</script>
+</script> --}}
 @endsection

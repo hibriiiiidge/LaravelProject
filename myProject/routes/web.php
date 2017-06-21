@@ -44,6 +44,28 @@ Route::patch('/user/update/{id}', 'UsersController@update')
 Route::delete('/user/destroy/{id}', 'UsersController@destroy')
         ->where('id', '[1-9][0-9]*');                           //論理削除
 //base_types
-Route::get('/bases', 'BaseTypesController@index');
-Route::get('/base/create', 'BaseTypesController@create');
-Route::post('/base/store', 'BaseTypesController@store');
+Route::get('/bases', 'BaseTypesController@index');              //一覧表示
+Route::get('/base/create', 'BaseTypesController@create');       //新規登録ページへの遷移
+Route::post('/base/store', 'BaseTypesController@store');        //新規登録
+Route::get('/base/edit/{id}', 'BaseTypesController@edit')
+        ->where('id', '[1-9][0-9]*');                           //編集
+Route::patch('/base/update/{id}', 'BaseTypesController@update')
+        ->where('id', '[1-9][0-9]*');                           //アップデート
+
+//routes
+Route::get('/routes', 'RoutesController@index');              //一覧表示
+Route::get('/route/create', 'RoutesController@create');       //新規登録ページへの遷移
+Route::post('/route/store', 'RoutesController@store');        //新規登録
+Route::get('/route/edit/{id}', 'RoutesController@edit')
+        ->where('id', '[1-9][0-9]*');                           //編集
+Route::patch('/route/update/{id}', 'RoutesController@update')
+        ->where('id', '[1-9][0-9]*');                           //アップデート
+
+//item_category
+Route::get('/item_categories', 'ItemCategoriesController@index');              //一覧表示
+Route::get('/item_category/create', 'ItemCategoriesController@create');       //新規登録ページへの遷移
+Route::post('/item_category/store', 'ItemCategoriesController@store');        //新規登録
+Route::get('/item_category/edit/{id}', 'ItemCategoriesController@edit')
+        ->where('id', '[1-9][0-9]*');                           //編集
+Route::patch('/item_category/update/{id}', 'ItemCategoriesController@update')
+        ->where('id', '[1-9][0-9]*');                           //アップデート

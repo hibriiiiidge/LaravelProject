@@ -28,13 +28,13 @@
     <div id="myTabContent" class="tab-content" style="padding-top: 5px;border-top: 1px #eee solid;">
     <!--TAB CLIENT START-->
       <div class="tab-pane fade in active" id="client_tab">
-          @include('client.client_partial', ['client'=>$client, 'prefs'=>$prefs])
+          @include('client.client_partial')
       </div><!--TAB client END-->
       <div class="tab-pane fade" id="request_tab">
-          @include('client.request_partial', ['requestDetail'=>$requestDetail])
+          @include('client.request_partial')
       </div><!--TAB request END-->
       <div class="tab-pane fade" id="item_tab">
-          @include('client.item_partial', ['item'=>$item, 'itemsCnt'=>$itemsCnt, 'latestSts'=>$latestSts])
+          @include('client.item_partial')
       </div><!--TAB item END-->
     </div><!-- TAB All END -->
   </div><!-- #wrap_main_container -->
@@ -42,13 +42,9 @@
     <div class="progress_block">
       <label for="progress_status">進捗状況</label>
       <select id="progress_status" name="progress_status">
-        <option value="1">要返信</option>
-        <option value="2">見積済</option>
-        <option value="3">交渉中</option>
-        <option value="4">荷着待</option>
-        <option value="5">査定済</option>
-        <option value="6">最終確認済</option>
-        <option value="7">販売完了</option>
+        @foreach ($prges as $index => $prg)
+          <option value="{{ $index }}">{{ $prg }}</option>
+        @endforeach
       </select>
       <textarea name="progress_memo" rows="3" placeholder="伝達事項" id="progress_memo"></textarea>
     </div>

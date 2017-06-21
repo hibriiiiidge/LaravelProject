@@ -81,7 +81,13 @@
                                     <a href="{{ action('UsersController@index') }}">スタッフリスト</a>
                                   </li>
                                   <li>
-                                    <a href="{{ action('BaseTypesController@index') }}">拠点リスト</a>{{-- @TODO --}}
+                                    <a href="{{ action('BaseTypesController@index') }}">拠点リスト</a>
+                                  </li>
+                                  <li>
+                                    <a href="{{ action('RoutesController@index') }}">流入サイトリスト</a>
+                                  </li>
+                                  <li>
+                                    <a href="{{ action('ItemCategoriesController@index') }}">商品カテゴリーリスト</a>
                                   </li>
                                 </ul>
                             </li>
@@ -92,12 +98,18 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                  @if ( Auth::user()->role==1) {{-- @TODO config設定 定数--}}
+                                  @if ( Auth::user()->role==1) {{-- @TODO config設定 定数 1->マスター --}}
                                     <li>
-                                      <a href="{{ route('register') }}">新規スタッフ登録</a>
+                                      <a href="{{ route('register') }}">スタッフ登録</a>
                                     </li>
                                     <li>
-                                      <a href="{{ action('BaseTypesController@create') }}">新規拠点登録</a>
+                                      <a href="{{ action('BaseTypesController@create') }}">拠点登録</a>
+                                    </li>
+                                    <li>
+                                      <a href="{{ action('RoutesController@create') }}">流入サイト登録</a>
+                                    </li>
+                                    <li>
+                                      <a href="{{ action('ItemCategoriesController@create') }}">商品カテゴリー登録</a>
                                     </li>
                                   @endif
                                     <li>

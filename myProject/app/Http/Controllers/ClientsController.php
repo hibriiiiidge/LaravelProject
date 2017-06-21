@@ -17,13 +17,28 @@ class ClientsController extends Controller
      *
      */
     public function create(){
-      $baseTypes  = BaseType::all(); //拠点一覧を取得
+      $baseTypes = DB::table('base_types')
+                      ->where('status', '<>', 'X')
+                      ->get();//拠点一覧を取得
       $client     = new Client();
       $rDetail    = new RequestDetail();
       $item       = new Item();
       $itemsCnt   = 1; //削除ボタンの表示・非表示と連動 商品入力フォームの数が ">0" の時に削除ボタンが表示
       $latestSts  = null;
-      $prefs = config('pref'); //都道府県取得
+      $prefs      = config('pref'); //都道府県取得
+      $prges      = config('progress'); //進捗状況取得
+      $prg_nums   = config('progress_num');
+      $urgencys   = config('urgency');
+      $reasons    = config('reason');
+      $buy_ways   = config('buy_way');
+      $contact_ways = config('contact_way');
+      $jobs       = config('job');
+      $routes       = DB::table('routes')
+                      ->where('status', '<>', 'X')
+                      ->get();                    //サイト一覧を取得
+      $item_categories  = DB::table('item_categories')
+                            ->where('status', '<>', 'X')
+                            ->get();                    //商品カテゴリー一覧を取得
       return view('client.register', [
         'baseTypes'     =>  $baseTypes,
         'client'        =>  $client,
@@ -31,7 +46,16 @@ class ClientsController extends Controller
         'item'          =>  $item,
         'itemsCnt'      =>  $itemsCnt,
         'latestSts'     =>  $latestSts,
-        'prefs'         =>  $prefs
+        'prefs'         =>  $prefs,
+        'routes'        =>  $routes,
+        'prges'         =>  $prges,
+        'prg_nums'      =>  $prg_nums,
+        'urgencys'      =>  $urgencys,
+        'reasons'       =>  $reasons,
+        'buy_ways'      =>  $buy_ways,
+        'contact_ways'  =>  $contact_ways,
+        'jobs'          =>  $jobs,
+        'item_categories' =>  $item_categories
       ]);
     }
 
@@ -187,17 +211,32 @@ class ClientsController extends Controller
       //@TODO destroyと同じ処理をまとめる
       $client = Client::findOrFail($clientId);
       $requestDetail = RequestDetail::where('request_id', $requestDetailId)->first();
-      $baseTypes = BaseType::all();
+      $baseTypes = DB::table('base_types')
+                      ->where('status', '<>', 'X')
+                      ->get();
       $rProgresses = DB::table('request_progresses')
                       ->select('request_progresses.created_at AS dt', 'request_progresses.progress_memo AS memo', 'users.name AS name', 'request_progresses.progress_status AS status')
                       ->leftJoin('users', 'users.id', '=', 'request_progresses.rgster')
                       ->where('request_id', '=', $requestDetailId)
                       ->orderBy('dt', 'desc')
                       ->get();
-      $latestSts = $rProgresses[0]->status;
-      $items = Item::where('request_id', $requestDetailId)->where('status', '<>', 'X')->orderBy('created_at', 'ASC')->get();
-      $itemsCnt = count($items);
-      $prefs = config('pref');
+      $latestSts  = $rProgresses[0]->status;
+      $items      = Item::where('request_id', $requestDetailId)->where('status', '<>', 'X')->orderBy('created_at', 'ASC')->get();
+      $itemsCnt   = count($items);
+      $prefs      = config('pref');
+      $prges      = config('progress'); //進捗状況取得
+      $prg_nums    = config('progress_num');
+      $urgencys   = config('urgency');
+      $reasons    = config('reason');
+      $buy_ways   = config('buy_way');
+      $contact_ways = config('contact_way');
+      $jobs       = config('job');
+      $routes     = DB::table('routes')
+                      ->where('status', '<>', 'X')
+                      ->get();                        //サイト一覧を取得
+      $item_categories  = DB::table('item_categories')
+                            ->where('status', '<>', 'X')
+                            ->get();                    //商品カテゴリー一覧を取得
       return view('client.edit', [
         'client'          =>  $client,
         'requestDetail'   =>  $requestDetail,
@@ -206,7 +245,16 @@ class ClientsController extends Controller
         'latestSts'       =>  $latestSts,
         'items'           =>  $items,
         'itemsCnt'        =>  $itemsCnt,
-        'prefs'           =>  $prefs
+        'prefs'           =>  $prefs,
+        'routes'          =>  $routes,
+        'prges'           =>  $prges,
+        'prg_nums'        =>  $prg_nums,
+        'urgencys'        =>  $urgencys,
+        'reasons'         =>  $reasons,
+        'buy_ways'        =>  $buy_ways,
+        'contact_ways'    =>  $contact_ways,
+        'jobs'            =>  $jobs,
+        'item_categories' =>  $item_categories
       ]);
     }
 
@@ -358,7 +406,9 @@ class ClientsController extends Controller
       //@TODO editと同一処理をまとめる
       $client = Client::findOrFail($clientId);
       $requestDetail = RequestDetail::where('request_id', $requestDetailId)->first();
-      $baseTypes = BaseType::all();
+      $baseTypes = DB::table('base_types')
+                      ->where('status', '<>', 'X')
+                      ->get();
       $rProgresses = DB::table('request_progresses')
                       ->select('request_progresses.created_at AS dt', 'request_progresses.progress_memo AS memo', 'users.name AS name', 'request_progresses.progress_status AS status')
                       ->leftJoin('users', 'users.id', '=', 'request_progresses.rgster')

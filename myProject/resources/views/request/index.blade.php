@@ -48,16 +48,16 @@
             </div>
           </th>
           <td class="td_urgency">
-            <div class="in_urgency">{{ chkStr($rr->urgency) }}</div>
+            <div class="in_urgency">{{ $rr->urgency ? $urgencys[$rr->urgency]:'-' }}</div>
           </td>
           <td class="td_base">
-            <div class="in_base">{{ $rr->base }}</div>
+            <div class="in_base">{{ $rr->base_name }}</div>
           </td>
           <td class="td_status">
-            <div class="in_status">{{ $rr->latest_status }}</div>
+            <div class="in_status">{{ $prges[$rr->latest_status] }}</div>
           </td>
           <td class="td_buyway">
-            <div class="in_buyway">{{ chkStr($rr->buy_way) }}</div>
+            <div class="in_buyway">{{ $rr->buy_way ? $buy_ways[$rr->buy_way]:'-' }}</div>
           </td>
           <td class="td_cname">
             <div class="in_cname">{{ $rr->c_name." ".$rr->c_fname }}</div>
@@ -66,10 +66,10 @@
             <div class="in_iname">{{ chkStr($rr->i_name) }}</div>
           </td>
           <td class="td_prefecture">
-            <div class="in_prefecture">{{ chkStr($rr->prefecture) }}</div>
+            <div class="in_prefecture">{{ $rr->prefecture ? $prefs[$rr->prefecture]:'-' }}</div>
           </td>
           <td class="td_route">
-            <div class="in_route">{{ chkStr($rr->route) }}</div>
+            <div class="in_route">{{ chkStr($rr->route_name) }}</div>
           </td>
 
           <td class="td_req_cnt">

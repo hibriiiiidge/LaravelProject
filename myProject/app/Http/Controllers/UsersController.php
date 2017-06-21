@@ -10,13 +10,22 @@ use App\BaseType;
 
 class UsersController extends Controller
 {
+  //スタッフのstoreに当たる部分は下記にlaravelのデフォルトで実装されている
+  //vendor/laravel/framework/src/Illuminate/Foundation/Auth/RegistersUsers.php
   //スタッフ一覧表示
   public function index(){
     $users = DB::table('users')
-            ->select('users.id AS u_id','users.name AS u_name', 'base_types.name AS b_name', 'users.email AS u_email', 'role_types.name AS r_name')
+            ->select(
+              'users.id AS u_id',
+              'users.name AS u_name',
+              'base_types.name AS b_name',
+              'users.email AS u_email',
+              'role_types.name AS r_name',
+              'users.status AS u_status'
+              )
             ->leftJoin('base_types', 'users.base', '=', 'base_types.id')
             ->leftJoin('role_types', 'users.role', '=', 'role_types.id')
-            ->where('users.status', '<>', 'X')
+            ->orderBy('u_status', 'asc')
             ->orderBy('u_id', 'asc')
             ->get();
 
@@ -26,7 +35,9 @@ class UsersController extends Controller
   //スタッフ編集
   public function edit($id){
     $user = User::findOrFail($id);
-    $baseTypes = BaseType::all();
+    $baseTypes = DB::table('base_types')
+                    ->where('status', '<>', 'X')
+                    ->get();
     return view('user.edit', ['user' => $user, 'baseTypes' => $baseTypes]);
   }
 

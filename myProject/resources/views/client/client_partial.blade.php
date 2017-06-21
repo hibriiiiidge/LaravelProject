@@ -56,15 +56,9 @@
                     <th><label for="job" class="col-lg-12 control-label">職業</label></th>
                     <td>
                       <div class="col-lg-12">
-                          <input type="radio" name="job" value="1" {{ $client->job == 1 ? 'checked': '' }}>会社員
-                          <input type="radio" name="job" value="2" {{ $client->job == 2 ? 'checked': '' }}>会社役員
-                          <input type="radio" name="job" value="3" {{ $client->job == 3 ? 'checked': '' }}>自営業
-                          <input type="radio" name="job" value="4" {{ $client->job == 4 ? 'checked': '' }}>公務員
-                          <input type="radio" name="job" value="5" {{ $client->job == 5 ? 'checked': '' }}>専業主婦
-                          <input type="radio" name="job" value="6" {{ $client->job == 6 ? 'checked': '' }}>学生
-                          <input type="radio" name="job" value="7" {{ $client->job == 7 ? 'checked': '' }}>フリーター
-                          <input type="radio" name="job" value="8" {{ $client->job == 8 ? 'checked': '' }}>年金受給者
-                          <input type="radio" name="job" value="9" {{ $client->job == 9 ? 'checked': '' }}>その他
+                        @foreach ($jobs as $index => $job)
+                          <input type="radio" name="job" value="{{ $index }}" {{ $client->job == $index ? 'checked': '' }}>{{ $job }}
+                        @endforeach
                       </div>
                     </td>
                   </tr>

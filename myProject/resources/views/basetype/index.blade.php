@@ -9,7 +9,6 @@
             <!-- Table -->
             <div class="table-responsive">
               <table class="table table-striped table-bordered table-hover">
-
                   <thead>
                     <td>ID</td>
                     <td>名称</td>
@@ -22,11 +21,10 @@
                     <td>mail</td>
                     <td>営業状況</td>
                     <td>編集</td>
-                    <td>削除</td>
                   </thead>
                   <tbody>
                   @foreach ($bases as $base)
-                    <tr>
+                    <tr class="{{ $base->status=='X' ? 'statusX' : ''}}">
                       <th>{{ $base->id }}</th>
                       <td>{{ $base->name }}</td>
                       <td>{{ $base->short_name }}</td>
@@ -38,12 +36,14 @@
                       <td>{{ $base->mail }}</td>
                       <td>{{ $base->status }}</td>
                       <td>
-                        <a href="">
+                        <a href="{{ action('BaseTypesController@edit', $base->id) }}">
                           <button type="button" class="btn-sm btn-warning">
                             編集
                           </button>
                         </a>
                       </td>
+                      {{--
+                      削除という概念はなし 削除->徹底 として編集により対応
                       <td>
                         <form action="" id="form" method="post">
                           {{ csrf_field() }}
@@ -54,7 +54,7 @@
                             </button>
                           </a>
                         </form>
-                      </td>
+                      </td> --}}
                     </tr>
                   @endforeach
                 </tbody>
@@ -65,11 +65,11 @@
     </div>
 </div>
 
-<script>
+{{-- <script>
   function deleteUser(e){
     if(confirm('本当に削除しますか？')){
       document.getElementById('form_' + e.dataset.id).submit();
     }
   }
-</script>
+</script> --}}
 @endsection

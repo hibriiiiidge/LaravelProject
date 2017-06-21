@@ -26,7 +26,7 @@
               <a href="#item_tab_{{ $item->no_underscore_id }}" data-toggle="tab">商品</a>
             </li>
           @endforeach
-          @if ($latestSts<5)
+          @if ($latestSts< $prg_nums['finnal_price'])
             <li id="add_btn"><a href="#add_item_tab" id="add_item" data-toggle="tab">+追加</a></li>
           @endif
       </ul>
@@ -35,14 +35,14 @@
     <div id="myTabContent" class="tab-content" style="padding-top: 5px;border-top: 1px #eee solid;">
     <!--TAB CLIENT START-->
       <div class="tab-pane fade in active" id="client_tab">
-          @include('client.client_partial', ['client'=>$client, 'prefs'=>$prefs])
+          @include('client.client_partial')
       </div><!--TAB client END-->
       <div class="tab-pane fade" id="request_tab">
-          @include('client.request_partial', ['requestDetail'=>$requestDetail])
+          @include('client.request_partial')
       </div><!--TAB request END-->
       @foreach ($items as $item)
         <div class="tab-pane fade" id="item_tab_{{ $item->no_underscore_id }}">
-            @include('client.item_partial', ['item'=>$item, 'itemsCnt'=>$itemsCnt, 'latestSts'=>$latestSts])
+            @include('client.item_partial')
         </div><!--TAB item END-->
       @endforeach
     </div><!-- TAB All END -->
@@ -51,14 +51,9 @@
     <div class="progress_block">
       <label for="progress_status">進捗状況</label>
       <select id="progress_status" name="progress_status">
-        {{-- @TODO マスタからの呼び込み+定数化 --}}
-        <option value="1"{{ $latestSts == 1 ? 'selected' : '' }}>要返信</option>
-        <option value="2"{{ $latestSts == 2 ? 'selected' : '' }}>見積済</option>
-        <option value="3"{{ $latestSts == 3 ? 'selected' : '' }}>交渉中</option>
-        <option value="4"{{ $latestSts == 4 ? 'selected' : '' }}>荷着待</option>
-        <option value="5"{{ $latestSts == 5 ? 'selected' : '' }}>査定済</option>
-        <option value="6"{{ $latestSts == 6 ? 'selected' : '' }}>最終確認済</option>
-        <option value="7"{{ $latestSts == 7 ? 'selected' : '' }}>販売完了</option>
+        @foreach ($prges as $index => $prg)
+          <option value="{{ $index }}" {{ $latestSts == $index ? 'selected' : '' }}>{{ $prg }}</option>
+        @endforeach
       </select>
       <textarea name="progress_memo" rows="3" placeholder="伝達事項" id="progress_memo"></textarea>
     </div>
@@ -71,7 +66,7 @@
                 {{ $rProgress->dt }}
               </th>
               <td>
-                {{ $rProgress->status }}<br/>
+                {{ $prges[$rProgress->status] }}<br/>
                 <span>{{ $rProgress->memo ? $rProgress->memo :"(伝達事項なし)" }}</span><br/>
                 <span>{{ $rProgress->name }}</span>
               </td>

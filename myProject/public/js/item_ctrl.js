@@ -14,11 +14,31 @@ $(function(){
       var splitId   = trgtTabId.split("tab"); //タイムスタンプを取得
       var catVal    = $(trgtTabId+" #category"+splitId[1]).val(); //カテゴリーの値を取得
     if(catVal){
-      addItem();
+      $.ajax({
+        url: "http://homestead.app/api/item_categories",
+        type: "GET",
+        dataType: "json"
+      })
+      .then(
+        function(res){
+          options = '';
+          for (var i = 0; i < res.length; i++) {
+            if(res[i].status!=='X'){
+              options += '<option value="'+res[i].id+'">'+res[i].name+'</option>';
+            }
+          }
+          console.log(options);
+        },
+        function(res){
+          alert("FAIL");
+        })
+      .done(function (){
+        addItem(options);
+      });
     }
   }
   //次の商品入力フォームを生成する処理
-  function addItem(){
+  function addItem(options){
     var ts = $.now();
     // tab
     $('li#add_btn').before('<li id="item_li_tab_'+ts+'"><a href="#item_tab_'+ts+'" data-toggle="tab">商品</a></li>');
@@ -69,11 +89,7 @@ $(function(){
                   $("<select></select>", {Id:"category_"+ts, addClass: "form-control select_cat", name:"category[]"})
                 );
                 $("#category_"+ts).prepend(
-                  '<option value="">未選択</option>'+
-                  '<option value="1">パソコン</option>'+
-                  '<option value="2">オーディオ</option>'+
-                  '<option value="3">カメラ</option>'
-                );
+                  '<option value="">未選択</option>'+options);
         //item_name
         $("#item_request_table_"+ts+">tbody").append(
           $("<tr></tr>", {Id:"item_name_"+ts, addClass: "form-group"})

@@ -100,7 +100,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
-                            <label for="status" class="col-md-4 control-label">在籍の有無</label>
+                            <label for="status" class="col-md-4 control-label">在籍状況</label>
 
                             <div class="col-md-6">
                                 <select id="status" class="form-control" name="status" required autofocus>

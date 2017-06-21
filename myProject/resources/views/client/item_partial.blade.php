@@ -25,9 +25,9 @@
                   <div class="col-lg-12">
                       <select id="category{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" class="form-control select_cat" name="category[]" autofocus {{ $item->status == "R" ? 'disabled': '' }}>
                           <option value="">未選択</option>
-                          <option value="1" {{ $item->category == 1 ? 'selected': '' }}>パソコン</option>
-                          <option value="2" {{ $item->category == 2 ? 'selected': '' }}>オーディオ</option>
-                          <option value="3" {{ $item->category == 3 ? 'selected': '' }}>カメラ</option>
+                          @foreach ($item_categories as $item_category)
+                            <option value="{{ $item_category->id }}" {{ $client->base == $item_category->id ? 'selected': '' }}>{{ $item_category->name }}</option>
+                          @endforeach
                       </select>
                   </div>
                 </td>
@@ -208,15 +208,15 @@
     </div>
   </div>
 </div>
-{{-- @TODO 定数化 4=>荷着済--}}
-@if ($latestSts>4)
+
+@if ($prg_nums['transport'] < $latestSts && $latestSts < $prg_nums['agreement'] )
   @unless ($item->status=="R")
   <div id="item_return_{{$item->no_underscore_id}}" class="return_btn_edit">
     <button type="button" id="return_btn_{{$item->no_underscore_id}}" class="btn btn-warning">返品</button>
   </div>
   @endunless
 @else
-  @if ($itemsCnt && $itemsCnt > 1)
+  @if ($prg_nums['agreement'] < $latestSts && $itemsCnt && $itemsCnt > 1)
     <div id="item_delete_{{$item->no_underscore_id}}" class="delete_btn_edit">
       <button type="button" id="delete_btn_{{$item->no_underscore_id}}" class="btn btn-danger">削除</button>
     </div>

@@ -52,12 +52,12 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="status" class="col-md-4 control-label">在籍の有無</label>
+                            <label for="status" class="col-md-4 control-label">在籍状況</label>
 
                             <div class="col-md-6">
                                 <select id="status" class="form-control" name="status" required autofocus>
-                                  <option value="◯">有</option>
-                                  <option value="X">無（退職済）</option>
+                                  <option value="◯" {{ $user->status=='◯'   ? 'selected': '' }}>有</option>
+                                  <option value="X" {{ $user->status=='X'   ? 'selected': '' }}>無（退職済）</option>
                                 </select>
                             </div>
                         </div>

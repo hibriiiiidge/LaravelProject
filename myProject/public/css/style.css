@@ -28,6 +28,10 @@
   width: 5%;
 }
 
+.master_table .table-striped>tbody>tr.statusX{
+  background-color: #bec7cb;
+}
+
 /***************************/
 /*新規顧客・依頼・商品登録ページ*/
 /***************************/
@@ -151,10 +155,10 @@
   overflow: hidden;
 }
 #request_list_container .table>tbody>tr>td.td_status{
-  width: 40px;
+  width: 90px;
 }
 #request_list_container .table>tbody>tr>td>.in_status{
-  width: 40px;
+  width: 90px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -208,13 +212,13 @@
 #request_list_container .table>tbody>tr>td.td_est_stf,
 #request_list_container .table>tbody>tr>td.td_agr_stf,
 #request_list_container .table>tbody>tr>td.td_fin_stf{
-  width: 60px;
+  width: 48px;
 }
 #request_list_container .table>tbody>tr>td>.in_req_stf,
 #request_list_container .table>tbody>tr>td>.in_est_stf,
 #request_list_container .table>tbody>tr>td>.in_agr_stf,
 #request_list_container .table>tbody>tr>td>.in_fin_stf{
-  width: 60px;
+  width: 48px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

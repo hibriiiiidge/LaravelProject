@@ -69,3 +69,20 @@ Route::get('/item_category/edit/{id}', 'ItemCategoriesController@edit')
         ->where('id', '[1-9][0-9]*');                           //編集
 Route::patch('/item_category/update/{id}', 'ItemCategoriesController@update')
         ->where('id', '[1-9][0-9]*');                           //アップデート
+
+//item_maker
+Route::get('/item_makers', 'ItemMakersController@index');              //一覧表示
+Route::get('/item_maker/create', 'ItemMakersController@create');       //新規登録ページへの遷移
+Route::post('/item_maker/store', 'ItemMakersController@store');        //新規登録
+Route::get('/item_maker/edit/{id}', 'ItemMakersController@edit')
+        ->where('id', '[1-9][0-9]*');                           //編集
+Route::patch('/item_maker/update/{id}', 'ItemMakersController@update')
+        ->where('id', '[1-9][0-9]*');                           //アップデート
+
+//category_maker
+Route::get('/categories_makers', 'CategoryMakerController@index');              //一覧表示
+Route::get('/category_maker/create', 'CategoryMakerController@create');       //新規登録ページへの遷移
+Route::post('/category_maker/store', 'CategoryMakerController@store');        //新規登録
+Route::get('/category_maker/edit', 'CategoryMakerController@edit');          //編集
+Route::patch('/category_maker/update/{id}', 'CategoryMakerController@update')      //アップデート
+        ->where('id', '[1-9][0-9]*');

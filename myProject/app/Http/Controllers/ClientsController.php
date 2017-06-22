@@ -39,6 +39,9 @@ class ClientsController extends Controller
       $item_categories  = DB::table('item_categories')
                             ->where('status', '<>', 'X')
                             ->get();                    //商品カテゴリー一覧を取得
+      $item_makers      = DB::table('item_makers')
+                            ->where('status', '<>', 'X')
+                            ->get();                    //商品カテゴリー一覧を取得
       return view('client.register', [
         'baseTypes'     =>  $baseTypes,
         'client'        =>  $client,
@@ -55,7 +58,8 @@ class ClientsController extends Controller
         'buy_ways'      =>  $buy_ways,
         'contact_ways'  =>  $contact_ways,
         'jobs'          =>  $jobs,
-        'item_categories' =>  $item_categories
+        'item_categories' =>  $item_categories,
+        'item_makers'     =>  $item_makers
       ]);
     }
 
@@ -177,6 +181,7 @@ class ClientsController extends Controller
         $item->request_id           = $rDetail->request_id;
         $item->count                = $item_n;
         $item->category             = $request->category[$i];
+        $item->maker                = $request->maker[$i];
         $item->name                 = $request->item_name[$i];
         $item->outside_condition    = $request->outside_condition ? current(array_slice($request->outside_condition, $i, 1, true)) : null;
         $item->inside_condition     = $request->inside_condition ? current(array_slice($request->inside_condition, $i, 1, true)) : null;
@@ -193,7 +198,6 @@ class ClientsController extends Controller
         $item->sell_price           = $request->sell_price[$i] ? str_replace(',', '', $request->sell_price[$i]): null;
         $item->profit               = $request->profit[$i] ? str_replace(',', '', $request->profit[$i]): null;
         $item->profit_rate          = $request->profit_rate[$i];
-
         //$item->number               = $request->number[$i];
         $item->status             = $request->item_status;
         $item->rgster             = $request->rgster;
@@ -237,6 +241,9 @@ class ClientsController extends Controller
       $item_categories  = DB::table('item_categories')
                             ->where('status', '<>', 'X')
                             ->get();                    //商品カテゴリー一覧を取得
+      $item_makers      = DB::table('item_makers')
+                            ->where('status', '<>', 'X')
+                            ->get();                    //メーカー一覧を取得
       return view('client.edit', [
         'client'          =>  $client,
         'requestDetail'   =>  $requestDetail,
@@ -254,7 +261,8 @@ class ClientsController extends Controller
         'buy_ways'        =>  $buy_ways,
         'contact_ways'    =>  $contact_ways,
         'jobs'            =>  $jobs,
-        'item_categories' =>  $item_categories
+        'item_categories' =>  $item_categories,
+        'item_makers'     =>  $item_makers
       ]);
     }
 
@@ -334,6 +342,7 @@ class ClientsController extends Controller
       $dbItemsCnt = count($items);  //request_detailsに紐づくitemの数
       for ($i=0; $i < $dbItemsCnt; $i++) {
         $items[$i]->category             = $request->category[$i];
+        $items[$i]->maker                = $request->maker[$i];
         $items[$i]->name                 = $request->item_name[$i];
         $items[$i]->outside_condition    = $request->outside_condition[$items[$i]->no_underscore_id];
         $items[$i]->inside_condition     = $request->inside_condition[$items[$i]->no_underscore_id];
@@ -371,6 +380,7 @@ class ClientsController extends Controller
           $item->count              = $item_n;
           $item->request_id         = $rDetail->request_id;
           $item->category           = $request->category[$n];
+          $item->maker              = $request->maker[$n];
           $item->name               = $request->item_name[$n];
           $item->outside_condition  = $request->outside_condition ? current(array_slice($request->outside_condition, $n, 1, true)) : null;
           $item->inside_condition   = $request->inside_condition ? current(array_slice($request->inside_condition, $n, 1, true)) : null;

@@ -26,7 +26,22 @@
                       <select id="category{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" class="form-control select_cat" name="category[]" autofocus {{ $item->status == "R" ? 'disabled': '' }}>
                           <option value="">未選択</option>
                           @foreach ($item_categories as $item_category)
-                            <option value="{{ $item_category->id }}" {{ $client->base == $item_category->id ? 'selected': '' }}>{{ $item_category->name }}</option>
+                            <option value="{{ $item_category->id }}" {{ $item->category == $item_category->id ? 'selected': '' }}>{{ $item_category->name }}</option>
+                          @endforeach
+                      </select>
+                  </div>
+                </td>
+              </tr>
+              <tr class="form-group">
+                <th>
+                  <label for="maker" class="col-lg-12 control-label">メーカー</label>
+                </th>
+                <td>
+                  <div class="col-lg-12">
+                      <select id="maker{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" class="form-control select_cat" name="maker[]" autofocus {{ $item->status == "R" ? 'disabled': '' }}>
+                          <option value="">未選択</option>
+                          @foreach ($item_makers as $item_maker)
+                            <option value="{{ $item_maker->id }}" {{ $item->maker == $item_maker->id ? 'selected': '' }}>{{ $item_maker->name }}</option>
                           @endforeach
                       </select>
                   </div>

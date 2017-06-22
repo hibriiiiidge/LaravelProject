@@ -12,7 +12,7 @@ class Item extends Model
       'memo', 'no_underscore_id ', 'count','return_reason', 'estimate_price',
       'expsell_min_price', 'expsell_max_price', 'exp_min_profit', 'exp_max_profit',
       'exp_min_profit_rate', 'exp_max_profit_rate', 'buy_price', 'sell_price',
-      'profit', 'profit_rate', 'number'
+      'profit', 'profit_rate', 'number', 'maker'
     ];
 
     protected $touches = array('request_detail');

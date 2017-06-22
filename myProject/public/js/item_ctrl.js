@@ -27,10 +27,9 @@ $(function(){
               options += '<option value="'+res[i].id+'">'+res[i].name+'</option>';
             }
           }
-          console.log(options);
         },
         function(res){
-          alert("FAIL");
+          alert("カテゴリーが取得できませんでした。技術担当に確認してください。");
         })
       .done(function (){
         addItem(options);

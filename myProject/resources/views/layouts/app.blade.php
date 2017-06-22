@@ -89,6 +89,12 @@
                                   <li>
                                     <a href="{{ action('ItemCategoriesController@index') }}">商品カテゴリーリスト</a>
                                   </li>
+                                  <li>
+                                    <a href="{{ action('ItemMakersController@index') }}">メーカーリスト</a>
+                                  </li>
+                                  <li>
+                                    <a href="{{ action('CategoryMakerController@index') }}">カテゴリー・メーカーリスト</a>
+                                  </li>
                                 </ul>
                             </li>
                           @endif
@@ -110,6 +116,12 @@
                                     </li>
                                     <li>
                                       <a href="{{ action('ItemCategoriesController@create') }}">商品カテゴリー登録</a>
+                                    </li>
+                                    <li>
+                                      <a href="{{ action('ItemMakersController@create') }}">メーカー登録</a>
+                                    </li>
+                                    <li>
+                                      <a href="{{ action('CategoryMakerController@create') }}">カテゴリー・メーカー登録</a>
                                     </li>
                                   @endif
                                     <li>

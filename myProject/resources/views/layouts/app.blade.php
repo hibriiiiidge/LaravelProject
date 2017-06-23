@@ -120,9 +120,6 @@
                                     <li>
                                       <a href="{{ action('ItemMakersController@create') }}">メーカー登録</a>
                                     </li>
-                                    <li>
-                                      <a href="{{ action('CategoryMakerController@create') }}">カテゴリー・メーカー登録</a>
-                                    </li>
                                   @endif
                                     <li>
                                         <a href="{{ route('logout') }}"

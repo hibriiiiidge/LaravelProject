@@ -84,5 +84,4 @@ Route::get('/categories_makers', 'CategoryMakerController@index');              
 Route::get('/category_maker/create', 'CategoryMakerController@create');       //新規登録ページへの遷移
 Route::post('/category_maker/store', 'CategoryMakerController@store');        //新規登録
 Route::get('/category_maker/edit', 'CategoryMakerController@edit');          //編集
-Route::patch('/category_maker/update/{id}', 'CategoryMakerController@update')      //アップデート
-        ->where('id', '[1-9][0-9]*');
+Route::patch('/category_maker/update', 'CategoryMakerController@update');      //アップデート

@@ -1,4 +1,38 @@
 $(function(){
+  //カテゴリーが選択されら
+  $('body').on('change', '.select_cat', chgMaker);
+  //カテゴリーの属するメーカーセレクトを自動生成
+  function chgMaker(){
+    var categoryNo   = $(this).attr('id');
+    var splitNo      = categoryNo.split("_");
+    var categoryId  = $(this).val();
+    var url = "http://homestead.app/api/item_makers/"+categoryId;
+
+    $.ajax({
+      url: url,
+      type: "GET",
+      dataType: "json"
+    })
+    .then(
+      function(res){
+        makerOptions = '';
+        for (var i = 0; i < res.length; i++) {
+          makerOptions += '<option value="'+res[i].id+'">'+res[i].name+'</option>';
+        }
+        makerOptions += '<option value="999">その他</option>';
+        if(splitNo[1]){
+          $('#maker_'+splitNo[1]).html(makerOptions);
+        }
+        else{
+          $('#maker').html(makerOptions);
+        }
+      },
+      function(res){
+        alert("メーカーの自動取得に失敗しました。手動でご入力いただき、その旨を技術担当までご報告ください。");
+      }
+    );
+  }
+  //@TODO カテゴリーごとの確認項目を特記事項の下に表示&管理者メモに追加
 
   //summary_memoのmainとsubのどちらを最後に編集したかを判定し、hiddenに値を持たせる処理
   $('.memo').focusout(function(e){
@@ -21,10 +55,10 @@ $(function(){
       })
       .then(
         function(res){
-          options = '';
+          cateOptions = '';
           for (var i = 0; i < res.length; i++) {
             if(res[i].status!=='X'){
-              options += '<option value="'+res[i].id+'">'+res[i].name+'</option>';
+              cateOptions += '<option value="'+res[i].id+'">'+res[i].name+'</option>';
             }
           }
         },
@@ -32,12 +66,12 @@ $(function(){
           alert("カテゴリーが取得できませんでした。技術担当に確認してください。");
         })
       .done(function (){
-        addItem(options);
+        addItem(cateOptions);
       });
     }
   }
   //次の商品入力フォームを生成する処理
-  function addItem(options){
+  function addItem(cateOptions){
     var ts = $.now();
     // tab
     $('li#add_btn').before('<li id="item_li_tab_'+ts+'"><a href="#item_tab_'+ts+'" data-toggle="tab">商品</a></li>');
@@ -88,7 +122,26 @@ $(function(){
                   $("<select></select>", {Id:"category_"+ts, addClass: "form-control select_cat", name:"category[]"})
                 );
                 $("#category_"+ts).prepend(
-                  '<option value="">未選択</option>'+options);
+                  '<option value="">未選択</option>'+cateOptions);
+        //maker
+        $("#item_request_table_"+ts+">tbody").append(
+          $("<tr></tr>", {Id:"item_maker_"+ts, addClass: "form-group"})
+        );
+            $("#item_maker_"+ts).append(
+              $("<th></th>")
+            );
+            $("#item_maker_"+ts).append(
+              $("<td></td>")
+            );
+                $("#item_maker_"+ts+">th").prepend(
+                  '<label for="maker" class="col-lg-12 control-label">メーカー</label>'
+                );
+                $("#item_maker_"+ts+">td").prepend(
+                  $("<div></div>", {addClass: "col-lg-12"})
+                );
+                $("#item_maker_"+ts+">td>div").prepend(
+                  $("<select></select>", {Id:"maker_"+ts, addClass: "form-control select_maker", name:"maker[]"})
+                );
         //item_name
         $("#item_request_table_"+ts+">tbody").append(
           $("<tr></tr>", {Id:"item_name_"+ts, addClass: "form-group"})

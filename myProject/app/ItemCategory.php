@@ -10,8 +10,8 @@ class ItemCategory extends Model
       'name', 'status', 'rgster', 'updter'
     ];
 
-    //item_category->category_makers
-    public function category_makers(){
-      return $this->hasMany('App\CategoryMaker');
+    //item_category->item_makers
+    public function item_makers(){
+      return $this->belongsToMany('App\ItemMaker');
     }
 }

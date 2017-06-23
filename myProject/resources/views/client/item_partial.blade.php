@@ -38,7 +38,7 @@
                 </th>
                 <td>
                   <div class="col-lg-12">
-                      <select id="maker{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" class="form-control select_cat" name="maker[]" autofocus {{ $item->status == "R" ? 'disabled': '' }}>
+                      <select id="maker{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" class="form-control select_maker" name="maker[]" autofocus {{ $item->status == "R" ? 'disabled': '' }}>
                           <option value="">未選択</option>
                           @foreach ($item_makers as $item_maker)
                             <option value="{{ $item_maker->id }}" {{ $item->maker == $item_maker->id ? 'selected': '' }}>{{ $item_maker->name }}</option>

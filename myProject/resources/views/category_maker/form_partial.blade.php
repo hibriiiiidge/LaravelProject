@@ -10,7 +10,7 @@
         <tr>
           <td>{{ $checks[$i]['name'] }}</td>
           @for ($j=0; $j <count($categories) ; $j++)
-            <td><input type="checkbox" name="" val="{{ $checks[$i]['val'][$j] }}" {{ $checks[$i]['check'][$j] }}></td>
+            <td><input type="checkbox" name="cate_maker[]" value="{{ $checks[$i]['val'][$j] }}" {{ $checks[$i]['check'][$j] }}></td>
           @endfor
         </tr>
       @endfor

@@ -5,13 +5,13 @@
 				<div class="form-group">
 						<label class="control-label col-lg-3">依頼ID</label>
 						<div class="s_input_wrap col-lg-9">
-								<input type="text" id="s_reqdtl_id" name="s_reqdtl_id" class="s_input form-control" value="">
+								<input type="text" id="s_reqdtl_id" name="reqdtl_id" class="s_input form-control" value="">
 						</div>
 				</div>
 				<div class="form-group">
 						<label class="control-label col-lg-3">顧客ID</label>
 						<div class="s_input_wrap col-lg-9">
-								<input type="text" id="s_clt_id" name="s_clt_id" class="s_input form-control" value="">
+								<input type="text" id="s_clt_id" name="clt_id" class="s_input form-control" value="">
 						</div>
 				</div>
 				<div class="form-group">
@@ -42,11 +42,10 @@
 						<label class="control-label col-lg-3">緊急度</label>
 						<div class="s_input_wrap col-lg-9">
 								<select id="s_urgency" name="urgency" class="s_select form-control">
-									<option value="0"></option>
-									<option value="1">A</option>
-									<option value="2">B</option>
-									<option value="3">C</option>
-									<option value="4">D</option>
+										<option value="0"></option>
+									@foreach ($urgencys as $index => $urgency)
+										<option value="{{ $index }}">{{ $urgency }}</option>
+									@endforeach
 								</select>
 						</div>
 				</div>
@@ -55,8 +54,9 @@
 						<div class="s_input_wrap col-lg-9">
 								<select id="s_base" name="base" class="s_select form-control">
 									<option value="0"></option>
-									<option value="1">東松山</option>
-									<option value="2">新宿</option>
+									@foreach ($base_types as $base_type)
+										<option value="{{ $base_type->id }}">{{ $base_type->name }}</option>
+									@endforeach
 								</select>
 						</div>
 				</div>
@@ -65,8 +65,9 @@
 						<div class="s_input_wrap col-lg-9">
 								<select id="s_status" name="status" class="s_select form-control">
 									<option value="0"></option>
-									<option value="1">要返信</option>
-									<option value="2">見積済</option>
+									@foreach ($prges as $index => $prge)
+										<option value="{{ $index }}">{{ $prge }}</option>
+									@endforeach
 								</select>
 						</div>
 				</div>
@@ -75,9 +76,9 @@
 						<div class="s_input_wrap col-lg-9">
 								<select id="s_buy_way" name="buy_way" class="s_select form-control">
 									<option value="0"></option>
-									<option value="1">店頭</option>
-									<option value="2">出張</option>
-									<option value="3">宅配</option>
+									@foreach ($buy_ways as $index => $buy_way)
+										<option value="{{ $index }}">{{ $buy_way }}</option>
+									@endforeach
 								</select>
 						</div>
 				</div>
@@ -86,18 +87,20 @@
 						<div class="s_input_wrap col-lg-9">
 								<select id="s_prefecture" name="prefecture" class="s_select form-control">
 									<option value="0"></option>
-									<option value="1">埼玉</option>
-									<option value="2">東京</option>
+									@foreach ($prefs as $index => $pref)
+										<option value="{{ $index }}">{{ $pref }}</option>
+									@endforeach
 								</select>
 						</div>
 				</div>
 				<div class="form-group">
 						<label class="control-label col-lg-3">受付担当</label>
 						<div class="s_input_wrap col-lg-9">
-								<select id="s_prefecture" name="prefecture" class="s_select form-control">
+								<select id="s_staff" name="staff" class="s_select form-control">
 									<option value="0"></option>
-									<option value="1">野口</option>
-									<option value="2">中川</option>
+									@foreach ($staffs as $staff)
+										<option value="{{ $staff->id }}">{{ $staff->name }}</option>
+									@endforeach
 								</select>
 						</div>
 				</div>

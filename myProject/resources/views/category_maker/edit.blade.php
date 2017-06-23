@@ -7,15 +7,17 @@
             <div class="panel panel-default">
                 <div class="panel-heading">カテゴリー・メーカー関連編集</div>
                 <div class="panel-body">
-                  <form class="form-horizontal" role="form" method="POST" action="{{ action('CategoryMakerController@store') }}">
+                  <form class="form-horizontal" role="form" method="POST" action="{{ action('CategoryMakerController@update') }}">
                       {{ csrf_field() }}
                       {{ method_field('patch') }}
                       @include('category_maker.form_partial')
                       <div>
+                        <input type="hidden" name="cm_status" value="◯">
+                        <input type="hidden" name="cm_rgster" value="{{ Auth::user()->id }}">
                         <input type="hidden" name="cm_updter" value="{{ Auth::user()->id }}">
                       </div>
                       <div class="form-group">
-                          <div class="col-md-6 col-md-offset-4">
+                          <div class="col-md-2 col-md-offset-10">
                               <button type="submit" class="btn btn-primary">
                                   編集
                               </button>

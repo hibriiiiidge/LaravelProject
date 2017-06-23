@@ -2,17 +2,21 @@
 
 @section('content')
 <!-- search-bar-button -->
-<div id="st-trigger-effects" class="column" style="text-align:right;">
-  <button data-effect="st-effect-search">Scale down pusher</button>
+<div id="st-trigger-effects" class="column" style="text-align: right;float: right;">
+  <button data-effect="st-effect-search" style="border-radius: 20px;"><i class="fa fa-search fa-2x"></i></button>
 </div>
 <div id="request_list_container">
   <div class="">
-    @if ($name)
-      {{ $name }}
-    @endif
-    @if ($kana)
-      {{ $kana }}
-    @endif
+    <div class="">
+      検索条件
+    </div>
+    @foreach ($searchCondition as $key => $value)
+      @if ($value)
+        <div class="">
+          {{ $key }} :  {{ $value }}
+        </div>
+      @endif
+    @endforeach
   </div>
   <table class="table table-striped table-hover">
     <thead>

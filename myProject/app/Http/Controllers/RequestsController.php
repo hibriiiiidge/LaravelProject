@@ -159,24 +159,24 @@ class RequestsController extends Controller
         'prefs'           =>  $prefs,
         'base_types'      =>  $baseTypes,
         'staffs'          =>  $staffs,
-        'searchCondition' =>  $searchCondition,
+        'searchCondition' =>  $searchCondition
 
-        'request_id'      =>  $request_id,
-        'client_id'       =>  $client_id,
-        'name'            =>  $name,
-        'kana'            =>  $kana,
-        'tel'             =>  $tel,
-        'fax'             =>  $fax,
-        'urgency'         =>  $urgency,
-        'base'            =>  $base,
-        'status'          =>  $status,
-        'buy_way'         =>  $buy_way,
-        'prefecture'      =>  $prefecture,
-        'staff'           =>  $staff,
-        'rgst_from'       =>  $rgst_from,
-        'rgst_to'         =>  $rgst_to,
-        'fin_from'        =>  $fin_from,
-        'fin_to'          =>  $fin_to
+        // 'request_id'      =>  $request_id,
+        // 'client_id'       =>  $client_id,
+        // 'name'            =>  $name,
+        // 'kana'            =>  $kana,
+        // 'tel'             =>  $tel,
+        // 'fax'             =>  $fax,
+        // 'urgency'         =>  $urgency,
+        // 'base'            =>  $base,
+        // 'status'          =>  $status,
+        // 'buy_way'         =>  $buy_way,
+        // 'prefecture'      =>  $prefecture,
+        // 'staff'           =>  $staff,
+        // 'rgst_from'       =>  $rgst_from,
+        // 'rgst_to'         =>  $rgst_to,
+        // 'fin_from'        =>  $fin_from,
+        // 'fin_to'          =>  $fin_to
       ]);
   }
 }

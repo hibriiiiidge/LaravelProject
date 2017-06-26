@@ -1,6 +1,7 @@
 $(function(){
   //カテゴリーが選択されら
   $('body').on('change', '.select_cat', chgMaker);
+  $('body').on('change', '.select_cat', addChkList);
   //カテゴリーの属するメーカーセレクトを自動生成
   function chgMaker(){
     var categoryNo   = $(this).attr('id');
@@ -33,6 +34,20 @@ $(function(){
     );
   }
   //@TODO カテゴリーごとの確認項目を特記事項の下に表示&管理者メモに追加
+  function addChkList(){
+    var categoryNo   = $(this).attr('id');
+    var splitNo      = categoryNo.split("_");
+    var categoryId  = $(this).val();
+    var test = '#item_memo_'+splitNo[1];
+    alert(test);
+    if(splitNo[1]){
+      $('#item_memo_'+splitNo[1]).val("TEST");
+    }
+    else{
+      $('#item_memo').val("TEST");
+    }
+  }
+
 
   //summary_memoのmainとsubのどちらを最後に編集したかを判定し、hiddenに値を持たせる処理
   $('.memo').focusout(function(e){
@@ -233,22 +248,22 @@ $(function(){
                 );
         //item_memo
         $("#item_request_table_"+ts+">tbody").append(
-          $("<tr></tr>", {Id:"item_memo_"+ts, addClass: "form-group"})
+          $("<tr></tr>", {Id:"dom_item_memo_"+ts, addClass: "form-group"})
         );
-            $("#item_memo_"+ts).append(
+            $("#dom_item_memo_"+ts).append(
               $("<th></th>")
             );
-            $("#item_memo_"+ts).append(
+            $("#dom_item_memo_"+ts).append(
               $("<td></td>")
             );
-                $("#item_memo_"+ts+">th").prepend(
+                $("#dom_item_memo_"+ts+">th").prepend(
                   '<label for="item_memo" class="col-lg-12 control-label">特記事項</label>'
                 );
-                $("#item_memo_"+ts+">td").prepend(
+                $("#dom_item_memo_"+ts+">td").prepend(
                   $("<div></div>", {addClass: "col-lg-12"})
                 );
-                $("#item_memo_"+ts+">td>div").prepend(
-                  '<textarea name="item_memo['+ts+']" rows="8" cols="80" id="item_memo"></textarea>'
+                $("#dom_item_memo_"+ts+">td>div").prepend(
+                  '<textarea name="item_memo['+ts+']" rows="8" cols="80" id="item_memo_'+ts+'"></textarea>'
                 );
         //estimate_price
         $("#item_request_table_"+ts+">tbody").append(

@@ -96,7 +96,7 @@
                 <th><label for="item_memo" class="col-lg-12 control-label">特記事項</label></th>
                 <td>
                   <div class="col-lg-12">
-                      <textarea name="item_memo[]" rows="8" cols="80" id="item_memo" {{ $item->status == "R" ? 'disabled': '' }}>{{ old('item_memo', $item->memo) }}</textarea>
+                      <textarea name="item_memo[]" rows="8" cols="80" id="item_memo{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" {{ $item->status == "R" ? 'disabled': '' }}>{{ old('item_memo', $item->memo) }}</textarea>
                   </div>
                 </td>
               </tr>

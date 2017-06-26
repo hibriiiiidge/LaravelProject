@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker.min.css">
     <!-- font-awesome -->
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 銀行API -->
+    <script src="https://zipaddr.github.io/bankauto2.js" charset="UTF-8"></script>
 </head>
 <body>
     <div id="app">
@@ -150,6 +152,7 @@
     <script src="{{ asset('js/classie.js') }}"></script>
     <script src="{{ asset('js/sidebarEffects.js') }}"></script>
     <script src="{{ asset('js/postal_code_to_address.js') }}"></script>
+    <script src="{{ asset('js/bank_branch_code.js') }}"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <!-- Datepicker for Bootstrap -->

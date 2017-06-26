@@ -7,10 +7,15 @@
                   <tr class="form-group{{ $errors->has('attribute') ? ' has-error' : '' }}">
                     <th><label for="attribute" class="col-lg-12 control-label">顧客属性</label></th>
                     <td>
-                      <div class="col-lg-12">
+                      <div class="col-lg-4">
                           <input type="radio" name="attribute" value="1" {{ $client->attribute == 1 ? 'checked': '' }}>個人
                           <input type="radio" name="attribute" value="2" {{ $client->attribute == 2 ? 'checked': '' }}>法人
                       </div>
+                      @if ($client->id)
+                        <div class="col-lg-1 col-lg-offset-5">
+                          <button type="button" name="button" class="btn btn-success"><a href="{{ action('ClientsController@repeat', $client->id) }}" id="repeat_btn">リピート登録</a></button>
+                        </div>
+                      @endif
                     </td>
                   </tr>
                   <tr class="form-group{{ $errors->has('base') ? ' has-error' : '' }}">

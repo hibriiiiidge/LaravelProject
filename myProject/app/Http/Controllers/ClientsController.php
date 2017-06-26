@@ -17,10 +17,24 @@ class ClientsController extends Controller
      *
      */
     public function create(){
-      $baseTypes = DB::table('base_types')
-                      ->where('status', '<>', 'X')
-                      ->get();//拠点一覧を取得
       $client     = new Client();
+      return self::viewRgst($client);
+    }
+
+    /**
+     * リピート登録画面への繊維
+     * @param client_id str
+     */
+    public function repeat($clientId){
+      $client = Client::where('id', '=', $clientId)->first();
+      return self::viewRgst($client);
+    }
+
+    /**
+     * createとrepeatの重複処理
+     * @param client obj
+     */
+    public function viewRgst(Client $client){
       $rDetail    = new RequestDetail();
       $item       = new Item();
       $itemsCnt   = 1; //削除ボタンの表示・非表示と連動 商品入力フォームの数が ">0" の時に削除ボタンが表示
@@ -33,7 +47,10 @@ class ClientsController extends Controller
       $buy_ways   = config('buy_way');
       $contact_ways = config('contact_way');
       $jobs       = config('job');
-      $routes       = DB::table('routes')
+      $baseTypes  = DB::table('base_types')
+                      ->where('status', '<>', 'X')
+                      ->get();//拠点一覧を取得
+      $routes     = DB::table('routes')
                       ->where('status', '<>', 'X')
                       ->get();                    //サイト一覧を取得
       $item_categories  = DB::table('item_categories')
@@ -68,7 +85,7 @@ class ClientsController extends Controller
      *
      */
     public function store(Request $request){
-      //dd($request);
+      dd($request);
       //@TODO バリデーション
       // $this->validate($request, [
       //   'attribute'   => 'required|integer',

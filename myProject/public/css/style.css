@@ -10,7 +10,7 @@
   padding-left: 15px;
 }
 
-#rgst_btn{
+.rgst_btn{
   float: right;
 }
 #wrap_main_container{
@@ -115,6 +115,72 @@
   margin-right: 30px;
 }
 
+/*return 返品*/
+.return_block{
+  font-size: 30px;
+  font-weight: bold;
+  color: red;
+  text-align: center;
+}
+.reason_block{
+  display: block;
+  margin-left: 80px;
+}
+.return_title{
+  widows: 100px;
+  font-size: 12px;
+  color: red;
+  float: left;
+}
+.return_reason{
+  font-size: 12px;
+  color: red;
+  float: left;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+/*price*/
+.tr_price{
+  padding-right: 0px;
+}
+.price{
+  float: left;
+  text-align: right;
+}
+.yen{
+  float: left;
+  line-height: 4em;
+}
+.wave{
+  float: left;
+  text-align: right;
+  line-height: 4em;
+  margin-left: 15px;
+}
+
+#repeat_btn{
+  color: #ffffff;
+  text-decoration: none;
+}
+
+#bnkauto{
+  left: 320px !important;
+  top: 610px !important;
+}
+
+#bnkauto>a{
+  display: none;
+}
+
+.bnk_clear{
+  display: none;
+  margin-top: 5px !important;
+}
+#bnk_cnt,
+#bnk_close{
+  color: #ffffff !important;
+}
 
 /***************************/
 /*依頼一覧ページ*/
@@ -252,49 +318,12 @@
   overflow: hidden;
 }
 
-/*return 返品*/
-.return_block{
-  font-size: 30px;
-  font-weight: bold;
-  color: red;
-  text-align: center;
-}
-.reason_block{
-  display: block;
-  margin-left: 80px;
-}
-.return_title{
-  widows: 100px;
-  font-size: 12px;
-  color: red;
+#search_contents ul>li{
+  list-style: none;
   float: left;
-}
-.return_reason{
-  font-size: 12px;
-  color: red;
-  float: left;
-  text-align: left;
-  margin-bottom: 20px;
 }
 
-/*price*/
-.tr_price{
-  padding-right: 0px;
-}
-.price{
-  float: left;
-  text-align: right;
-}
-.yen{
-  float: left;
-  line-height: 4em;
-}
-.wave{
-  float: left;
-  text-align: right;
-  line-height: 4em;
-  margin-left: 15px;
-}
+
 
 /***************************/
 /*検索ページ,窓*/

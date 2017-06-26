@@ -25,6 +25,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 //client
 Route::get('/client/create', 'ClientsController@create');       //新規登録ページ
 Route::post('/client/store', 'ClientsController@store');        //登録
+Route::get('/client/repeat/{client_id}', 'ClientsController@repeat');       //リピート登録ページ
 
 //client & request_detail
 Route::get('/client/{client_id}/show/{requestDetail_id}', 'ClientsController@edit'); //詳細表示

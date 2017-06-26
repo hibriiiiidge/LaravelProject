@@ -5,7 +5,7 @@
             <div class="table-responsive">
               <table class="table table-striped table-hover" id="request_table">
 
-                <tr class="form-group{{ $errors->has('urgency') ? ' has-error' : '' }}">
+                <tr class="form-group">
                   <th><label for="urgency" class="col-lg-12 control-label">緊急度</label></th>
                   <td>
                     <div class="col-lg-12">
@@ -18,7 +18,7 @@
                     </div>
                   </td>
                 </tr>
-                <tr class="form-group{{ $errors->has('reason') ? ' has-error' : '' }}">
+                <tr class="form-group">
                   <th><label for="reason" class="col-lg-12 control-label">動機</label></th>
                   <td>
                     <div class="col-lg-12">
@@ -31,7 +31,7 @@
                     </div>
                   </td>
                 </tr>
-                <tr class="form-group{{ $errors->has('buy_way') ? ' has-error' : '' }}">
+                <tr class="form-group">
                   <th><label for="buy_way" class="col-lg-12 control-label">買取方法</label></th>
                   <td>
                     <div id="buy_way" class="col-lg-12">
@@ -41,7 +41,7 @@
                     </div>
                   </td>
                 </tr>
-                <tr class="form-group{{ $errors->has('contact_way') ? ' has-error' : '' }}">
+                <tr class="form-group">
                   <th><label for="contact_way" class="col-lg-12 control-label">連絡方法</label></th>
                   <td>
                     <div id="contact_way" class="col-lg-12">
@@ -51,7 +51,7 @@
                     </div>
                   </td>
                 </tr>
-                <tr class="form-group{{ $errors->has('route') ? ' has-error' : '' }}">
+                <tr class="form-group">
                   <th><label for="route" class="col-lg-12 control-label">流入サイト</label></th>
                   <td>
                     <div class="col-lg-12">
@@ -61,15 +61,10 @@
                             <option value="{{ $route->id }}" {{ $requestDetail->route == $route->id ? 'selected': '' }}>{{ $route->name }}</option>
                           @endforeach
                       </select>
-                      @if ($errors->has('route'))
-                          <span class="help-block">
-                              <strong>{{ $errors->first('route') }}</strong>
-                          </span>
-                      @endif
                     </div>
                   </td>
                 </tr>
-                <tr class="form-group{{ $errors->has('competitive_flg') ? ' has-error' : '' }}">
+                <tr class="form-group">
                   <th><label for="competitive_flg" class="col-lg-12 control-label">相見積</label></th>
                   <td>
                     <div class="col-lg-12">
@@ -78,19 +73,61 @@
                     </div>
                   </td>
                 </tr>
-                <tr class="form-group{{ $errors->has('summary_memo_main') ? ' has-error' : '' }}">
+                <tr class="form-group">
                   <th><label for="summary_memo_main" class="col-lg-12 control-label">概要メモ</label></th>
                   <td>
                     <div class="col-lg-12">
                         <textarea name="summary_memo_main" rows="8" cols="80" class="memo" data-type="main">{{  old('summary_memo_main', $requestDetail->summary_memo) }}</textarea>
-                        @if ($errors->has('summary_memo_main'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('summary_memo_main') }}</strong>
-                            </span>
-                        @endif
                     </div>
                   </td>
                 </tr>
+
+
+                <tr class="form-group">
+                  <th><label for="bank_name" class="col-lg-12 control-label">金融機関名</label></th>
+                  <td>
+                    <div class="col-lg-4">
+                      <span class="bnk_area">
+                        <input type="text" name="bank_name" id="bank_name" class="form-control form_txt-short"  value="{{ old('bank_name') }}" />
+                      </span>
+                      金融機関コード：<span id="bank_code"></span>
+                      <input type="hidden" id="hd_bank_code" name="bank_code" value="">
+                    </div>
+                    <span id="bank_name_clear" class="bnk_clear btn btn-danger btn-xs">X</span>
+                  </td>
+                </tr>
+                <tr class="form-group">
+                  <th><label for="branch_name" class="col-lg-12 control-label">支店名</label></th>
+                  <td>
+                    <div class="col-lg-4">
+                      <span class="bnk_area">
+                        <input type="text" name="branch_name" id="branch_name" class="form-control form_txt-short" value="{{ old('bank_name') }}" />
+                      </span>
+                      支店コード：<span id="branch_code"></span>
+                      <input type="hidden" id="hd_branch_code" name="branch_code" value="">
+                    </div>
+                    <span id="branch_name_clear" class="bnk_clear btn btn-danger btn-xs">X</span>
+                  </td>
+                </tr>
+                <tr class="form-group">
+                  <th><label for="deposit_kind" class="col-lg-12 control-label">預金種類</label></th>
+                  <td>
+                    <div class="col-lg-12">
+                        <input type="radio" name="deposit_kind" value="1">普通
+                        <input type="radio" name="deposit_kind" value="2">当座
+                        <input type="radio" name="deposit_kind" value="3">貯蓄
+                    </div>
+                  </td>
+                </tr>
+                <tr class="form-group">
+                  <th><label for="account_num" class="col-lg-12 control-label">口座番号</label></th>
+                  <td>
+                    <div class="col-lg-3">
+                        <input id="account_num" type="text" class="form-control" name="account_num" value="{{ old('account_num') }}" autofocus>
+                    </div>
+                  </td>
+                </tr>
+
               </table>
             </div>
           </div>

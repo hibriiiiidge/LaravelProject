@@ -8,6 +8,7 @@ use App\BaseType;
 use App\RequestDetail;
 use App\RequestProgress;
 use App\Item;
+use App\User;
 use Illuminate\Support\Facades\DB;
 
 class RequestsController extends Controller
@@ -24,40 +25,23 @@ class RequestsController extends Controller
     $tel        = $request->tel;
     $fax        = $request->fax;
     $urgency    = $request->urgency;
-    $base       = $request->base;
+    $base_no    = $request->base;       //マスタデータ
     $status     = $request->status;
     $buy_way    = $request->buy_way;
     $prefecture = $request->prefecture;
-    $staff      = $request->staff;
+    $staff_no   = $request->staff;      //マスタデータ
     $rgst_from  = $request->rgst_from;
     $rgst_to    = $request->rgst_to;
     $fin_from   = $request->fin_from;
     $fin_to     = $request->fin_to;
 
-    $searchCondition = compact(
-      'request_id',
-      'client_id',
-      'name',
-      'kana',
-      'tel',
-      'fax',
-      'urgency',
-      'base',
-      'status',
-      'buy_way',
-      'prefecture',
-      'staff',
-      'rgst_from',
-      'rgst_to',
-      'fin_from',
-      'fin_to'
-    );
-    $prg_nums   = config('progress_num');
-    $urgencys   = config('urgency');
-    $prges      = config('progress');
-    $buy_ways   = config('buy_way');
-    $prefs      = config('pref');
-    $baseTypes  = DB::table('base_types')
+    $prg_nums     = config('progress_num');
+    $urgencys     = config('urgency');
+    $prges        = config('progress');
+    $buy_ways     = config('buy_way');
+    $prefs        = config('pref');
+    $search_title = config('search_title');
+    $base_types  = DB::table('base_types')
                     ->where('status', '<>', 'X')
                     ->get();
     $staffs     = DB::table('users')
@@ -122,8 +106,8 @@ class RequestsController extends Controller
                           ->when($urgency, function ($query) use ($urgency) {
                             return $query->where('RD.urgency', '=', $urgency);
                           })
-                          ->when($base, function ($query) use ($base) {
-                            return $query->where('C.base', '=', $base);
+                          ->when($base_no, function ($query) use ($base_no) {
+                            return $query->where('C.base', '=', $base_no);
                           })
                           ->when($status, function ($query) use ($status) {
                             return $query->where('RP_SQ.max_s', '=', $status);
@@ -134,8 +118,8 @@ class RequestsController extends Controller
                           ->when($prefecture, function ($query) use ($prefecture) {
                             return $query->where('C.prefecture', '=', $prefecture);
                           })
-                          ->when($staff, function ($query) use ($staff) {
-                            return $query->where('REQ_SQ.id', '=', $staff);
+                          ->when($staff_no, function ($query) use ($staff_no) {
+                            return $query->where('REQ_SQ.id', '=', $staff_no);
                           })
                           ->when($rgst_from, function ($query) use ($rgst_from) {
                             return $query->whereDate('RD.created_at', '>=',$rgst_from);
@@ -151,32 +135,82 @@ class RequestsController extends Controller
                           })
                           ->orderBy('RD.created_at', 'DESC')
                           ->paginate(5);
+      if($base_no){
+        $search_base  = BaseType::findOrFail($base_no);
+        $base  = $search_base->short_name;
+      }
+      else{
+        $base = '';
+      }
+      if($staff_no){
+        $search_staff = User::findOrFail($staff_no);
+        $staff = $search_staff->name;
+      }
+      else{
+        $staff = '';
+      }
+
+      $search_condition = compact(
+        'request_id',
+        'client_id',
+        'name',
+        'kana',
+        'tel',
+        'fax',
+        'urgency',
+        'base',
+        'status',
+        'buy_way',
+        'prefecture',
+        'staff',
+        'rgst_from',
+        'rgst_to',
+        'fin_from',
+        'fin_to'
+      );
+      //検索条件の有無をチェック 無い場合は「検索条件」の文字を非表示にするため
+      $isEmpty = array_filter($search_condition);
+
+      //@TODO pagerの値の受け渡しのリファクタリング
+      // $searchPager = '';
+      // foreach ($search_condition as $key => $value) {
+      //   if($value){
+      //     $searchPager .= "$key=>$value,";
+      //   }
+      // }
+      // $searchPager = substr($searchPager, 0, -1);
+      //dd($searchPager);
+
       return view('request.index', [
         'request_results' =>  $request_results,
         'urgencys'        =>  $urgencys,
         'prges'           =>  $prges,
         'buy_ways'        =>  $buy_ways,
         'prefs'           =>  $prefs,
-        'base_types'      =>  $baseTypes,
+        'base_types'      =>  $base_types,
         'staffs'          =>  $staffs,
-        'searchCondition' =>  $searchCondition
-
-        // 'request_id'      =>  $request_id,
-        // 'client_id'       =>  $client_id,
-        // 'name'            =>  $name,
-        // 'kana'            =>  $kana,
-        // 'tel'             =>  $tel,
-        // 'fax'             =>  $fax,
-        // 'urgency'         =>  $urgency,
-        // 'base'            =>  $base,
-        // 'status'          =>  $status,
-        // 'buy_way'         =>  $buy_way,
-        // 'prefecture'      =>  $prefecture,
-        // 'staff'           =>  $staff,
-        // 'rgst_from'       =>  $rgst_from,
-        // 'rgst_to'         =>  $rgst_to,
-        // 'fin_from'        =>  $fin_from,
-        // 'fin_to'          =>  $fin_to
+        'search_condition'=>  $search_condition,
+        'isEmpty'         =>  $isEmpty,
+        'search_title'    =>  $search_title,
+        //@TODO pagerの値の受け渡しのリファクタリング
+        //検索条件をコンテナ化して一気に渡したい...
+        //'searchPager'     =>  $searchPager,
+        'request_id'      =>  $request_id,
+        'client_id'       =>  $client_id,
+        'name'            =>  $name,
+        'kana'            =>  $kana,
+        'tel'             =>  $tel,
+        'fax'             =>  $fax,
+        'urgency'         =>  $urgency,
+        'base'            =>  $base_no,
+        'status'          =>  $status,
+        'buy_way'         =>  $buy_way,
+        'prefecture'      =>  $prefecture,
+        'staff'           =>  $staff_no,
+        'rgst_from'       =>  $rgst_from,
+        'rgst_to'         =>  $rgst_to,
+        'fin_from'        =>  $fin_from,
+        'fin_to'          =>  $fin_to
       ]);
   }
 }

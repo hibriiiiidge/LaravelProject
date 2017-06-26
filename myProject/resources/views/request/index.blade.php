@@ -6,17 +6,56 @@
   <button data-effect="st-effect-search" style="border-radius: 20px;"><i class="fa fa-search fa-2x"></i></button>
 </div>
 <div id="request_list_container">
-  <div class="">
-    <div class="">
-      検索条件
+  <div id="$search_condition">
+    @if ($isEmpty)
+      <div id="search_title">
+        検索条件
+      </div>
+    @endif
+    <div id="search_contents">
+      <ul>
+    {{-- @foreach ($search_condition as $key => $value) --}}
+          @php
+          foreach ($search_condition as $key => $value) {
+            if($value){
+              switch ($key) {
+                case 'urgency':
+                  echo "<li class='search_conditions s_u'> $search_title[$key] : $urgencys[$value] </li>";
+                  break;
+                case 'base':
+                  echo "<li class='search_conditions s_b'> $search_title[$key] : $value </li>";
+                  break;
+                case 'buy_way':
+                  echo "<li class='search_conditions s_bw'> $search_title[$key] : $buy_ways[$value] </li>";
+                  break;
+                case 'status':
+                  echo "<li class='search_conditions s_sts'> $search_title[$key] : $prges[$value] </li>";
+                  break;
+                case 'prefecture':
+                  echo "<li class='search_conditions s_pref'> $search_title[$key] : $prefs[$value] </li>";
+                  break;
+                case 'staff':
+                  echo "<li class='search_conditions s_stf'> $search_title[$key] : $value </li>";
+                  break;
+                case 'rgst_to':
+                case 'fin_to':
+                  echo "<li class='search_conditions s_to'> $search_title[$key] $value </li>";
+                  break;
+                default:
+                  echo "<li class='search_conditions'> $search_title[$key] : $value </li>";
+                  break;
+              }
+            }
+          }
+          @endphp
+          {{-- @if($key=='rgst_to' || $key=='fin_to')
+              <li class="search_to">{{ $search_title[$key] }}{{ $value }}</li>
+          @else
+              <li class="search_conditions">{{ $search_title[$key] }} :  {{ $value }}</li>
+          @endif --}}
+      {{-- @endforeach --}}
+      </ul>
     </div>
-    @foreach ($searchCondition as $key => $value)
-      @if ($value)
-        <div class="">
-          {{ $key }} :  {{ $value }}
-        </div>
-      @endif
-    @endforeach
   </div>
   <table class="table table-striped table-hover">
     <thead>
@@ -119,10 +158,45 @@
     </tbody>
   </table>
 
-  {{ $request_results->appends(['name'=>$name, 'kana'=>$kana])->links() }}
+  {{-- @TODO 検索条件をコンテナ化して一気に渡したい... --}}
+  {{ $request_results->appends([
+    'request_id'  => $request_id,
+    'client_id'   => $client_id,
+    'name'        => $name,
+    'kana'        => $kana,
+    'tel'         => $tel,
+    'fax'         => $fax,
+    'urgency'     => $urgency,
+    'base'        => $base,
+    'status'      => $status,
+    'buy_way'     => $buy_way,
+    'prefecture'  => $prefecture,
+    'staff'       => $staff,
+    'rgst_from'   => $rgst_from,
+    'rgst_to'     => $rgst_to,
+    'fin_from'    => $fin_from,
+    'fin_to'      => $fin_to
+      ])->links() }}
 </div>
 @endsection
 
 @section('search')
-  @include('search.form_partial', ['name'=>$name])
+  @include('search.form_partial', [
+    'old_request_id'  => $request_id,
+    'old_client_id'   => $client_id,
+    'old_name'        => $name,
+    'old_kana'        => $kana,
+    'old_tel'         => $tel,
+    'old_fax'         => $fax,
+    'old_urgency'     => $urgency,
+    'old_base'        => $base,
+    'old_status'      => $status,
+    'old_buy_way'     => $buy_way,
+    'old_prefecture'  => $prefecture,
+    'old_staff'       => $staff,
+    'old_rgst_from'   => $rgst_from,
+    'old_rgst_to'     => $rgst_to,
+    'old_fin_from'    => $fin_from,
+    'old_fin_to'      => $fin_to
+  ])
 @endsection

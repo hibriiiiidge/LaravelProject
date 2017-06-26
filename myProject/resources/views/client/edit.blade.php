@@ -12,8 +12,8 @@
   <div class="">
     <input type="text" name="search" value="" width="100px" style="float:right;">
   </div>--}}
-  <div id="rgst_btn">
-      <button type="submit" class="btn btn-primary">
+  <div id="edit_rgst_btn">
+      <button type="submit" class="btn btn-primary rgst_btn">
           登録
       </button>
   </div>

@@ -46,7 +46,7 @@
                   <td>
                     <div id="contact_way" class="col-lg-12">
                       @foreach ($contact_ways as $index => $contact_way)
-                        <input type="radio" name="contact_way" value="{{ $index }}" {{ $requestDetail->buy_way == $index ? 'checked': '' }}>{{ $contact_way }}
+                        <input type="radio" name="contact_way" value="{{ $index }}" {{ $requestDetail->contact_way == $index ? 'checked': '' }}>{{ $contact_way }}
                       @endforeach
                     </div>
                   </td>
@@ -88,9 +88,9 @@
                   <td>
                     <div class="col-lg-4">
                       <span class="bnk_area">
-                        <input type="text" name="bank_name" id="bank_name" class="form-control form_txt-short"  value="{{ old('bank_name') }}" />
+                        <input type="text" name="bank_name" id="bank_name" class="form-control form_txt-short"  value="{{ old('bank_name', $requestDetail->bank_name) }}" />
                       </span>
-                      金融機関コード：<span id="bank_code"></span>
+                      金融機関コード：<span id="bank_code">{{ $requestDetail->bank_code }}</span>
                       <input type="hidden" id="hd_bank_code" name="bank_code" value="">
                     </div>
                     <span id="bank_name_clear" class="bnk_clear btn btn-danger btn-xs">X</span>
@@ -101,29 +101,37 @@
                   <td>
                     <div class="col-lg-4">
                       <span class="bnk_area">
-                        <input type="text" name="branch_name" id="branch_name" class="form-control form_txt-short" value="{{ old('bank_name') }}" />
+                        <input type="text" name="branch_name" id="branch_name" class="form-control form_txt-short" value="{{ old('branch_name', $requestDetail->branch_name) }}" />
                       </span>
-                      支店コード：<span id="branch_code"></span>
+                      支店コード：<span id="branch_code">{{ $requestDetail->branch_code }}</span>
                       <input type="hidden" id="hd_branch_code" name="branch_code" value="">
                     </div>
                     <span id="branch_name_clear" class="bnk_clear btn btn-danger btn-xs">X</span>
                   </td>
                 </tr>
                 <tr class="form-group">
-                  <th><label for="deposit_kind" class="col-lg-12 control-label">預金種類</label></th>
+                  <th><label for="account_kind" class="col-lg-12 control-label">預金種類</label></th>
                   <td>
                     <div class="col-lg-12">
-                        <input type="radio" name="deposit_kind" value="1">普通
-                        <input type="radio" name="deposit_kind" value="2">当座
-                        <input type="radio" name="deposit_kind" value="3">貯蓄
+                        <input type="radio" name="account_kind" value="1" {{ $requestDetail->account_kind == 1 ? 'checked': '' }}>普通
+                        <input type="radio" name="account_kind" value="2" {{ $requestDetail->account_kind == 2 ? 'checked': '' }}>当座
+                        <input type="radio" name="account_kind" value="3" {{ $requestDetail->account_kind == 3 ? 'checked': '' }}>貯蓄
                     </div>
                   </td>
                 </tr>
                 <tr class="form-group">
-                  <th><label for="account_num" class="col-lg-12 control-label">口座番号</label></th>
+                  <th><label for="account_number" class="col-lg-12 control-label">口座番号</label></th>
                   <td>
                     <div class="col-lg-3">
-                        <input id="account_num" type="text" class="form-control" name="account_num" value="{{ old('account_num') }}" autofocus>
+                        <input id="account_number" type="text" class="form-control" name="account_number" value="{{ old('account_number', $requestDetail->account_number) }}" autofocus>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="form-group">
+                  <th><label for="account_name" class="col-lg-12 control-label">口座名義人</label></th>
+                  <td>
+                    <div class="col-lg-12">
+                        <input id="account_name" type="text" class="form-control" name="account_name" value="{{ old('account_name', $requestDetail->account_name) }}" autofocus>
                     </div>
                   </td>
                 </tr>

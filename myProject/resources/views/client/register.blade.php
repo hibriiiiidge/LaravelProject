@@ -39,52 +39,10 @@
     </div><!-- TAB All END -->
   </div><!-- #wrap_main_container -->
   <div id="progress_container">
-    <div class="progress_block">
-      <label for="progress_status">進捗状況</label>
-      <select id="progress_status" name="progress_status">
-        @foreach ($prges as $index => $prg)
-          <option value="{{ $index }}">{{ $prg }}</option>
-        @endforeach
-      </select>
-      <textarea name="progress_memo" rows="3" placeholder="伝達事項" id="progress_memo"></textarea>
-    </div>
+    @include('client.progress_partial')
   </div>
   <div id="summary_container">
-    <!-- ここからアコーディオン（Collapse） -->
-    <div class="panel-group" id="" role="tablist" aria-multiselectable="true">
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab">
-          <h4 class="panel-title">
-            <a role="button" data-toggle="collapse" data-parent="" href="#summary_tab" aria-expanded="true" aria-controls="collapseOne">
-              サマリー
-            </a>
-          </h4>
-        </div>
-        <div id="summary_tab" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-          <div class="panel-body">
-            <ul>
-              <li>拠点:</li>
-              <li>性別：</li>
-              <li>電話番号:</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab">
-          <h4 class="panel-title">
-            <a class="collapsed" role="button" data-toggle="collapse" data-parent="" href="#summary_memo_tab" aria-expanded="false" aria-controls="collapseTwo">
-              管理者メモ
-            </a>
-          </h4>
-        </div>
-        <div id="summary_memo_tab" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-          <div class="panel-body">
-            <textarea name="summary_memo_sub" rows="8" id="summary_memo_sub" class="memo" data-type="sub"></textarea>
-          </div>
-        </div>
-      </div>
-    </div>
+    @include('client.summary_partial')
   </div>
   <input type="hidden" name="memo_type" value="">
 </form>

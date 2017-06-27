@@ -12,6 +12,7 @@
                   <thead>
                     <td>ID</td>
                     <td>名称</td>
+                    <td>確認項目</td>
                     <td>使用状況</td>
                     <td>編集</td>
                   </thead>
@@ -20,6 +21,7 @@
                     <tr class="{{ $item_category->status=='X' ? 'statusX' : ''}}">
                       <th>{{ $item_category->id }}</th>
                       <td>{{ $item_category->name }}</td>
+                      <td>{!! nl2br(e($item_category->check_list)) !!}</td>
                       <td>{{ $item_category->status }}</td>
                       <td>
                         <a href="{{ action('ItemCategoriesController@edit', $item_category->id) }}">

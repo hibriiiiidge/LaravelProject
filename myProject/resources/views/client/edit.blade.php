@@ -26,7 +26,7 @@
               <a href="#item_tab_{{ $item->no_underscore_id }}" data-toggle="tab">商品</a>
             </li>
           @endforeach
-          @if ($latestSts< $prg_nums['finnal_price'])
+          @if ($latestSts < $prg_nums['final_price'])
             <li id="add_btn"><a href="#add_item_tab" id="add_item" data-toggle="tab">+追加</a></li>
           @endif
       </ul>
@@ -48,15 +48,7 @@
     </div><!-- TAB All END -->
   </div><!-- #wrap_main_container -->
   <div id="progress_container">
-    <div class="progress_block">
-      <label for="progress_status">進捗状況</label>
-      <select id="progress_status" name="progress_status">
-        @foreach ($prges as $index => $prg)
-          <option value="{{ $index }}" {{ $latestSts == $index ? 'selected' : '' }}>{{ $prg }}</option>
-        @endforeach
-      </select>
-      <textarea name="progress_memo" rows="3" placeholder="伝達事項" id="progress_memo"></textarea>
-    </div>
+    @include('client.progress_partial')
     <div class="progress_table">
       <table class="table table-striped table-hover">
         <tbody>
@@ -77,41 +69,7 @@
     </div>
   </div>
   <div id="summary_container">
-    <!-- ここからアコーディオン（Collapse） -->
-    <div class="panel-group" id="" role="tablist" aria-multiselectable="true">
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab">
-          <h4 class="panel-title">
-            <a role="button" data-toggle="collapse" data-parent="" href="#summary_tab" aria-expanded="true" aria-controls="collapseOne">
-              サマリー
-            </a>
-          </h4>
-        </div>
-        <div id="summary_tab" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-          <div class="panel-body">
-            <ul>
-              <li>拠点：{{ $client->base }}</li>
-              <li>名前：{{ $client->fullname }}</li>
-              <li>電話番号:{{ $client->tel }}</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab">
-          <h4 class="panel-title">
-            <a class="collapsed" role="button" data-toggle="collapse" data-parent="" href="#summary_memo_tab" aria-expanded="false" aria-controls="collapseTwo">
-              管理者メモ
-            </a>
-          </h4>
-        </div>
-        <div id="summary_memo_tab" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-          <div class="panel-body">
-            <textarea name="summary_memo_sub" rows="8" id="summary_memo_sub" class="memo" data-type="sub">{{  old('summary_memo_sub', $requestDetail->summary_memo) }}</textarea>
-          </div>
-        </div>
-      </div>
-    </div>
+    @include('client.summary_partial')
   </div>
   <input type="hidden" name="memo_type" value="">
 </form>

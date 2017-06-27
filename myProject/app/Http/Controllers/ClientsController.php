@@ -85,7 +85,7 @@ class ClientsController extends Controller
      *
      */
     public function store(Request $request){
-      dd($request);
+      //dd($request);
       //@TODO バリデーション
       // $this->validate($request, [
       //   'attribute'   => 'required|integer',
@@ -169,6 +169,13 @@ class ClientsController extends Controller
       $rDetail->route           = $request->route;
       $rDetail->competitive_flg = $request->competitive_flg;
       $rDetail->summary_memo    = $summary_memo;
+      $rDetail->bank_name       = $request->bank_name;
+      $rDetail->bank_code       = $request->bank_code;
+      $rDetail->branch_name     = $request->branch_name;
+      $rDetail->branch_code     = $request->branch_code;
+      $rDetail->account_kind    = $request->account_kind;
+      $rDetail->account_number  = $request->account_number;
+      $rDetail->account_name    = $request->account_name;
       $rDetail->rgster          = $request->rgster;
       $rDetail->updter          = $request->updter;
       $rDetail->status          = $request->status;
@@ -190,6 +197,43 @@ class ClientsController extends Controller
       ///////////////////////////////////////////////////////////////
       ////                  item
       ///////////////////////////////////////////////////////////////
+      // $allcount = array();
+      // for ($i=0; $i < count($request->category); $i++) {
+      //   for ($j=0; $j < $request->item_num[$i]; $j++) {
+      //     $allcount[] = 1;   //案件に紐付くitem総数をカウントするため
+      //     $item_group_n = $i+1;
+      //     $item_n = $j+1;
+      //     $item = new Item();
+      //     $item->id                   = ($rDetail->request_id)."_".$item_group_n."_".$item_n;
+      //     $item->item_group           = ($rDetail->request_id)."_".$item_group_n;
+      //     $item->no_underscore_id     = ($rDetail->request_id).$item_group_n.$item_n;
+      //     $item->request_id           = $rDetail->request_id;
+      //     $item->count                = count($allcount);
+      //
+      //     $item->category             = $request->category[$i];
+      //     $item->maker                = $request->maker[$i];
+      //     $item->name                 = $request->item_name[$i];
+      //     $item->outside_condition    = $request->outside_condition ? current(array_slice($request->outside_condition, $i, 1, true)) : null;
+      //     $item->inside_condition     = $request->inside_condition ? current(array_slice($request->inside_condition, $i, 1, true)) : null;
+      //     $item->cooling_off_flg      = $request->cooling_off_flg ? current(array_slice($request->cooling_off_flg, $i, 1, true)) : null;
+      //     $item->memo                 = $request->item_memo ? current(array_slice($request->item_memo, $i, 1, true)) : null;
+      //     $item->estimate_price       = $request->estimate_price[$i] ? str_replace(',', '', $request->estimate_price[$i]) : null;
+      //     $item->expsell_min_price    = $request->expsell_min_price[$i] ? str_replace(',', '', $request->expsell_min_price[$i]): null;
+      //     $item->expsell_max_price    = $request->expsell_max_price[$i] ? str_replace(',', '', $request->expsell_max_price[$i]): null;
+      //     $item->exp_min_profit       = $request->exp_min_profit[$i] ? str_replace(',', '', $request->exp_min_profit[$i]): null;
+      //     $item->exp_max_profit       = $request->exp_max_profit[$i] ? str_replace(',', '', $request->exp_max_profit[$i]): null;
+      //     $item->exp_min_profit_rate  = $request->exp_min_profit_rate[$i];
+      //     $item->exp_max_profit_rate  = $request->exp_max_profit_rate[$i];
+      //     $item->buy_price            = $request->buy_price[$i] ? str_replace(',', '', $request->buy_price[$i]): null;
+      //     $item->sell_price           = $request->sell_price[$i] ? str_replace(',', '', $request->sell_price[$i]): null;
+      //     $item->profit               = $request->profit[$i] ? str_replace(',', '', $request->profit[$i]): null;
+      //     $item->profit_rate          = $request->profit_rate[$i];
+      //     $item->status               = $request->item_status;
+      //     $item->rgster               = $request->rgster;
+      //     $item->updter               = $request->updter;
+      //     $item->save();
+      //   }
+      // }
       for ($i=0; $i < count($request->category); $i++) {
         $item_n = $i+1;
         $item = new Item();
@@ -232,9 +276,6 @@ class ClientsController extends Controller
       //@TODO destroyと同じ処理をまとめる
       $client = Client::findOrFail($clientId);
       $requestDetail = RequestDetail::where('request_id', $requestDetailId)->first();
-      $baseTypes = DB::table('base_types')
-                      ->where('status', '<>', 'X')
-                      ->get();
       $rProgresses = DB::table('request_progresses')
                       ->select('request_progresses.created_at AS dt', 'request_progresses.progress_memo AS memo', 'users.name AS name', 'request_progresses.progress_status AS status')
                       ->leftJoin('users', 'users.id', '=', 'request_progresses.rgster')
@@ -242,16 +283,26 @@ class ClientsController extends Controller
                       ->orderBy('dt', 'desc')
                       ->get();
       $latestSts  = $rProgresses[0]->status;
-      $items      = Item::where('request_id', $requestDetailId)->where('status', '<>', 'X')->orderBy('created_at', 'ASC')->get();
+      $items      = Item::where('request_id', $requestDetailId)
+                        ->where('status', '<>', 'X')
+                        ->orderBy('created_at', 'ASC')
+                        ->get();
+      // $items = DB::table('items AS I')
+      //             ->rightJoin(DB::raw("(select item_group, max(no_underscore_id) AS repre_id  from items where request_id = ".$requestDetailId." group by item_group) AS RP_I"), 'RP_I.repre_id', '=', 'I.no_underscore_id')
+      //             ->leftJoin(DB::raw("(select item_group, count(*) AS all_cnt from items where request_id = ".$requestDetailId."  group by item_group) AS CNT_I"), 'CNT_I.item_group', '=', 'RP_I.item_group')
+      //             ->get();
       $itemsCnt   = count($items);
       $prefs      = config('pref');
       $prges      = config('progress'); //進捗状況取得
-      $prg_nums    = config('progress_num');
+      $prg_nums   = config('progress_num');
       $urgencys   = config('urgency');
       $reasons    = config('reason');
       $buy_ways   = config('buy_way');
       $contact_ways = config('contact_way');
       $jobs       = config('job');
+      $baseTypes  = DB::table('base_types')
+                      ->where('status', '<>', 'X')
+                      ->get();
       $routes     = DB::table('routes')
                       ->where('status', '<>', 'X')
                       ->get();                        //サイト一覧を取得
@@ -261,6 +312,7 @@ class ClientsController extends Controller
       $item_makers      = DB::table('item_makers')
                             ->where('status', '<>', 'X')
                             ->get();                    //メーカー一覧を取得
+                            //dd($latestSts);
       return view('client.edit', [
         'client'          =>  $client,
         'requestDetail'   =>  $requestDetail,
@@ -331,6 +383,13 @@ class ClientsController extends Controller
       $rDetail->route           = $request->route;
       $rDetail->competitive_flg = $request->competitive_flg;
       $rDetail->summary_memo    = $summary_memo;
+      $rDetail->bank_name       = $request->bank_name;
+      $rDetail->bank_code       = $request->bank_code;
+      $rDetail->branch_name     = $request->branch_name;
+      $rDetail->branch_code     = $request->branch_code;
+      $rDetail->account_kind    = $request->account_kind;
+      $rDetail->account_number  = $request->account_number;
+      $rDetail->account_name    = $request->account_name;
       $rDetail->updter          = $request->updter;
       $rDetail->save();
       ///////////////////////////////////////////////////////////////
@@ -355,7 +414,6 @@ class ClientsController extends Controller
       ////                  item
       ///////////////////////////////////////////////////////////////
       $items = $rDetail->items;     //request_detailsに紐づくitemの取得 status<>"X"の条件
-      //dd($items);
       $dbItemsCnt = count($items);  //request_detailsに紐づくitemの数
       for ($i=0; $i < $dbItemsCnt; $i++) {
         $items[$i]->category             = $request->category[$i];
@@ -433,23 +491,65 @@ class ClientsController extends Controller
       //@TODO editと同一処理をまとめる
       $client = Client::findOrFail($clientId);
       $requestDetail = RequestDetail::where('request_id', $requestDetailId)->first();
-      $baseTypes = DB::table('base_types')
-                      ->where('status', '<>', 'X')
-                      ->get();
       $rProgresses = DB::table('request_progresses')
                       ->select('request_progresses.created_at AS dt', 'request_progresses.progress_memo AS memo', 'users.name AS name', 'request_progresses.progress_status AS status')
                       ->leftJoin('users', 'users.id', '=', 'request_progresses.rgster')
                       ->where('request_id', '=', $requestDetailId)
                       ->orderBy('dt', 'desc')
                       ->get();
-      $latestSts = $rProgresses[0]->status;
+      $latestSts  = $rProgresses[0]->status;
+
 
       //論理削除
       $item = Item::where('no_underscore_id', $request->deleteItemId)->first();
       $item->status = "X";
       $item->save();
-      $items = Item::where('request_id', $requestDetailId)->where('status', '<>', 'X')->orderBy('created_at', 'ASC')->get();
+      $items      = Item::where('request_id', $requestDetailId)
+                        ->where('status', '<>', 'X')
+                        ->orderBy('created_at', 'ASC')
+                        ->get();
       $itemsCnt = count($items);
-      return view('client.edit', ['client'=>$client, 'requestDetail'=>$requestDetail, 'baseTypes'=>$baseTypes, 'rProgresses'=>$rProgresses, 'latestSts'=>$latestSts, 'items'=>$items, 'itemsCnt'=>$itemsCnt]);
+
+      $prefs      = config('pref');
+      $prges      = config('progress'); //進捗状況取得
+      $prg_nums   = config('progress_num');
+      $urgencys   = config('urgency');
+      $reasons    = config('reason');
+      $buy_ways   = config('buy_way');
+      $contact_ways = config('contact_way');
+      $jobs       = config('job');
+      $baseTypes  = DB::table('base_types')
+                      ->where('status', '<>', 'X')
+                      ->get();
+      $routes     = DB::table('routes')
+                      ->where('status', '<>', 'X')
+                      ->get();                        //サイト一覧を取得
+      $item_categories  = DB::table('item_categories')
+                            ->where('status', '<>', 'X')
+                            ->get();                    //商品カテゴリー一覧を取得
+      $item_makers      = DB::table('item_makers')
+                            ->where('status', '<>', 'X')
+                            ->get();                    //メーカー一覧を取得
+                            //dd($latestSts);
+      return view('client.edit', [
+        'client'          =>  $client,
+        'requestDetail'   =>  $requestDetail,
+        'baseTypes'       =>  $baseTypes,
+        'rProgresses'     =>  $rProgresses,
+        'latestSts'       =>  $latestSts,
+        'items'           =>  $items,
+        'itemsCnt'        =>  $itemsCnt,
+        'prefs'           =>  $prefs,
+        'routes'          =>  $routes,
+        'prges'           =>  $prges,
+        'prg_nums'        =>  $prg_nums,
+        'urgencys'        =>  $urgencys,
+        'reasons'         =>  $reasons,
+        'buy_ways'        =>  $buy_ways,
+        'contact_ways'    =>  $contact_ways,
+        'jobs'            =>  $jobs,
+        'item_categories' =>  $item_categories,
+        'item_makers'     =>  $item_makers
+      ]);
     }
 }

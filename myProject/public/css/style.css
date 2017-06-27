@@ -39,7 +39,7 @@
   overflow: scroll;
   width: 20%;
   float: left;
-  height: 700px;
+  height: 1050px;
   border-left: 1px solid #808080;
   border-right: 1px solid #808080;
   background-color: #fcfcfc;
@@ -79,6 +79,7 @@
 #summary_container .panel-group .panel,
 #summary_container .panel{
   border-radius: 0px;
+  height: 200px;
 }
 
 #summary_container .panel-body{

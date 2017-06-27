@@ -33,19 +33,35 @@ $(function(){
       }
     );
   }
-  //@TODO カテゴリーごとの確認項目を特記事項の下に表示&管理者メモに追加
+  //カテゴリーごとの確認項目を特記事項の下に表示&管理者メモに追加
   function addChkList(){
     var categoryNo   = $(this).attr('id');
     var splitNo      = categoryNo.split("_");
     var categoryId  = $(this).val();
-    var test = '#item_memo_'+splitNo[1];
-    alert(test);
-    if(splitNo[1]){
-      $('#item_memo_'+splitNo[1]).val("TEST");
-    }
-    else{
-      $('#item_memo').val("TEST");
-    }
+    var itemMemo = splitNo[1] ? $('#item_memo_'+splitNo[1]).val() :  $('#item_memo').val();
+    var summaryMemoSub = $('#summary_memo_sub').val();
+    var url = "http://homestead.app/api/item_categories/"+categoryId;
+    $.ajax({
+      url: url,
+      type: "GET",
+      dataType: "json"
+    })
+    .then(
+      function(res){
+        itemMemo += ("\n" +res.check_list);
+        summaryMemoSub += ("\n" +res.check_list);
+        if(splitNo[1]){
+          $('#item_memo_'+splitNo[1]).val(itemMemo);
+        }
+        else{
+          $('#item_memo').val(itemMemo);
+        }
+        $('#summary_memo_sub').val(summaryMemoSub);
+      },
+      function(res){
+        alert("カテゴリー毎の確認事項を取得出来ませんでした。その旨を技術担当までご報告ください。");
+      }
+    );
   }
 
 
@@ -265,6 +281,28 @@ $(function(){
                 $("#dom_item_memo_"+ts+">td>div").prepend(
                   '<textarea name="item_memo['+ts+']" rows="8" cols="80" id="item_memo_'+ts+'"></textarea>'
                 );
+      //item_num
+      // $("#item_request_table_"+ts+">tbody").append(
+      //   $("<tr></tr>", {Id:"dom_item_num_"+ts, addClass: "form-group"})
+      // );
+      //     $("#dom_item_num_"+ts).append(
+      //       $("<th></th>")
+      //     );
+      //     $("#dom_item_num_"+ts).append(
+      //       $("<td></td>")
+      //     );
+      //         $("#dom_item_num_"+ts+">th").prepend(
+      //           '<label for="item_num" class="col-lg-12 control-label">同一商品数</label>'
+      //         );
+      //         $("#dom_item_num_"+ts+">td").prepend(
+      //           $("<div></div>", {addClass: "col-lg-2 tr_price"})
+      //         );
+      //         $("#dom_item_num_"+ts+">td>div").prepend(
+      //           '<input id="item_num_'+ts+'" type="text" class="form-control" name="item_num[]">'
+      //         );
+      //         $("#dom_item_num_"+ts+">td").append(
+      //           '<span class="yen">個</span>'
+      //         );
         //estimate_price
         $("#item_request_table_"+ts+">tbody").append(
           $("<tr></tr>", {Id:"dom_estimate_price_"+ts, addClass: "form-group"})

@@ -101,6 +101,16 @@
                 </td>
               </tr>
 
+              {{-- <tr class="form-group">
+                <th><label for="item_num" class="col-lg-12 control-label">同一商品数</label></th>
+                <td>
+                  <div class="col-lg-2">
+                    <input id="item_num{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}"  type="text" class="form-control" name="item_num[]" value="{{ $item->all_cnt }}">
+                  </div>
+                  <span class="yen">個</span>
+                </td>
+              </tr> --}}
+
               <tr class="form-group">
                 <th><label for="estimate_price" class="col-lg-12 control-label">見積提示額</label></th>
                 <td>
@@ -211,6 +221,7 @@
               @if ($item->status=="R")
                 {{-- @TODO price関連のdisabledを追加する--}}
                 <input type="hidden" name="category[]" value="{{ $item->category }}">
+                <input type="hidden" name="maker[]" value="{{ $item->maker }}">
                 <input type="hidden" name="item_name[]" value="{{ $item->item_name }}">
                 <input type="hidden" name="outside_condition[{{$item->no_underscore_id}}]" value="{{ $item->outside_condition }}">
                 <input type="hidden" name="inside_condition[{{$item->no_underscore_id}}]" value="{{ $item->inside_condition }}">
@@ -231,7 +242,7 @@
   </div>
   @endunless
 @else
-  @if ($prg_nums['agreement'] < $latestSts && $itemsCnt && $itemsCnt > 1)
+  @if ($latestSts < $prg_nums['agreement'] && $itemsCnt && $itemsCnt > 1)
     <div id="item_delete_{{$item->no_underscore_id}}" class="delete_btn_edit">
       <button type="button" id="delete_btn_{{$item->no_underscore_id}}" class="btn btn-danger">削除</button>
     </div>

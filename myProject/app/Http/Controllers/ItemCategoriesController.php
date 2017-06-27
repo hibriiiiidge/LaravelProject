@@ -26,10 +26,11 @@ class ItemCategoriesController extends Controller
     //dd($request);
     //@TODO $request バリデーション
     $item_category = new ItemCategory();
-    $item_category->name     = $request->ic_name;
-    $item_category->status   = $request->ic_status;
-    $item_category->rgster   = $request->ic_rgster;
-    $item_category->updter   = $request->ic_updter;
+    $item_category->name        = $request->ic_name;
+    $item_category->check_list  = $request->ic_check_list;
+    $item_category->status      = $request->ic_status;
+    $item_category->rgster      = $request->ic_rgster;
+    $item_category->updter      = $request->ic_updter;
     $item_category->save();
     $item_categories = DB::table('item_categories')
                       ->orderBy('status', 'asc')
@@ -48,6 +49,7 @@ class ItemCategoriesController extends Controller
     //@TODO $request バリデーション
     $item_category = ItemCategory::findOrFail($itemCategoryId);
     $item_category->name         = $request->ic_name;
+    $item_category->check_list  = $request->ic_check_list;
     $item_category->status       = $request->ic_status;
     $item_category->updter       = $request->ic_updter;
     $item_category->save();

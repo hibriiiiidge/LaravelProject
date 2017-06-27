@@ -17,7 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::resource('/item_categories', 'ItemCategoryApiController', ['only'=> ['index']]);
 Route::get('/item_categories', 'ItemCategoryApiController@index');
+Route::get('/item_categories/{category_id}', 'ItemCategoryApiController@chkList');
 
 Route::get('/item_makers/{categoryId}', 'ItemMakerApiController@index');

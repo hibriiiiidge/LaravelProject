@@ -18,7 +18,7 @@
    * table上のstringeは''ではなく'-'をリターン
    */
   function chkStr($str){
-    return $str ? $str: '-';
+    return $str ? $str: ' -';
   }
   /**
    * table上のdtの整形

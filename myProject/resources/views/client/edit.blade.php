@@ -76,6 +76,6 @@
 <form action="{{ action('ClientsController@destroy', [$client->id, $requestDetail->request_id]) }}" method="post" id="deleteTabForm">
   {{ csrf_field() }}
   {{ method_field('delete') }}
-  <input type="hidden" name="deleteItemId" id="deleteItemId" value="">
+  <input type="hidden" name="deleteItemGroup" id="deleteItemGroup" value="">
 </form>
 @endsection

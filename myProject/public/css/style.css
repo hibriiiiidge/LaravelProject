@@ -79,7 +79,6 @@
 #summary_container .panel-group .panel,
 #summary_container .panel{
   border-radius: 0px;
-  height: 200px;
 }
 
 #summary_container .panel-body{
@@ -160,6 +159,15 @@
   margin-left: 15px;
 }
 
+.text_price{
+  text-align: center;
+  line-height: 2.5;
+}
+
+.span_text_price{
+  font-size: 18px;
+}
+
 #repeat_btn{
   color: #ffffff;
   text-decoration: none;
@@ -181,6 +189,15 @@
 #bnk_cnt,
 #bnk_close{
   color: #ffffff !important;
+}
+
+.item_num{
+  text-align: center;
+}
+.total_price{
+  line-height: 2.5em;
+  text-align: right;
+  font-size: 15px;
 }
 
 /***************************/

@@ -135,8 +135,10 @@
                     </div>
                   </td>
                 </tr>
-
               </table>
+              <div id="request_hidden">
+                <input type="hidden" name="request_id" value="{{ $requestDetail->request_id }}">
+              </div>
             </div>
           </div>
       </div>

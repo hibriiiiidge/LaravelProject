@@ -282,27 +282,27 @@ $(function(){
                   '<textarea name="item_memo['+ts+']" rows="8" cols="80" id="item_memo_'+ts+'"></textarea>'
                 );
       //item_num
-      // $("#item_request_table_"+ts+">tbody").append(
-      //   $("<tr></tr>", {Id:"dom_item_num_"+ts, addClass: "form-group"})
-      // );
-      //     $("#dom_item_num_"+ts).append(
-      //       $("<th></th>")
-      //     );
-      //     $("#dom_item_num_"+ts).append(
-      //       $("<td></td>")
-      //     );
-      //         $("#dom_item_num_"+ts+">th").prepend(
-      //           '<label for="item_num" class="col-lg-12 control-label">同一商品数</label>'
-      //         );
-      //         $("#dom_item_num_"+ts+">td").prepend(
-      //           $("<div></div>", {addClass: "col-lg-2 tr_price"})
-      //         );
-      //         $("#dom_item_num_"+ts+">td>div").prepend(
-      //           '<input id="item_num_'+ts+'" type="text" class="form-control" name="item_num[]">'
-      //         );
-      //         $("#dom_item_num_"+ts+">td").append(
-      //           '<span class="yen">個</span>'
-      //         );
+      $("#item_request_table_"+ts+">tbody").append(
+        $("<tr></tr>", {Id:"dom_item_num_"+ts, addClass: "form-group"})
+      );
+          $("#dom_item_num_"+ts).append(
+            $("<th></th>")
+          );
+          $("#dom_item_num_"+ts).append(
+            $("<td></td>")
+          );
+              $("#dom_item_num_"+ts+">th").prepend(
+                '<label for="item_num" class="col-lg-12 control-label">商品数</label>'
+              );
+              $("#dom_item_num_"+ts+">td").prepend(
+                $("<div></div>", {addClass: "col-lg-2 tr_price"})
+              );
+              $("#dom_item_num_"+ts+">td>div").prepend(
+                '<input id="item_num_'+ts+'" type="text" class="form-control item_num" name="item_num[]" value="1">'
+              );
+              $("#dom_item_num_"+ts+">td").append(
+                '<span class="yen">個</span>'
+              );
         //estimate_price
         $("#item_request_table_"+ts+">tbody").append(
           $("<tr></tr>", {Id:"dom_estimate_price_"+ts, addClass: "form-group"})
@@ -373,10 +373,11 @@ $(function(){
                   '<label for="exp_profit" class="col-lg-12 control-label">見込粗利額</label>'
                 );
                 $("#exp_profit_"+ts+">td").prepend(
-                  $("<div></div>", {addClass: "col-lg-2 tr_price"})
+                  $("<div></div>", {addClass: "col-lg-2 tr_price text_price"})
                 );
                 $("#exp_profit_"+ts+">td>div").prepend(
-                  '<input id="exp_min_profit_'+ts+'" type="text" class="form-control price exp_min_profit" name="exp_min_profit[]">'
+                  '<span id="exp_min_profit_'+ts+'" class="span_text_price"></span>' +
+                  '<input type="hidden" id="hid_exp_min_profit_'+ts+'" name="exp_min_profit[]">'
                 );
                 $("#exp_profit_"+ts+">td").append(
                   '<span class="yen">円</span>'
@@ -385,10 +386,11 @@ $(function(){
                   '<div class="price wave">〜</div>'
                 );
                 $("#exp_profit_"+ts+">td").append(
-                  $("<div></div>", {addClass: "col-lg-2 tr_price max_price"})
+                  $("<div></div>", {addClass: "col-lg-2 tr_price max_price text_price"})
                 );
                 $("#exp_profit_"+ts+">td>div.max_price").prepend(
-                  '<input id="exp_max_profit_'+ts+'" type="text" class="form-control price exp_max_profit" name="exp_max_profit[]">'
+                  '<span id="exp_max_profit_'+ts+'" class="span_text_price"></span>' +
+                  '<input type="hidden" id="hid_exp_max_profit_'+ts+'" name="exp_max_profit[]">'
                 );
                 $("#exp_profit_"+ts+">td").append(
                   '<span class="yen">円</span>'
@@ -407,10 +409,11 @@ $(function(){
                 '<label for="exp_profrate" class="col-lg-12 control-label">見込粗利率</label>'
               );
               $("#exp_profrate_"+ts+">td").prepend(
-                $("<div></div>", {addClass: "col-lg-2 tr_price"})
+                $("<div></div>", {addClass: "col-lg-2 tr_price text_price"})
               );
               $("#exp_profrate_"+ts+">td>div").prepend(
-                '<input id="exp_min_profit_rate_'+ts+'" type="text" class="form-control price exp_min_profit_rate" name="exp_min_profit_rate[]">'
+                '<span id="exp_min_profit_rate_'+ts+'" class="span_text_price"></span>'+
+                '<input type="hidden" id="hid_exp_min_profit_rate_'+ts+'" name="exp_min_profit_rate[]">'
               );
               $("#exp_profrate_"+ts+">td").append(
                 '<span class="yen">％</span>'
@@ -419,10 +422,11 @@ $(function(){
                 '<div class="price wave">〜</div>'
               );
               $("#exp_profrate_"+ts+">td").append(
-                $("<div></div>", {addClass: "col-lg-2 tr_price max_price"})
+                $("<div></div>", {addClass: "col-lg-2 tr_price max_price text_price"})
               );
               $("#exp_profrate_"+ts+">td>div.max_price").prepend(
-                '<input id="exp_max_profit_rate_'+ts+'" type="text" class="form-control price exp_max_profit_rate" name="exp_max_profit_rate[]">'
+                '<span id="exp_max_profit_rate_'+ts+'" class="span_text_price"></span>'+
+                '<input type="hidden" id="hid_exp_max_profit_rate_'+ts+'" name="exp_max_profit_rate[]">'
               );
               $("#exp_profrate_"+ts+">td").append(
                 '<span class="yen">％</span>'
@@ -485,10 +489,11 @@ $(function(){
                 '<label for="profit" class="col-lg-12 control-label">粗利額</label>'
               );
               $("#dom_profit_"+ts+">td").prepend(
-                $("<div></div>", {addClass: "col-lg-2 tr_price"})
+                $("<div></div>", {addClass: "col-lg-2 tr_price text_price"})
               );
               $("#dom_profit_"+ts+">td>div").prepend(
-                '<input id="profit_'+ts+'" type="text" class="form-control price profit" name="profit[]">'
+                '<span id="profit_'+ts+'" class="span_text_price"></span>'+
+                '<input type="hidden" id="hid_profit_'+ts+'" name="profit[]">'
               );
               $("#dom_profit_"+ts+">td").append(
                 '<span class="yen">円</span>'
@@ -507,10 +512,11 @@ $(function(){
                 '<label for="profit" class="col-lg-12 control-label">粗利率</label>'
               );
               $("#dom_profit_rate_"+ts+">td").prepend(
-                $("<div></div>", {addClass: "col-lg-2 tr_price"})
+                $("<div></div>", {addClass: "col-lg-2 tr_price text_price"})
               );
               $("#dom_profit_rate_"+ts+">td>div").prepend(
-                '<input id="profit_rate_'+ts+'" type="text" class="form-control price profit_rate" name="profit_rate[]">'
+                '<span id="profit_rate_'+ts+'" class="span_text_price"></span>'+
+                '<input type="hidden" id="hid_profit_rate_'+ts+'" name="profit_rate[]">'
               );
               $("#dom_profit_rate_"+ts+">td").append(
                 '<span class="yen">％</span>'
@@ -520,6 +526,9 @@ $(function(){
     $("#item_tbl_res_"+ts).prepend(
       $("<div></div>", {Id:"item_hidden_"+ts, addClass: "item_hidden"})
     );
+        $("#item_hidden_"+ts).prepend(
+          '<input type="hidden" name="item_group[]" value="'+ts+'">'
+        );
     $("#item_tab_"+ts).append(
       $("<div></div>", {Id:"item_delete_"+ts, addClass: "delete_btn"})
     );
@@ -549,10 +558,12 @@ $(function(){
   //編集(edit)ページで削除ボタンがクリックされたた対象のタブを削除する処理
   $('body').on('click', '.delete_btn_edit', deleteTabEdit);
   function deleteTabEdit(){
-    var deleteId = $(this).attr('id');
-    var splitTs  = deleteId.split("delete_");
-    $("#deleteItemId").val(splitTs[1]);
-    $("#deleteTabForm").submit(); //action('ClientsController@destroy')がサブミットされる
+    if(confirm('商品情報を削除しますか？')){
+      var deleteId = $(this).attr('id');
+      var splitTs  = deleteId.split("delete_");
+      $("#deleteItemGroup").val(splitTs[1]);
+      $("#deleteTabForm").submit(); //action('ClientsController@destroy')がサブミットされる
+    }
   }
 
   //編集(edit)ページで返品ボタンがクリックされたた対象のタブのカラーを変える処理
@@ -648,12 +659,16 @@ $(function(){
     var expMinPro   = Number(expSellMinPrc)-Number(estP);
     var expMinPrate = Math.round((Number(expMinPro)/Number(expSellMinPrc))*100);
     if(id[1]){
-      $("#exp_min_profit_"+id[1]).val(separate(expMinPro));
-      $("#exp_min_profit_rate_"+id[1]).val(expMinPrate);
+      $("#exp_min_profit_"+id[1]).text(separate(expMinPro));
+      $("#hid_exp_min_profit_"+id[1]).val(separate(expMinPro));
+      $("#exp_min_profit_rate_"+id[1]).text(expMinPrate);
+      $("#hid_exp_min_profit_rate_"+id[1]).val(expMinPrate);
     }
     else{
-      $("#exp_min_profit").val(separate(expMinPro));
-      $("#exp_min_profit_rate").val(expMinPrate);
+      $("#exp_min_profit").text(separate(expMinPro));
+      $("#hid_exp_min_profit").val(separate(expMinPro));
+      $("#exp_min_profit_rate").text(expMinPrate);
+      $("#hid_exp_min_profit_rate").val(expMinPrate);
     }
   }
 
@@ -706,12 +721,16 @@ $(function(){
     var expMaxPro   = Number(expSellMaxPrc)-Number(estP);
     var expMaxPrate = Math.round((Number(expMaxPro)/Number(expSellMaxPrc))*100);
     if(id[1]){
-      $("#exp_max_profit_"+id[1]).val(separate(expMaxPro));
-      $("#exp_max_profit_rate_"+id[1]).val(expMaxPrate);
+      $("#exp_max_profit_"+id[1]).text(separate(expMaxPro));
+      $("#hid_exp_max_profit_"+id[1]).val(separate(expMaxPro));
+      $("#exp_max_profit_rate_"+id[1]).text(expMaxPrate);
+      $("#hid_exp_max_profit_rate_"+id[1]).val(separate(expMaxPrate));
     }
     else{
-      $("#exp_max_profit").val(separate(expMaxPro));
-      $("#exp_max_profit_rate").val(expMaxPrate);
+      $("#exp_max_profit").text(separate(expMaxPro));
+      $("#hid_exp_max_profit").val(separate(expMaxPro));
+      $("#exp_max_profit_rate").text(expMaxPrate);
+      $("#hid_exp_max_profit_rate").val(separate(expMaxPrate));
     }
   }
 
@@ -763,20 +782,32 @@ $(function(){
     var profit   = Number(sellPrc)-Number(buyPrc);
     var profitRate = Math.round((Number(profit)/Number(sellPrc))*100);
     if(id[1]){
-      $("#profit_"+id[1]).val(separate(profit));
-      $("#profit_rate_"+id[1]).val(profitRate);
+      $("#profit_"+id[1]).text(separate(profit));
+      $("#hid_profit_"+id[1]).val(separate(profit));
+      $("#profit_rate_"+id[1]).text(profitRate);
+      $("#hid_profit_rate_"+id[1]).val(profitRate);
     }
     else{
-      $("#profit").val(separate(profit));
-      $("#profit_rate").val(profitRate);
+      $("#profit").text(separate(profit));
+      $("#hid_profit").val(separate(profit));
+      $("#profit_rate").text(profitRate);
+      $("#hid_profit_rate").val(separate(profitRate));
     }
   }
 
-  // @TODO カテゴリーが変更された場合の処理
-  //各カテゴリー毎の確認項目を特記事項の下に表示させる
-  // $('body').on('change', '.select_cat', function(){
-  //   var selectId = $(this).attr('id');
-  //   alert(selectId);
-  // });
+  // $('body').on('focusout', '.item_num', chkNum);
+  // function chkNum(){
+  //   var itemNumId = $(this).attr('id');
+  //   var id = itemNumId.split("num_");
+  //   var numVal = $(this).val();
+  //   if(numVal>1){
+  //     if(id[1]){
+  //       $(".total_est_price_wrap_"+id[1]).css({ 'display':'' });
+  //     }
+  //     else{
+  //       $(".total_est_price_wrap").css({ 'display':'' });
+  //     }
+  //   }
+  // }
 
 });

@@ -319,11 +319,26 @@ $(function(){
                 $("#dom_estimate_price_"+ts+">td").prepend(
                   $("<div></div>", {addClass: "col-lg-2 tr_price"})
                 );
-                $("#dom_estimate_price_"+ts+">td>div").prepend(
+                $("#dom_estimate_price_"+ts+">td").prepend(
+                  '<div class="by_title no_display_'+ts+'" style="display: none;">'
+                );
+                $("#dom_estimate_price_"+ts+">td>div.by_title").prepend(
+                  '<div class="by_item">(一商品あたり)</div><div class="by_total_item">(合計)</div>'
+                );
+                $("#dom_estimate_price_"+ts+">td>div.tr_price").prepend(
                   '<input id="estimate_price_'+ts+'" type="text" class="form-control price estimate_price" name="estimate_price[]">'
                 );
                 $("#dom_estimate_price_"+ts+">td").append(
                   '<span class="yen">円</span>'
+                );
+                $("#dom_estimate_price_"+ts+">td").append(
+                  '<div class="col-lg-7 tr_price total_price ttl_est_price no_display_'+ts+'" style="display: none;">'
+                );
+                $("#dom_estimate_price_"+ts+">td>div.total_price").prepend(
+                  '<span id="total_est_price_'+ts+'">--</span>円'
+                );
+                $("#dom_estimate_price_"+ts+">td>div.total_price").prepend(
+                  '<input type="hidden" id="hid_total_est_price_'+ts+'" name="total_est_price[]">'
                 );
         //expsell_min_price, expsell_max_price
         $("#item_request_table_"+ts+">tbody").append(
@@ -341,7 +356,13 @@ $(function(){
                 $("#expsell_price_"+ts+">td").prepend(
                   $("<div></div>", {addClass: "col-lg-2 tr_price"})
                 );
-                $("#expsell_price_"+ts+">td>div").prepend(
+                $("#expsell_price_"+ts+">td").prepend(
+                  '<div class="by_title no_display_'+ts+'" style="display: none;">'
+                );
+                $("#expsell_price_"+ts+">td>div.by_title").prepend(
+                  '<div class="by_item">(一商品あたり)</div><div class="by_total_item">(合計)</div>'
+                );
+                $("#expsell_price_"+ts+">td>div.tr_price").prepend(
                   '<input id="expsell_min_price_'+ts+'" type="text" class="form-control price expsell_min_price" name="expsell_min_price[]">'
                 );
                 $("#expsell_price_"+ts+">td").append(
@@ -359,6 +380,25 @@ $(function(){
                 $("#expsell_price_"+ts+">td").append(
                   '<span class="yen">円</span>'
                 );
+
+                $("#expsell_price_"+ts+">td").append(
+                  '<div class="col-lg-4 tr_price total_price no_display_'+ts+'" style="display:none;">'
+                );
+                $("#expsell_price_"+ts+">td>div.total_price").append(
+                  '<span id="total_expsell_min_price_'+ts+'">--</span>円'
+                );
+                $("#expsell_price_"+ts+">td>div.total_price").append(
+                  '<input type="hidden" id="hid_total_expsell_min_price_'+ts+'" name="total_expsell_min_price[]">'
+                );
+                $("#expsell_price_"+ts+">td>div.total_price").append(
+                  '<span>~</span>'
+                );
+                $("#expsell_price_"+ts+">td>div.total_price").append(
+                  '<span id="total_expsell_max_price_'+ts+'">--</span>円'
+                );
+                $("#expsell_price_"+ts+">td>div.total_price").append(
+                  '<input type="hidden" id="hid_total_expsell_max_price_'+ts+'" name="total_expsell_max_price[]">'
+                );
         //exp_min_profit, exp_max_profit
         $("#item_request_table_"+ts+">tbody").append(
           $("<tr></tr>", {Id:"exp_profit_"+ts, addClass: "form-group"})
@@ -375,7 +415,13 @@ $(function(){
                 $("#exp_profit_"+ts+">td").prepend(
                   $("<div></div>", {addClass: "col-lg-2 tr_price text_price"})
                 );
-                $("#exp_profit_"+ts+">td>div").prepend(
+                $("#exp_profit_"+ts+">td").prepend(
+                  '<div class="by_title no_display_'+ts+'" style="display: none;">'
+                );
+                $("#exp_profit_"+ts+">td>div.by_title").prepend(
+                  '<div class="by_item">(一商品あたり)</div><div class="by_total_item">(合計)</div>'
+                );
+                $("#exp_profit_"+ts+">td>div.tr_price").prepend(
                   '<span id="exp_min_profit_'+ts+'" class="span_text_price"></span>' +
                   '<input type="hidden" id="hid_exp_min_profit_'+ts+'" name="exp_min_profit[]">'
                 );
@@ -394,6 +440,25 @@ $(function(){
                 );
                 $("#exp_profit_"+ts+">td").append(
                   '<span class="yen">円</span>'
+                );
+
+                $("#exp_profit_"+ts+">td").append(
+                  '<div class="col-lg-4 tr_price total_price no_display_'+ts+'" style="display:none;">'
+                );
+                $("#exp_profit_"+ts+">td>div.total_price").append(
+                  '<span id="total_exp_min_profit_'+ts+'">--</span>円'
+                );
+                $("#exp_profit_"+ts+">td>div.total_price").append(
+                  '<input type="hidden" id="hid_total_exp_min_profit_'+ts+'" name="total_exp_min_profit[]">'
+                );
+                $("#exp_profit_"+ts+">td>div.total_price").append(
+                  '<span>~</span>'
+                );
+                $("#exp_profit_"+ts+">td>div.total_price").append(
+                  '<span id="total_exp_max_profit_'+ts+'">--</span>円'
+                );
+                $("#exp_profit_"+ts+">td>div.total_price").append(
+                  '<input type="hidden" id="hid_total_exp_max_profit_'+ts+'" name="total_exp_max_profit[]">'
                 );
       //exp_min_profit_rate, exp_max_profit_rate
       $("#item_request_table_"+ts+">tbody").append(
@@ -447,80 +512,96 @@ $(function(){
               $("#dom_buy_price_"+ts+">td").prepend(
                 $("<div></div>", {addClass: "col-lg-2 tr_price"})
               );
-              $("#dom_buy_price_"+ts+">td>div").prepend(
+              $("#dom_buy_price_"+ts+">td").prepend(
+                '<div class="by_title no_display_'+ts+'" style="display: none;">'
+              );
+              $("#dom_buy_price_"+ts+">td>div.by_title").prepend(
+                '<div class="by_item">(一商品あたり)</div><div class="by_total_item">(合計)</div>'
+              );
+              $("#dom_buy_price_"+ts+">td>div.tr_price").prepend(
                 '<input id="buy_price_'+ts+'" type="text" class="form-control price buy_price" name="buy_price[]">'
               );
               $("#dom_buy_price_"+ts+">td").append(
                 '<span class="yen">円</span>'
               );
+              $("#dom_buy_price_"+ts+">td").append(
+                '<div class="col-lg-3 col-lg-offset-4 tr_price total_price no_display_'+ts+'" style="display:none;">'
+              );
+              $("#dom_buy_price_"+ts+">td>div.total_price").prepend(
+                '<input id="total_buy_price_'+ts+'" type="text" class="form-control price total_buy_price" name="total_buy_price[]">'
+              );
+              $("#dom_buy_price_"+ts+">td").append(
+                '<span class="yen">円</span>'
+              );
+      // 実際の販売額・粗利額・粗利率は商品の詳細ページにて入力する仕様に実装予定 2017.06.30 takahashi
       //sell_price
-      $("#item_request_table_"+ts+">tbody").append(
-        $("<tr></tr>", {Id:"dom_sell_price_"+ts, addClass: "form-group"})
-      );
-          $("#dom_sell_price_"+ts).append(
-            $("<th></th>")
-          );
-          $("#dom_sell_price_"+ts).append(
-            $("<td></td>")
-          );
-              $("#dom_sell_price_"+ts+">th").prepend(
-                '<label for="sell_price" class="col-lg-12 control-label">販売額</label>'
-              );
-              $("#dom_sell_price_"+ts+">td").prepend(
-                $("<div></div>", {addClass: "col-lg-2 tr_price"})
-              );
-              $("#dom_sell_price_"+ts+">td>div").prepend(
-                '<input id="sell_price_'+ts+'" type="text" class="form-control price sell_price" name="sell_price[]">'
-              );
-              $("#dom_sell_price_"+ts+">td").append(
-                '<span class="yen">円</span>'
-              );
-      //profit
-      $("#item_request_table_"+ts+">tbody").append(
-        $("<tr></tr>", {Id:"dom_profit_"+ts, addClass: "form-group"})
-      );
-          $("#dom_profit_"+ts).append(
-            $("<th></th>")
-          );
-          $("#dom_profit_"+ts).append(
-            $("<td></td>")
-          );
-              $("#dom_profit_"+ts+">th").prepend(
-                '<label for="profit" class="col-lg-12 control-label">粗利額</label>'
-              );
-              $("#dom_profit_"+ts+">td").prepend(
-                $("<div></div>", {addClass: "col-lg-2 tr_price text_price"})
-              );
-              $("#dom_profit_"+ts+">td>div").prepend(
-                '<span id="profit_'+ts+'" class="span_text_price"></span>'+
-                '<input type="hidden" id="hid_profit_'+ts+'" name="profit[]">'
-              );
-              $("#dom_profit_"+ts+">td").append(
-                '<span class="yen">円</span>'
-              );
-      //profit_rate
-      $("#item_request_table_"+ts+">tbody").append(
-        $("<tr></tr>", {Id:"dom_profit_rate_"+ts, addClass: "form-group"})
-      );
-          $("#dom_profit_rate_"+ts).append(
-            $("<th></th>")
-          );
-          $("#dom_profit_rate_"+ts).append(
-            $("<td></td>")
-          );
-              $("#dom_profit_rate_"+ts+">th").prepend(
-                '<label for="profit" class="col-lg-12 control-label">粗利率</label>'
-              );
-              $("#dom_profit_rate_"+ts+">td").prepend(
-                $("<div></div>", {addClass: "col-lg-2 tr_price text_price"})
-              );
-              $("#dom_profit_rate_"+ts+">td>div").prepend(
-                '<span id="profit_rate_'+ts+'" class="span_text_price"></span>'+
-                '<input type="hidden" id="hid_profit_rate_'+ts+'" name="profit_rate[]">'
-              );
-              $("#dom_profit_rate_"+ts+">td").append(
-                '<span class="yen">％</span>'
-              );
+      // $("#item_request_table_"+ts+">tbody").append(
+      //   $("<tr></tr>", {Id:"dom_sell_price_"+ts, addClass: "form-group"})
+      // );
+      //     $("#dom_sell_price_"+ts).append(
+      //       $("<th></th>")
+      //     );
+      //     $("#dom_sell_price_"+ts).append(
+      //       $("<td></td>")
+      //     );
+      //         $("#dom_sell_price_"+ts+">th").prepend(
+      //           '<label for="sell_price" class="col-lg-12 control-label">販売額</label>'
+      //         );
+      //         $("#dom_sell_price_"+ts+">td").prepend(
+      //           $("<div></div>", {addClass: "col-lg-2 tr_price"})
+      //         );
+      //         $("#dom_sell_price_"+ts+">td>div").prepend(
+      //           '<input id="sell_price_'+ts+'" type="text" class="form-control price sell_price" name="sell_price[]">'
+      //         );
+      //         $("#dom_sell_price_"+ts+">td").append(
+      //           '<span class="yen">円</span>'
+      //         );
+      // //profit
+      // $("#item_request_table_"+ts+">tbody").append(
+      //   $("<tr></tr>", {Id:"dom_profit_"+ts, addClass: "form-group"})
+      // );
+      //     $("#dom_profit_"+ts).append(
+      //       $("<th></th>")
+      //     );
+      //     $("#dom_profit_"+ts).append(
+      //       $("<td></td>")
+      //     );
+      //         $("#dom_profit_"+ts+">th").prepend(
+      //           '<label for="profit" class="col-lg-12 control-label">粗利額</label>'
+      //         );
+      //         $("#dom_profit_"+ts+">td").prepend(
+      //           $("<div></div>", {addClass: "col-lg-2 tr_price text_price"})
+      //         );
+      //         $("#dom_profit_"+ts+">td>div").prepend(
+      //           '<span id="profit_'+ts+'" class="span_text_price"></span>'+
+      //           '<input type="hidden" id="hid_profit_'+ts+'" name="profit[]">'
+      //         );
+      //         $("#dom_profit_"+ts+">td").append(
+      //           '<span class="yen">円</span>'
+      //         );
+      // //profit_rate
+      // $("#item_request_table_"+ts+">tbody").append(
+      //   $("<tr></tr>", {Id:"dom_profit_rate_"+ts, addClass: "form-group"})
+      // );
+      //     $("#dom_profit_rate_"+ts).append(
+      //       $("<th></th>")
+      //     );
+      //     $("#dom_profit_rate_"+ts).append(
+      //       $("<td></td>")
+      //     );
+      //         $("#dom_profit_rate_"+ts+">th").prepend(
+      //           '<label for="profit" class="col-lg-12 control-label">粗利率</label>'
+      //         );
+      //         $("#dom_profit_rate_"+ts+">td").prepend(
+      //           $("<div></div>", {addClass: "col-lg-2 tr_price text_price"})
+      //         );
+      //         $("#dom_profit_rate_"+ts+">td>div").prepend(
+      //           '<span id="profit_rate_'+ts+'" class="span_text_price"></span>'+
+      //           '<input type="hidden" id="hid_profit_rate_'+ts+'" name="profit_rate[]">'
+      //         );
+      //         $("#dom_profit_rate_"+ts+">td").append(
+      //           '<span class="yen">％</span>'
+      //         );
 
 
     $("#item_tbl_res_"+ts).prepend(
@@ -735,79 +816,377 @@ $(function(){
   }
 
   //粗利額と粗利率を自動入力する処理
-  $('body').on('focusout', '.buy_price', chkBuyPrc);     //見積提示額がfocusoutされたら
-  $('body').on('focusout', '.sell_price', chkSellPrc);    //見込販売額がfocusoutされたら
+  //$('body').on('focusout', '.buy_price', chkBuyPrc);     //見積提示額がfocusoutされたら
+  //$('body').on('focusout', '.sell_price', chkSellPrc);    //見込販売額がfocusoutされたら
 
-  function chkBuyPrc(){
-    var buyPrcId = $(this).attr('id');  //id取得しDOMによって生成されたものかを判断
-    if(buyPrcId=="buy_price"){
-      //DOMではないitem
-      var id   = '';
-      var buyPrc = merge($("#buy_price").val()); //買取額
-      var sellPrc = merge($("#sell_price").val()); //販売額
-    }
-    else{
-      //DOMのitem
-      var id = buyPrcId.split("price_");
-      var buyPrc = merge($("#buy_price_"+id[1]).val());
-      var sellPrc = merge($("#sell_price_"+id[1]).val());
-    }
-    //見積提示額と見込販売額がともに入力されていたら
-    if(buyPrc && sellPrc){
-      calProfit(buyPrc, sellPrc, id);
-    }
-  }
-
-  function chkSellPrc(){
-    var sellPrcId = $(this).attr('id');
-    if(sellPrcId=="sell_price"){
-      //DOMではないitem
-      var id   = '';
-      var buyPrc = merge($("#buy_price").val());
-      var sellPrc = merge($("#sell_price").val());
-    }
-    else{
-      //DOMのitem
-      var id = sellPrcId.split("price_");
-      var buyPrc = merge($("#buy_price_"+id[1]).val());
-      var sellPrc = merge($("#sell_price_"+id[1]).val());
-    }
-    if(buyPrc && sellPrc){
-      calProfit(buyPrc, sellPrc, id);
-    }
-  }
-
-  //最低見込粗利額と粗利率を自動計算し、入力する処理
-  function calProfit(buyPrc, sellPrc, id){
-    var profit   = Number(sellPrc)-Number(buyPrc);
-    var profitRate = Math.round((Number(profit)/Number(sellPrc))*100);
-    if(id[1]){
-      $("#profit_"+id[1]).text(separate(profit));
-      $("#hid_profit_"+id[1]).val(separate(profit));
-      $("#profit_rate_"+id[1]).text(profitRate);
-      $("#hid_profit_rate_"+id[1]).val(profitRate);
-    }
-    else{
-      $("#profit").text(separate(profit));
-      $("#hid_profit").val(separate(profit));
-      $("#profit_rate").text(profitRate);
-      $("#hid_profit_rate").val(separate(profitRate));
-    }
-  }
-
-  // $('body').on('focusout', '.item_num', chkNum);
-  // function chkNum(){
-  //   var itemNumId = $(this).attr('id');
-  //   var id = itemNumId.split("num_");
-  //   var numVal = $(this).val();
-  //   if(numVal>1){
-  //     if(id[1]){
-  //       $(".total_est_price_wrap_"+id[1]).css({ 'display':'' });
-  //     }
-  //     else{
-  //       $(".total_est_price_wrap").css({ 'display':'' });
-  //     }
+  // function chkBuyPrc(){
+  //   var buyPrcId = $(this).attr('id');  //id取得しDOMによって生成されたものかを判断
+  //   if(buyPrcId=="buy_price"){
+  //     //DOMではないitem
+  //     var id   = '';
+  //     var buyPrc = merge($("#buy_price").val()); //買取額
+  //     var sellPrc = merge($("#sell_price").val()); //販売額
+  //   }
+  //   else{
+  //     //DOMのitem
+  //     var id = buyPrcId.split("price_");
+  //     var buyPrc = merge($("#buy_price_"+id[1]).val());
+  //     var sellPrc = merge($("#sell_price_"+id[1]).val());
+  //   }
+  //   //見積提示額と見込販売額がともに入力されていたら
+  //   if(buyPrc && sellPrc){
+  //     calProfit(buyPrc, sellPrc, id);
   //   }
   // }
+  //
+  // function chkSellPrc(){
+  //   var sellPrcId = $(this).attr('id');
+  //   if(sellPrcId=="sell_price"){
+  //     //DOMではないitem
+  //     var id   = '';
+  //     var buyPrc = merge($("#buy_price").val());
+  //     var sellPrc = merge($("#sell_price").val());
+  //   }
+  //   else{
+  //     //DOMのitem
+  //     var id = sellPrcId.split("price_");
+  //     var buyPrc = merge($("#buy_price_"+id[1]).val());
+  //     var sellPrc = merge($("#sell_price_"+id[1]).val());
+  //   }
+  //   if(buyPrc && sellPrc){
+  //     calProfit(buyPrc, sellPrc, id);
+  //   }
+  // }
+  //
+  // //見粗利額と粗利率を自動計算し、入力する処理
+  // function calProfit(buyPrc, sellPrc, id){
+  //   var profit   = Number(sellPrc)-Number(buyPrc);
+  //   var profitRate = Math.round((Number(profit)/Number(sellPrc))*100);
+  //   if(id[1]){
+  //     $("#profit_"+id[1]).text(separate(profit));
+  //     $("#hid_profit_"+id[1]).val(separate(profit));
+  //     $("#profit_rate_"+id[1]).text(profitRate);
+  //     $("#hid_profit_rate_"+id[1]).val(profitRate);
+  //   }
+  //   else{
+  //     $("#profit").text(separate(profit));
+  //     $("#hid_profit").val(separate(profit));
+  //     $("#profit_rate").text(profitRate);
+  //     $("#hid_profit_rate").val(separate(profitRate));
+  //   }
+  // }
+
+
+  $('body').on('focusout', '.item_num', chkNumEstP);
+  $('body').on('focusout', '.estimate_price', chkEstPNum);
+
+  function chkNumEstP(){
+    var itemNumId = $(this).attr('id');
+    var numVal = $(this).val();
+    if(!numVal || numVal==0){alert("商品数を入力してください。");}
+    if(itemNumId=="item_num"){
+      //DOMではないitem
+      var id   = '';
+      var estP = merge($("#estimate_price").val());
+    }
+    else{
+      //DOMのitem
+      var id = itemNumId.split("num_");
+      var estP = merge($("#estimate_price_"+id[1]).val());
+    }
+    if(numVal && estP){
+      insertTotalEstP(numVal, estP, id);
+    }
+  }
+  function chkEstPNum(){
+    var estPrcId = $(this).attr('id');
+    var estP = merge($(this).val());
+    if(!estP || estP==0){alert("見積提示額を入力してください。");}
+    if(estPrcId=="estimate_price"){
+      //DOMではないitem
+      var id   = '';
+      var numVal = $("#item_num").val();
+      var expSellMinP = merge($("#expsell_min_price").val());
+      var expSellMaxP = merge($("#expsell_max_price").val());
+    }
+    else{
+      //DOMのitem
+      var id = estPrcId.split("price_");
+      var numVal = $("#item_num_"+id[1]).val();
+      var expSellMinP = merge($("#expsell_min_price_"+id[1]).val());
+      var expSellMaxP = merge($("#expsell_max_price_"+id[1]).val());
+    }
+    if(numVal && estP){
+      insertTotalEstP(numVal, estP, id);
+    }
+    if(numVal && estP && expSellMinP){
+      insertTotalExpSellMinProfit(numVal, estP, expSellMinP, id);
+    }
+    if(numVal && estP && expSellMaxP){
+      insertTotalExpSellMaxProfit(numVal, estP, expSellMaxP, id);
+    }
+  }
+  function insertTotalEstP(numVal, estP, id){
+    var totalEstP = separate(numVal*estP);
+    if(id[1]){
+      $('#total_est_price_'+id[1]).text(totalEstP);
+      $('#hid_total_est_price_'+id[1]).val(totalEstP);
+    }
+    else {
+      $('#total_est_price').text(totalEstP);
+      $('#hid_total_est_price').val(totalEstP);
+    }
+  }
+  // function insertMinProfit(numVal, estP, expSellMinP, id){
+  //   var totalEstP = numVal*estP;
+  //   var totalEstMinP = numVal*expSellMinP;
+  //   var totalEstMinProfit = separate(totalEstMinP-totalEstP);
+  //   if(id[1]){
+  //     $('#total_exp_min_profit_'+id[1]).text(totalEstMinProfit);
+  //     $('#hid_total_exp_min_profit_'+id[1]).val(totalEstMinProfit);
+  //   }
+  //   else{
+  //     $('#total_exp_min_profit').text(totalEstMinProfit);
+  //     $('#hid_total_exp_min_profit').val(totalEstMinProfit);
+  //
+  //   }
+  // }
+  // function insertMaxProfit(numVal, estP, expSellMaxP, id){
+  //   var totalEstP = numVal*estP;
+  //   var totalEstMaxP = numVal*expSellMaxP;
+  //   var totalEstMaxProfit = separate(totalEstMaxP-totalEstP);
+  //   if(id[1]){
+  //     $('#total_exp_max_profit_'+id[1]).text(totalEstMaxProfit);
+  //     $('#hid_total_exp_max_profit_'+id[1]).val(totalEstMaxProfit);
+  //   }
+  //   else{
+  //     $('#total_exp_max_profit').text(totalEstMaxProfit);
+  //     $('#hid_total_exp_max_profit').val(totalEstMaxProfit);
+  //   }
+  // }
+
+
+  $('body').on('focusout', '.item_num', chkNumExpSellMinP);
+  $('body').on('focusout', '.expsell_min_price', chkExpSellMinPNum);
+
+  function chkNumExpSellMinP(){
+    var itemNumId = $(this).attr('id');
+    var numVal = $(this).val();
+    if(!numVal || numVal==0){alert("商品数を入力してください。");}
+    if(itemNumId=="item_num"){
+      //DOMではないitem
+      var id   = '';
+      var expSellMinP = merge($("#expsell_min_price").val());
+      var estP = merge($("#estimate_price").val());
+    }
+    else{
+      //DOMのitem
+      var id = itemNumId.split("num_");
+      var expSellMinP = merge($("#expsell_min_price_"+id[1]).val());
+      var estP = merge($("#estimate_price_"+id[1]).val());
+    }
+    if(numVal && expSellMinP){
+      insertTotalExpSellMinP(numVal, expSellMinP, id);
+    }
+    if(numVal && expSellMinP && estP){
+      insertTotalExpSellMinProfit(numVal, estP, expSellMinP, id);
+    }
+  }
+
+  function chkExpSellMinPNum(){
+    var expSellMinPrcId = $(this).attr('id');
+    var expSellMinP = merge($(this).val());
+    if(!expSellMinP || expSellMinP==0){alert("見込販売額を入力してください。");}
+    if(expSellMinPrcId=="expsell_min_price"){
+      //DOMではないitem
+      var id   = '';
+      var numVal = $("#item_num").val();
+      var estP = merge($("#estimate_price").val());
+    }
+    else{
+      //DOMのitem
+      var id = expSellMinPrcId.split("price_");
+      var numVal = $("#item_num_"+id[1]).val();
+      var estP = merge($("#estimate_price_"+id[1]).val());
+    }
+    if(numVal && expSellMinP){
+      insertTotalExpSellMinP(numVal, expSellMinP, id);
+    }
+    if(numVal && expSellMinP && estP){
+      insertTotalExpSellMinProfit(numVal, estP, expSellMinP, id);
+    }
+  }
+  function insertTotalExpSellMinP(numVal, expSellMinP, id){
+    var totalExpSellMinP = separate(numVal*expSellMinP);
+    if(id[1]){
+      $('#total_expsell_min_price_'+id[1]).text(totalExpSellMinP);
+      $('#hid_total_expsell_min_price_'+id[1]).val(totalExpSellMinP);
+    }
+    else {
+      $('#total_expsell_min_price').text(totalExpSellMinP);
+      $('#hid_total_expsell_min_price').val(totalExpSellMinP);
+    }
+  }
+
+  function insertTotalExpSellMinProfit(numVal, estP, expSellMinP, id){
+    var totalEstP = numVal * estP;
+    var totalExpSellMinP = numVal * expSellMinP;
+    var totalEstMinProfit =  separate(totalExpSellMinP - totalEstP);
+    if(id[1]){
+      $('#total_exp_min_profit_'+id[1]).text(totalEstMinProfit);
+      $('#hid_total_exp_min_profit_'+id[1]).val(totalEstMinProfit);
+    }
+    else {
+      $('#total_exp_min_profit').text(totalEstMinProfit);
+      $('#hid_total_exp_min_profit').val(totalEstMinProfit);
+    }
+  }
+
+
+
+  $('body').on('focusout', '.item_num', chkNumExpSellMaxP);
+  $('body').on('focusout', '.expsell_max_price', chkExpSellMaxPNum);
+
+  function chkNumExpSellMaxP(){
+    var itemNumId = $(this).attr('id');
+    var numVal = $(this).val();
+    if(!numVal || numVal==0){alert("商品数を入力してください。");}
+    if(itemNumId=="item_num"){
+      //DOMではないitem
+      var id   = '';
+      var expSellMaxP = merge($("#expsell_max_price").val());
+      var estP = merge($("#estimate_price").val());
+    }
+    else{
+      //DOMのitem
+      var id = itemNumId.split("num_");
+      var expSellMaxP = merge($("#expsell_max_price_"+id[1]).val());
+      var estP = merge($("#estimate_price_"+id[1]).val());
+    }
+    if(numVal && expSellMaxP){
+      insertTotalExpSellMaxP(numVal, expSellMaxP, id);
+    }
+    if(numVal && expSellMaxP && estP){
+      insertTotalExpSellMaxProfit(numVal, estP, expSellMaxP, id);
+    }
+  }
+  function chkExpSellMaxPNum(){
+    var expSellMaxPrcId = $(this).attr('id');
+    var expSellMaxP = merge($(this).val());
+    if(!expSellMaxP || expSellMaxP==0){alert("見込販売額を入力してください。");}
+    if(expSellMaxPrcId=="expsell_max_price"){
+      //DOMではないitem
+      var id   = '';
+      var numVal = $("#item_num").val();
+      var estP = merge($("#estimate_price").val());
+    }
+    else{
+      //DOMのitem
+      var id = expSellMaxPrcId.split("price_");
+      var numVal = $("#item_num_"+id[1]).val();
+      var estP = merge($("#estimate_price_"+id[1]).val());
+    }
+    if(numVal && expSellMaxP){
+      insertTotalExpSellMaxP(numVal, expSellMaxP, id);
+    }
+    if(numVal && expSellMaxP && estP){
+      insertTotalExpSellMaxProfit(numVal, estP, expSellMaxP, id);
+    }
+  }
+  function insertTotalExpSellMaxP(numVal, expSellMaxP, id){
+    var totalExpSellMaxP = separate(numVal*expSellMaxP);
+    if(id[1]){
+      $('#total_expsell_max_price_'+id[1]).text(totalExpSellMaxP);
+      $('#hid_total_expsell_max_price_'+id[1]).val(totalExpSellMaxP);
+    }
+    else {
+      $('#total_expsell_max_price').text(totalExpSellMaxP);
+      $('#hid_total_expsell_max_price').val(totalExpSellMaxP);
+    }
+  }
+  function insertTotalExpSellMaxProfit(numVal, estP, expSellMaxP, id){
+    var totalEstP = numVal * estP;
+    var totalExpSellMaxP = numVal * expSellMaxP;
+    var totalEstMaxProfit =  separate(totalExpSellMaxP - totalEstP);
+    if(id[1]){
+      $('#total_exp_max_profit_'+id[1]).text(totalEstMaxProfit);
+      $('#hid_total_exp_max_profit_'+id[1]).val(totalEstMaxProfit);
+    }
+    else {
+      $('#total_exp_max_profit').text(totalEstMaxProfit);
+      $('#hid_total_exp_max_profit').val(totalEstMaxProfit);
+    }
+  }
+
+  $('body').on('focusout', '.total_buy_price', calBuyP);
+  $('body').on('focusout', '.buy_price', calTotalBuyP);
+
+  function calBuyP(){
+    var totalBuyPId = $(this).attr('id');
+    var totalBuyP = merge($(this).val());
+    if(totalBuyPId=="total_buy_price"){
+      var numVal = $("#item_num").val();
+      var buyPrc = separate(Math.round(totalBuyP/numVal));
+      $('#buy_price').val(buyPrc);
+    }
+    else{
+      var id = totalBuyPId.split("price_");
+      var numVal = $("#item_num_"+id[1]).val();
+      var buyPrc = separate(Math.round(totalBuyP/numVal));
+      $('#buy_price_'+id[1]).val(buyPrc);
+    }
+  }
+
+  function calTotalBuyP(){
+    var buyPId = $(this).attr('id');
+    var buyP = merge($(this).val());
+    if(buyPId=="buy_price"){
+      var numVal = $("#item_num").val();
+      var totalBuyPrc = separate(buyP*numVal);
+      $('#total_buy_price').val(totalBuyPrc);
+    }
+    else{
+      var id = buyPId.split("price_");
+      var numVal = $("#item_num_"+id[1]).val();
+      var totalBuyPrc = separate(buyP*numVal);
+      $('#total_buy_price_'+id[1]).val(totalBuyPrc);
+    }
+  }
+
+  //非表示->表示
+  $('body').on('focusout', '.item_num', cntNum);
+
+  function cntNum(){
+    var itemNumId = $(this).attr('id');
+    var id = itemNumId.split("num_")
+    var num = $(this).val();
+    if(num>1){
+      if(id[1]){
+        $('.no_display_'+id[1]).css({
+          'display':''
+        });
+      }
+      else{
+        $('.no_display').css({
+          'display':''
+        });
+      }
+    }
+
+    if(num==1){
+      if(id[1]){
+        $('.no_display_'+id[1]).css({
+          'display':'none'
+        });
+      }
+      else{
+        $('.no_display').css({
+          'display':'none'
+        });
+      }
+    }
+
+
+  }
 
 });

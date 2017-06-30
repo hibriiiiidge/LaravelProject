@@ -537,14 +537,28 @@ class ClientsController extends Controller
       $item->inside_condition     = $request->inside_condition ? current(array_slice($request->inside_condition, $i, 1, true)) : null;
       $item->cooling_off_flg      = $request->cooling_off_flg ? current(array_slice($request->cooling_off_flg, $i, 1, true)) : null;
       $item->memo                 = $request->item_memo ? current(array_slice($request->item_memo, $i, 1, true)) : null;
-      $item->estimate_price       = $request->estimate_price[$i] ? str_replace(',', '', $request->estimate_price[$i]) : null;
-      $item->expsell_min_price    = $request->expsell_min_price[$i] ? str_replace(',', '', $request->expsell_min_price[$i]): null;
-      $item->expsell_max_price    = $request->expsell_max_price[$i] ? str_replace(',', '', $request->expsell_max_price[$i]): null;
-      $item->exp_min_profit       = $request->exp_min_profit[$i] ? str_replace(',', '', $request->exp_min_profit[$i]): null;
-      $item->exp_max_profit       = $request->exp_max_profit[$i] ? str_replace(',', '', $request->exp_max_profit[$i]): null;
-      $item->exp_min_profit_rate  = $request->exp_min_profit_rate[$i];
-      $item->exp_max_profit_rate  = $request->exp_max_profit_rate[$i];
-      $item->buy_price            = $request->buy_price[$i] ? str_replace(',', '', $request->buy_price[$i]): null;
+
+      $item->estimate_price           = $request->estimate_price[$i] ? str_replace(',', '', $request->estimate_price[$i]) : null;
+      $item->total_estimate_price     = $request->total_est_price[$i] ? str_replace(',', '', $request->total_est_price[$i]) : null;
+
+      $item->expsell_min_price        = $request->expsell_min_price[$i] ? str_replace(',', '', $request->expsell_min_price[$i]): null;
+      $item->total_expsell_min_price  = $request->total_expsell_min_price[$i] ? str_replace(',', '', $request->total_expsell_min_price[$i]) : null;
+
+      $item->expsell_max_price        = $request->expsell_max_price[$i] ? str_replace(',', '', $request->expsell_max_price[$i]): null;
+      $item->total_expsell_max_price  = $request->total_expsell_max_price[$i] ? str_replace(',', '', $request->total_expsell_max_price[$i]) : null;
+
+      $item->exp_min_profit           = $request->exp_min_profit[$i] ? str_replace(',', '', $request->exp_min_profit[$i]): null;
+      $item->total_exp_min_profit     = $request->total_exp_min_profit[$i] ? str_replace(',', '', $request->total_exp_min_profit[$i]): null;
+
+      $item->exp_max_profit           = $request->exp_max_profit[$i] ? str_replace(',', '', $request->exp_max_profit[$i]): null;
+      $item->total_exp_max_profit     = $request->total_exp_max_profit[$i] ? str_replace(',', '', $request->total_exp_max_profit[$i]): null;
+
+      $item->exp_min_profit_rate      = $request->exp_min_profit_rate[$i];
+      $item->exp_max_profit_rate      = $request->exp_max_profit_rate[$i];
+      $item->buy_price                = $request->buy_price[$i] ? str_replace(',', '', $request->buy_price[$i]): null;
+      $item->total_buy_price          = $request->total_buy_price[$i] ? str_replace(',', '', $request->total_buy_price[$i]): null;
+
+
       $item->sell_price           = $request->sell_price[$i] ? str_replace(',', '', $request->sell_price[$i]): null;
       $item->profit               = $request->profit[$i] ? str_replace(',', '', $request->profit[$i]): null;
       $item->profit_rate          = $request->profit_rate[$i];

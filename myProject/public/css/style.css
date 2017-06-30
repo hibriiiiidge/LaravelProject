@@ -200,6 +200,23 @@
   font-size: 15px;
 }
 
+/*.by_title{
+  display: none;
+}*/
+
+.by_item{
+  float: left;
+}
+
+.by_total_item{
+  margin-left: 320px;
+}
+
+.ttl_est_price{
+  /*padding-right: 15px;*/
+  width: 56%;
+}
+
 /***************************/
 /*依頼一覧ページ*/
 /***************************/

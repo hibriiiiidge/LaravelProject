@@ -114,19 +114,36 @@
               <tr class="form-group">
                 <th><label for="estimate_price" class="col-lg-12 control-label">見積提示額</label></th>
                 <td>
+                  <div class="by_title no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" style="display: none;">
+                    <div class="by_item">
+                      (一商品あたり)
+                    </div>
+                    <div class="by_total_item">
+                      (合計)
+                    </div>
+                  </div>
                   <div class="col-lg-2 tr_price">
                       <input id="estimate_price{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}"  type="text" class="form-control price estimate_price" name="estimate_price[]" value="{{ nf($item->estimate_price) }}">
                   </div>
                   <span class="yen">円</span>
 
-                  <div class="col-lg-7 tr_price total_price total_est_price_wrap{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" style="padding-right: 15px;">
-                    総額  <span class="total_est_price{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}">-</span>円
+                  <div class="col-lg-7 tr_price total_price ttl_est_price no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" style="display: none;">
+                    <span id="total_est_price{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}">{{ $item->total_estimate_price ? nf($item->total_estimate_price) : '--'}}</span>円
+                    <input type="hidden" id="hid_total_est_price{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" name="total_est_price[]" value="{{ nf($item->total_estimate_price) }}">
                   </div>
                 </td>
               </tr>
               <tr class="form-group">
                 <th><label for="expsell_price" class="col-lg-12 control-label">見込販売額</label></th>
                 <td>
+                  <div class="by_title no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" style="display: none;">
+                    <div class="by_item">
+                      (一商品あたり)
+                    </div>
+                    <div class="by_total_item">
+                      (合計)
+                    </div>
+                  </div>
                   <div class="col-lg-2 tr_price">
                       <input id="expsell_min_price{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}"  type="text" class="form-control price expsell_min_price" name="expsell_min_price[]" value="{{ nf($item->expsell_min_price) }}">
                   </div>
@@ -139,16 +156,26 @@
                   </div>
                   <span class="yen">円</span>
 
-                  <div class="col-lg-4 tr_price total_price" style="">
-                    <span class="total_expsell_min_price{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}">-</span>円
+                  <div class="col-lg-4 tr_price total_price no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" style="display:none;">
+                    <span id="total_expsell_min_price{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}">{{ $item->total_expsell_min_price ? nf($item->total_expsell_min_price) : '--'}}</span>円
+                    <input type="hidden" id="hid_total_expsell_min_price{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" name="total_expsell_min_price[]" value="{{ nf($item->total_expsell_min_price) }}">
                     <span>~</span>
-                    <span class="total_expsell_max_price{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}">-</span>円
+                    <span id="total_expsell_max_price{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}">{{ $item->total_expsell_max_price ? nf($item->total_expsell_max_price) : '--'}}</span>円
+                    <input type="hidden" id="hid_total_expsell_max_price{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" name="total_expsell_max_price[]" value="{{ nf($item->total_expsell_max_price) }}">
                   </div>
                 </td>
               </tr>
               <tr class="form-group">
                 <th><label for="exp_profit" class="col-lg-12 control-label">見込粗利額</label></th>
                 <td>
+                  <div class="by_title no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" style="display: none;">
+                    <div class="by_item">
+                      (一商品あたり)
+                    </div>
+                    <div class="by_total_item">
+                      (合計)
+                    </div>
+                  </div>
                   <div class="col-lg-2 tr_price text_price">
                       <span id="exp_min_profit{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" class="span_text_price">{{ nf($item->exp_min_profit) }}</span>
                       <input type="hidden" id="hid_exp_min_profit{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" name="exp_min_profit[]" value="{{ nf($item->exp_min_profit) }}">
@@ -163,10 +190,12 @@
                   </div>
                   <span class="yen">円</span>
 
-                  <div class="col-lg-4 tr_price total_price" style="">
-                    <span class="total_exp_min_profit{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}">-</span>円
+                  <div class="col-lg-4 tr_price total_price no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" style="display:none;">
+                    <span id="total_exp_min_profit{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}">{{ $item->total_exp_min_profit ? nf($item->total_exp_min_profit) : '--'}}</span>円
+                    <input type="hidden" id="hid_total_exp_min_profit{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" name="total_exp_min_profit[]" value="{{ nf($item->total_exp_min_profit) }}">
                     <span>~</span>
-                    <span class="total_exp_max_profit{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}">-</span>円
+                    <span id="total_exp_max_profit{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}">{{ $item->total_exp_max_profit ? nf($item->total_exp_max_profit) : '--'}}</span>円
+                    <input type="hidden" id="hid_total_exp_max_profit{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" name="total_exp_max_profit[]" value="{{ nf($item->total_exp_max_profit) }}">
                   </div>
                 </td>
               </tr>
@@ -186,24 +215,32 @@
                       <input type="hidden" id="hid_exp_max_profit_rate{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" name="exp_max_profit_rate[]" value="{{ nf($item->exp_max_profit_rate) }}">
                   </div>
                   <span class="yen">%</span>
-
-                  <div class="col-lg-4 tr_price total_price" style="">
-                    <span class="total_exp_min_profit_rate{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}">-</span>％
-                    <span>~</span>
-                    <span class="total_exp_max_profit_rate{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}">-</span>％
-                  </div>
                 </td>
               </tr>
               <tr class="form-group">
                 <th><label for="buy_price" class="col-lg-12 control-label">買取額</label></th>
                 <td>
+                  <div class="by_title no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" style="display: none;">
+                    <div class="by_item">
+                      (一商品あたり)
+                    </div>
+                    <div class="by_total_item">
+                      (合計)
+                    </div>
+                  </div>
                   <div class="col-lg-2 tr_price">
                       <input id="buy_price{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}"  type="text" class="form-control price buy_price" name="buy_price[]" value="{{ nf($item->buy_price) }}">
                   </div>
                   <span class="yen">円</span>
+
+                  <div class="col-lg-3 col-lg-offset-4 tr_price total_price no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" style="display:none;">
+                    <input id="total_buy_price{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}"  type="text" class="form-control price total_buy_price" name="total_buy_price[]" value="{{ nf($item->total_buy_price) }}">
+                  </div>
+                  <span class="yen no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" style="display:none;">円</span>
                 </td>
               </tr>
-              <tr class="form-group">
+              {{--   実際の販売額・粗利額・粗利率は商品の詳細ページにて入力する仕様に実装予定 2017.06.30 takahashi  --}}
+              {{-- <tr class="form-group">
                 <th><label for="sell_price" class="col-lg-12 control-label">販売額</label></th>
                 <td>
                   <div class="col-lg-2 tr_price">
@@ -231,7 +268,7 @@
                   </div>
                   <span class="yen">%</span>
                 </td>
-              </tr>
+              </tr> --}}
 
               <tr id="return_reason_{{$item->item_group}}" class="form-group" style="display:none;">
                 <th><label for="item_memo" class="col-lg-12 control-label" style="color:#ffffff">返品理由</label></th>

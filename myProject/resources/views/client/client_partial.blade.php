@@ -129,12 +129,6 @@
                     </td>
                   </tr>
                 </table>
-
-                <div id="client_hidden">
-                  <input type="hidden" name="status" value="◯">
-                  <input type="hidden" name="rgster" value="{{ Auth::user()->id }}">
-                  <input type="hidden" name="updter" value="{{ Auth::user()->id }}">
-                </div>
               </div>
             </div>
         </div>

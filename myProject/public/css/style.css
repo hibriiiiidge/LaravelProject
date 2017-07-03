@@ -408,3 +408,15 @@
 #form_container .input-daterange{
   padding-left: 10px;
 }
+
+
+/***************************/
+/*商品詳細ページ*/
+/***************************/
+#item_detail_container #buy_price_form{
+  border-top: 1px solid #dddddd;
+}
+
+#item_detail_container .i_detail{
+  line-height: 2.5em;
+}

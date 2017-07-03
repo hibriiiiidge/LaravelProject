@@ -3,6 +3,11 @@
 @section('content')
 <form class="form-horizontal" role="form" method="POST" action="{{ action('ClientsController@store') }}">
   {{ csrf_field() }}
+  <div class="hidden_items">
+    <input type="hidden" name="status" value="◯">
+    <input type="hidden" name="rgster" value="{{ Auth::user()->id }}">
+    <input type="hidden" name="updter" value="{{ Auth::user()->id }}">
+  </div>
   {{-- <div class="">
       <button type="submit" class="btn btn-info" style="float:right;">
           検索

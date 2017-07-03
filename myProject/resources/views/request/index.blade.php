@@ -143,7 +143,7 @@
             <div class="in_profit">{{ nf_TP($rr->profit) }}</div>
           </td>
           <td class="td_profit_rate">
-            <div class="in_profit_rate">{{ chkStr($rr->profit_rate).'%' }}</div>
+            <div class="in_profit_rate">{{ chkRate($rr->profit_rate).'%' }}</div>
           </td>
           <td class="td_latest_dt">
             {{-- @TODO ヘルパー関数の定義 表記変更 --}}

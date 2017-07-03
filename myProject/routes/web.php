@@ -86,3 +86,9 @@ Route::get('/category_maker/create', 'CategoryMakerController@create');       //
 Route::post('/category_maker/store', 'CategoryMakerController@store');        //新規登録
 Route::get('/category_maker/edit', 'CategoryMakerController@edit');          //編集
 Route::patch('/category_maker/update', 'CategoryMakerController@update');      //アップデート
+
+
+//item
+Route::get('/items', 'ItemsController@index');              //一覧表示
+Route::get('/item/{item_id}', 'ItemsController@edit');
+Route::patch('/item/update/{item_id}', 'ItemsController@update');

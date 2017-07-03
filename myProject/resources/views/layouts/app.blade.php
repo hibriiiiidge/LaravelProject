@@ -58,6 +58,11 @@
                             依頼一覧
                           </a>
                         </li>
+                        <li>
+                          <a href="{{ action('ItemsController@index') }}">
+                            商品一覧
+                          </a>
+                        </li>
                     </ul>
                     @endunless
 

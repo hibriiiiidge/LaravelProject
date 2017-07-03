@@ -18,7 +18,19 @@
    * table上のstringeは''ではなく'-'をリターン
    */
   function chkStr($str){
-    return $str ? $str: ' -';
+    return $str ? $str: '-';
+  }
+  /**
+   * table上のstringeは''ではなく'-'をリターン
+   */
+  function chkRate($str){
+    if(!$str){
+      return '-';
+    }
+    else {
+      $newStr = explode('.', $str);
+      return $newStr[0];
+    }
   }
   /**
    * table上のdtの整形

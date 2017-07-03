@@ -172,6 +172,7 @@ class RequestsController extends Controller
       $isEmpty = array_filter($search_condition);
 
       //@TODO pagerの値の受け渡しのリファクタリング
+      //下記の感じにできればいいのだが 20170629 takahashi
       // $searchPager = '';
       // foreach ($search_condition as $key => $value) {
       //   if($value){

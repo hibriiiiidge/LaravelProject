@@ -59,13 +59,9 @@
                 <th><label for="outside_condition" id="" class="col-lg-12 control-label">外観の状態</label></th>
                 <td>
                   <div class="col-lg-12">
-                    <input type="radio" class="outside_condition" name="outside_condition[{{$item->no_underscore_id}}]" value="0" {{ $item->outside_condition == 0 ? 'checked': '' }} checked {{ $item->status == "R" ? 'disabled': '' }}>未確認
-                    <input type="radio" class="outside_condition" name="outside_condition[{{$item->no_underscore_id}}]" value="1" {{ $item->outside_condition == 1 ? 'checked': '' }} {{ $item->status == "R" ? 'disabled': '' }}>新品
-                    <input type="radio" class="outside_condition" name="outside_condition[{{$item->no_underscore_id}}]" value="2" {{ $item->outside_condition == 2 ? 'checked': '' }} {{ $item->status == "R" ? 'disabled': '' }}>ほぼ新品
-                    <input type="radio" class="outside_condition" name="outside_condition[{{$item->no_underscore_id}}]" value="3" {{ $item->outside_condition == 3 ? 'checked': '' }} {{ $item->status == "R" ? 'disabled': '' }}>非常に良い
-                    <input type="radio" class="outside_condition" name="outside_condition[{{$item->no_underscore_id}}]" value="4" {{ $item->outside_condition == 4 ? 'checked': '' }} {{ $item->status == "R" ? 'disabled': '' }}>良い
-                    <input type="radio" class="outside_condition" name="outside_condition[{{$item->no_underscore_id}}]" value="5" {{ $item->outside_condition == 5 ? 'checked': '' }} {{ $item->status == "R" ? 'disabled': '' }}>可
-                    <input type="radio" class="outside_condition" name="outside_condition[{{$item->no_underscore_id}}]" value="6" {{ $item->outside_condition == 6 ? 'checked': '' }} {{ $item->status == "R" ? 'disabled': '' }}>難あり
+                    @foreach ($out_conds as $index => $out_cond)
+                        <input type="radio" class="outside_condition" name="outside_condition[{{$item->no_underscore_id}}]" value="{{ $index }}" {{ $item->outside_condition == $index ? 'checked': '' }} {{ $index == '0' ? 'checked': '' }} {{ $item->status == "R" ? 'disabled': '' }}>{{ $out_cond }}
+                    @endforeach
                   </div>
                 </td>
               </tr>
@@ -73,12 +69,9 @@
                 <th><label for="inside_condition" class="col-lg-12 control-label">動作状況</label></th>
                 <td>
                   <div class="col-lg-12">
-                    <input type="radio" class="inside_condition" name="inside_condition[{{$item->no_underscore_id}}]" value="0" {{ $item->inside_condition == 0 ? 'checked': '' }} checked {{ $item->status == "R" ? 'disabled': '' }}>未確認
-                    <input type="radio" class="inside_condition" name="inside_condition[{{$item->no_underscore_id}}]" value="1" {{ $item->inside_condition == 1 ? 'checked': '' }} {{ $item->status == "R" ? 'disabled': '' }}>保証品
-                    <input type="radio" class="inside_condition" name="inside_condition[{{$item->no_underscore_id}}]" value="2" {{ $item->inside_condition == 2 ? 'checked': '' }} {{ $item->status == "R" ? 'disabled': '' }}>未開封品
-                    <input type="radio" class="inside_condition" name="inside_condition[{{$item->no_underscore_id}}]" value="3" {{ $item->inside_condition == 3 ? 'checked': '' }} {{ $item->status == "R" ? 'disabled': '' }}>未使用品
-                    <input type="radio" class="inside_condition" name="inside_condition[{{$item->no_underscore_id}}]" value="4" {{ $item->inside_condition == 4 ? 'checked': '' }} {{ $item->status == "R" ? 'disabled': '' }}>現状品
-                    <input type="radio" class="inside_condition" name="inside_condition[{{$item->no_underscore_id}}]" value="5" {{ $item->inside_condition == 5 ? 'checked': '' }} {{ $item->status == "R" ? 'disabled': '' }}>ジャンク品
+                    @foreach ($in_conds as $index => $in_cond)
+                        <input type="radio" class="inside_condition" name="inside_condition[{{$item->no_underscore_id}}]" value="{{ $index }}" {{ $item->inside_condition == $index ? 'checked': '' }} {{ $index == '0' ? 'checked': '' }} {{ $item->status == "R" ? 'disabled': '' }}>{{ $in_cond }}
+                    @endforeach
                   </div>
                 </td>
               </tr>

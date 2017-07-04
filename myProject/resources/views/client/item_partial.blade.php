@@ -22,7 +22,7 @@
                   <label for="category" class="col-lg-12 control-label">カテゴリー</label>
                 </th>
                 <td>
-                  <div class="col-lg-12">
+                  <div class="col-lg-4">
                       <select id="category{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" class="form-control select_cat" name="category[]" autofocus {{ $item->status == "R" ? 'disabled': '' }}>
                           <option value="">未選択</option>
                           @foreach ($item_categories as $item_category)
@@ -37,7 +37,7 @@
                   <label for="maker" class="col-lg-12 control-label">メーカー</label>
                 </th>
                 <td>
-                  <div class="col-lg-12">
+                  <div class="col-lg-4">
                       <select id="maker{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" class="form-control select_maker" name="maker[]" autofocus {{ $item->status == "R" ? 'disabled': '' }}>
                           <option value="">未選択</option>
                           @foreach ($item_makers as $item_maker)
@@ -107,7 +107,7 @@
               <tr class="form-group">
                 <th><label for="estimate_price" class="col-lg-12 control-label">見積提示額</label></th>
                 <td>
-                  <div class="by_title no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" style="display: none;">
+                  <div class="by_title no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" @if($item->all_cnt == 1) style="display: none;" @endif>
                     <div class="by_item">
                       (一商品あたり)
                     </div>
@@ -120,7 +120,7 @@
                   </div>
                   <span class="yen">円</span>
 
-                  <div class="col-lg-7 tr_price total_price ttl_est_price no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" style="display: none;">
+                  <div class="col-lg-7 tr_price total_price ttl_est_price no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" @if($item->all_cnt == 1) style="display: none;" @endif>
                     <span id="total_est_price{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}">{{ $item->total_estimate_price ? nf($item->total_estimate_price) : '--'}}</span>円
                     <input type="hidden" id="hid_total_est_price{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" name="total_est_price[]" value="{{ nf($item->total_estimate_price) }}">
                   </div>
@@ -129,7 +129,7 @@
               <tr class="form-group">
                 <th><label for="expsell_price" class="col-lg-12 control-label">見込販売額</label></th>
                 <td>
-                  <div class="by_title no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" style="display: none;">
+                  <div class="by_title no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" @if($item->all_cnt == 1) style="display: none;" @endif>
                     <div class="by_item">
                       (一商品あたり)
                     </div>
@@ -149,7 +149,7 @@
                   </div>
                   <span class="yen">円</span>
 
-                  <div class="col-lg-4 tr_price total_price no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" style="display:none;">
+                  <div class="col-lg-4 tr_price total_price no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" @if($item->all_cnt == 1) style="display: none;" @endif>
                     <span id="total_expsell_min_price{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}">{{ $item->total_expsell_min_price ? nf($item->total_expsell_min_price) : '--'}}</span>円
                     <input type="hidden" id="hid_total_expsell_min_price{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" name="total_expsell_min_price[]" value="{{ nf($item->total_expsell_min_price) }}">
                     <span>~</span>
@@ -161,7 +161,7 @@
               <tr class="form-group">
                 <th><label for="exp_profit" class="col-lg-12 control-label">見込粗利額</label></th>
                 <td>
-                  <div class="by_title no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" style="display: none;">
+                  <div class="by_title no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" @if($item->all_cnt == 1) style="display: none;" @endif>
                     <div class="by_item">
                       (一商品あたり)
                     </div>
@@ -183,7 +183,7 @@
                   </div>
                   <span class="yen">円</span>
 
-                  <div class="col-lg-4 tr_price total_price no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" style="display:none;">
+                  <div class="col-lg-4 tr_price total_price no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" @if($item->all_cnt == 1) style="display: none;" @endif>
                     <span id="total_exp_min_profit{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}">{{ $item->total_exp_min_profit ? nf($item->total_exp_min_profit) : '--'}}</span>円
                     <input type="hidden" id="hid_total_exp_min_profit{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}" name="total_exp_min_profit[]" value="{{ nf($item->total_exp_min_profit) }}">
                     <span>~</span>
@@ -213,7 +213,7 @@
               <tr class="form-group">
                 <th><label for="buy_price" class="col-lg-12 control-label">買取額</label></th>
                 <td>
-                  <div class="by_title no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" style="display: none;">
+                  <div class="by_title no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" @if($item->all_cnt == 1) style="display: none;" @endif>
                     <div class="by_item">
                       (一商品あたり)
                     </div>
@@ -226,10 +226,10 @@
                   </div>
                   <span class="yen">円</span>
 
-                  <div class="col-lg-3 col-lg-offset-4 tr_price total_price no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" style="display:none;">
+                  <div class="col-lg-3 col-lg-offset-4 tr_price total_price no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" @if($item->all_cnt == 1) style="display: none;" @endif>
                     <input id="total_buy_price{{ $item->no_underscore_id ? "_".$item->no_underscore_id: ''  }}"  type="text" class="form-control price total_buy_price" name="total_buy_price[]" value="{{ nf($item->total_buy_price) }}">
                   </div>
-                  <span class="yen no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" style="display:none;">円</span>
+                  <span class="yen no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" @if($item->all_cnt == 1) style="display: none;" @endif>円</span>
                 </td>
               </tr>
               {{--   実際の販売額・粗利額・粗利率は商品の詳細ページにて入力する仕様に実装予定 2017.06.30 takahashi  --}}
@@ -263,7 +263,7 @@
                 </td>
               </tr> --}}
 
-              <tr id="return_reason_{{$item->item_group}}" class="form-group" style="display:none;">
+              <tr id="return_reason_{{$item->item_group}}" class="form-group" @if($item->all_cnt == 1) style="display: none;" @endif>
                 <th><label for="item_memo" class="col-lg-12 control-label" style="color:#ffffff">返品理由</label></th>
                 <td>
                   <div class="col-lg-12">

@@ -1,11 +1,11 @@
 <nav class="st-menu st-effect-search" id="menu-search">
 	<div id="form_title">検索フォーム</div>
-  <div id="form_container">
+  <div class="form_container">
     <form action="{{ action('RequestsController@index') }}" class="form-horizontal" method="get">
 				<div class="form-group">
 						<label class="control-label col-lg-3">依頼ID</label>
 						<div class="s_input_wrap col-lg-9">
-								<input type="text" id="s_reqdtl_id" name="reqdtl_id" class="s_input form-control" value="{{ $request_id }}">
+								<input type="text" id="s_reqdtl_id" name="reqdtl_id" class="s_input form-control" value="{{ $old_request_id }}">
 						</div>
 				</div>
 				<div class="form-group">

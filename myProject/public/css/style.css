@@ -35,6 +35,14 @@
 /***************************/
 /*新規顧客・依頼・商品登録ページ*/
 /***************************/
+#client_attribute{
+  line-height: 3em;
+}
+
+.guide{
+  font-size: 10px;
+}
+
 #progress_container{
   overflow: scroll;
   width: 20%;
@@ -356,6 +364,7 @@
 #search_contents ul>li{
   list-style: none;
   float: left;
+  margin: 0px 10px 10px;
 }
 
 
@@ -368,22 +377,22 @@
   padding-bottom: 0px;
   font-weight: bold;
 }
-#form_container{
+.form_container{
   padding: 25px;
   padding-top: 10px;
 }
-#form_container .form-group,
-#form_container .control-label,
-#form_container .s_input_wrap,
-#form_container .s_input{
+.form_container .form-group,
+.form_container .control-label,
+.form_container .s_input_wrap,
+.form_container .s_input{
   height: 50%;
   font-size: 10px;
 }
-#form_container .s_select{
+.form_container .s_select{
   height: 25px;
   font-size: 10px;
 }
-#form_container .s_input{
+.form_container .s_input{
   background-color: #ffffff;
   border-top: none;
   border-left: none;
@@ -391,24 +400,30 @@
   box-shadow: none;
   border-radius: 0px;
 }
-#form_container .from_dt{
+.form_container .from_dt{
   padding-right: 10px;
 }
-#form_container .s_wave{
+.form_container .s_wave{
   padding: 4px;
   text-align: center;
 }
-#form_container .input_dt{
+.form_container .input_dt{
   padding: 5px;
 }
-#form_container .input-group-addon{
+.form_container .input-group-addon{
   font-size: 10px;
   padding: 4px;
 }
-#form_container .input-daterange{
+.form_container .input-daterange{
   padding-left: 10px;
 }
 
+/***************************/
+/*商品一覧ページ*/
+/***************************/
+#request_list_container table>tbody>tr>td>div>a {
+  font-weight: bold;
+}
 
 /***************************/
 /*商品詳細ページ*/
@@ -419,4 +434,20 @@
 
 #item_detail_container .i_detail{
   line-height: 2.5em;
+}
+
+/***************************/
+/*商品検索ページ*/
+/***************************/
+#item_form .s_input_short{
+  padding: 6px 0px;
+  text-align: center;
+}
+
+#item_form .item_id_wrap{
+  padding: 0px;
+}
+
+#item_form .item_id_bar{
+  padding: 4px 6px;
 }

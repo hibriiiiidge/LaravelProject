@@ -147,7 +147,7 @@ $(function(){
                   '<label for="category" class="col-lg-12 control-label">カテゴリー</label>'
                 );
                 $("#item_cat_"+ts+">td").prepend(
-                  $("<div></div>", {addClass: "col-lg-12"})
+                  $("<div></div>", {addClass: "col-lg-4"})
                 );
                 $("#item_cat_"+ts+">td>div").prepend(
                   $("<select></select>", {Id:"category_"+ts, addClass: "form-control select_cat", name:"category[]"})
@@ -168,7 +168,7 @@ $(function(){
                   '<label for="maker" class="col-lg-12 control-label">メーカー</label>'
                 );
                 $("#item_maker_"+ts+">td").prepend(
-                  $("<div></div>", {addClass: "col-lg-12"})
+                  $("<div></div>", {addClass: "col-lg-4"})
                 );
                 $("#item_maker_"+ts+">td>div").prepend(
                   $("<select></select>", {Id:"maker_"+ts, addClass: "form-control select_maker", name:"maker[]"})

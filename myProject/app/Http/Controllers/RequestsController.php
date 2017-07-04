@@ -142,6 +142,7 @@ class RequestsController extends Controller
       else{
         $base = '';
       }
+      
       if($staff_no){
         $search_staff = User::findOrFail($staff_no);
         $staff = $search_staff->name;

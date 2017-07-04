@@ -110,7 +110,7 @@
                         <td class="col-lg-6">
                           <label for="category" class="col-lg-3 control-label">出品額</label>
                           <div class="col-lg-4">
-                            <input id="start_price"  type="text" class="form-control price" name="start_price" value="{{ $item->start_price }}">
+                            <input id="start_price"  type="text" class="form-control price" name="start_price" value="{{ nf($item->start_price) }}">
                           </div>
                           <span class="yen">円</span>
                         </td>
@@ -120,7 +120,7 @@
                         <td class="col-lg-6">
                           <label for="category" class="col-lg-3 control-label">落札予想額</label>
                           <div class="col-lg-4">
-                            <input id="expsell_price"  type="text" class="form-control price" name="expsell_price" value="{{ $item->expsell_price }}">
+                            <input id="expsell_price"  type="text" class="form-control price" name="expsell_price" value="{{ nf($item->expsell_price) }}">
                           </div>
                           <span class="yen">円</span>
                         </td>
@@ -130,26 +130,28 @@
                         <td class="col-lg-6">
                           <label for="category" class="col-lg-3 control-label">落札額</label>
                           <div class="col-lg-4">
-                            <input id="sell_price"  type="text" class="form-control price" name="sell_price" value="{{ $item->sell_price }}">
+                            <input id="sell_price"  type="text" class="form-control price" name="sell_price" value="{{ nf($item->sell_price) }}">
                           </div>
                           <span class="yen">円</span>
                         </td>
                       </tr>
 
+                      @if ($profit && $profit_rate)
                       <tr class="form-group item_form">
                         <td class="col-lg-6">
                           <label for="category" class="col-lg-3 control-label">粗利額</label>
                           <div class="col-lg-9">
-                            <span class="i_detail">1,0000円</span>
+                            <span class="i_detail">{{ nf($profit) }}円</span>
                           </div>
                         </td>
                         <td>
                           <label for="category" class="col-lg-3 control-label">粗利率</label>
                           <div class="col-lg-9">
-                            <span class="i_detail">20%</span>
+                            <span class="i_detail">{{ chkRate($profit_rate) }}%</span>
                           </div>
                         </td>
                       </tr>
+                      @endif
                     </table>
                   </div>
                 </div>
@@ -177,7 +179,7 @@
             </tr>
           @empty
             <tr>
-              No comment
+              
             </tr>
           @endforelse
         </tbody>

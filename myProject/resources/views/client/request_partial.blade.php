@@ -8,7 +8,7 @@
                 <tr class="form-group">
                   <th><label for="urgency" class="col-lg-12 control-label">緊急度</label></th>
                   <td>
-                    <div class="col-lg-12">
+                    <div class="col-lg-2">
                         <select id="urgency" class="form-control" name="urgency" autofocus>
                             <option value="">未選択</option>
                             @foreach ($urgencys as $index => $urgency)
@@ -21,7 +21,7 @@
                 <tr class="form-group">
                   <th><label for="reason" class="col-lg-12 control-label">動機</label></th>
                   <td>
-                    <div class="col-lg-12">
+                    <div class="col-lg-4">
                       <select id="reason" class="form-control" name="reason" autofocus>
                           <option value="">未選択</option>
                           @foreach ($reasons as $index => $reason)
@@ -54,7 +54,7 @@
                 <tr class="form-group">
                   <th><label for="route" class="col-lg-12 control-label">流入サイト</label></th>
                   <td>
-                    <div class="col-lg-12">
+                    <div class="col-lg-4">
                       <select id="route" class="form-control" name="route" autofocus>
                           <option value="">未選択</option>
                           @foreach ($routes as $route)
@@ -88,7 +88,7 @@
                   <td>
                     <div class="col-lg-4">
                       <span class="bnk_area">
-                        <input type="text" name="bank_name" id="bank_name" class="form-control form_txt-short"  value="{{ old('bank_name', $requestDetail->bank_name) }}" />
+                        <input type="text" name="bank_name" id="bank_name" class="form-control form_txt-short"  value="{{ old('bank_name', $requestDetail->bank_name) }}" placeholder="ex) ユーズド銀行" />
                       </span>
                       金融機関コード：<span id="bank_code">{{ $requestDetail->bank_code }}</span>
                       <input type="hidden" id="hd_bank_code" name="bank_code" value="">
@@ -101,7 +101,7 @@
                   <td>
                     <div class="col-lg-4">
                       <span class="bnk_area">
-                        <input type="text" name="branch_name" id="branch_name" class="form-control form_txt-short" value="{{ old('branch_name', $requestDetail->branch_name) }}" />
+                        <input type="text" name="branch_name" id="branch_name" class="form-control form_txt-short" value="{{ old('branch_name', $requestDetail->branch_name) }}" placeholder="ex) ネット支店" />
                       </span>
                       支店コード：<span id="branch_code">{{ $requestDetail->branch_code }}</span>
                       <input type="hidden" id="hd_branch_code" name="branch_code" value="">
@@ -123,15 +123,17 @@
                   <th><label for="account_number" class="col-lg-12 control-label">口座番号</label></th>
                   <td>
                     <div class="col-lg-3">
-                        <input id="account_number" type="text" class="form-control" name="account_number" value="{{ old('account_number', $requestDetail->account_number) }}" autofocus>
+                        <input id="account_number" type="text" class="form-control" name="account_number" value="{{ old('account_number', $requestDetail->account_number) }}" placeholder="ex) 1234567" autofocus>
+                        <span class="guide">半角</span>
                     </div>
                   </td>
                 </tr>
                 <tr class="form-group">
                   <th><label for="account_name" class="col-lg-12 control-label">口座名義人</label></th>
                   <td>
-                    <div class="col-lg-12">
-                        <input id="account_name" type="text" class="form-control" name="account_name" value="{{ old('account_name', $requestDetail->account_name) }}" autofocus>
+                    <div class="col-lg-4">
+                        <input id="account_name" type="text" class="form-control" name="account_name" value="{{ old('account_name', $requestDetail->account_name) }}" placeholder="ex) ユーズド ネット" autofocus>
+                        <span class="guide">カナ "セイ"と"ナ"の間に空白</span>
                     </div>
                   </td>
                 </tr>

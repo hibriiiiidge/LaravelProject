@@ -8,6 +8,7 @@ use App\BaseType;
 use App\RequestDetail;
 use App\RequestProgress;
 use App\Item;
+use App\ItemProgress;
 use Illuminate\Support\Facades\DB;
 
 class ClientsController extends Controller
@@ -168,6 +169,16 @@ class ClientsController extends Controller
           $item->rgster               = $request->rgster;
           $item->updter               = $request->updter;
           $item->save();
+
+          $itemProgress = new ItemProgress();
+          $itemProgress->item_id          = ($rDetail->request_id)."-".$item_group_n."-".$item_n;
+          $itemProgress->flow_no          = 1;
+          $itemProgress->progress_status  = 1;
+          $itemProgress->status           = $request->item_status;
+          $itemProgress->rgster           = $request->rgster;
+          $itemProgress->updter           = $request->updter;
+          $itemProgress->save();
+
         }
       }
       return redirect()->action('ClientsController@edit', ['clientId'=>$client->id, 'requestDetailId'=>$rDetail->request_id]);
@@ -281,6 +292,15 @@ class ClientsController extends Controller
             $item->rgster               = $request->rgster;
             $item->updter               = $request->updter;
             $item->save();
+
+            $itemProgress = new ItemProgress();
+            $itemProgress->item_id          = $comnAry[$i]."-".$newItemNo;
+            $itemProgress->flow_no          = 1;
+            $itemProgress->progress_status  = 1;
+            $itemProgress->status           = $request->item_status;
+            $itemProgress->rgster           = $request->rgster;
+            $itemProgress->updter           = $request->updter;
+            $itemProgress->save();
           }
         }
         //減の場合
@@ -352,6 +372,15 @@ class ClientsController extends Controller
           $item->rgster               = $request->rgster;
           $item->updter               = $request->updter;
           $item->save();
+
+          $itemProgress = new ItemProgress();
+          $itemProgress->item_id          = ($rDetail->request_id)."-".$item_group_n."-".$item_n;
+          $itemProgress->flow_no          = 1;
+          $itemProgress->progress_status  = 1;
+          $itemProgress->status           = $request->item_status;
+          $itemProgress->rgster           = $request->rgster;
+          $itemProgress->updter           = $request->updter;
+          $itemProgress->save();
         }
       }
       //返品処理
@@ -461,8 +490,8 @@ class ClientsController extends Controller
         'jobs'            =>  $jobs,
         'item_categories' =>  $item_categories,
         'item_makers'     =>  $item_makers,
-        'out_conds'       => $out_conds,
-        'in_conds'        => $in_conds
+        'out_conds'       =>  $out_conds,
+        'in_conds'        =>  $in_conds
       ]);
     }
 
@@ -562,9 +591,6 @@ class ClientsController extends Controller
       $item->exp_max_profit_rate      = $request->exp_max_profit_rate[$i];
       $item->buy_price                = $request->buy_price[$i] ? str_replace(',', '', $request->buy_price[$i]): null;
       $item->total_buy_price          = $request->total_buy_price[$i] ? str_replace(',', '', $request->total_buy_price[$i]): null;
-    //$item->sell_price           = $request->sell_price[$i] ? str_replace(',', '', $request->sell_price[$i]): null;
-    //$item->profit               = $request->profit[$i] ? str_replace(',', '', $request->profit[$i]): null;
-    // $item->profit_rate          = $request->profit_rate[$i];
       return $item;
     }
 }

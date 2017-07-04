@@ -6,9 +6,43 @@
   <button data-effect="st-effect-search" style="border-radius: 20px;"><i class="fa fa-search fa-2x"></i></button>
 </div>
 <div id="request_list_container">
-  <div id="search_condition">
+  <div id="$search_condition">
+    @if ($isEmpty)
+      <div id="search_title">
+        検索条件
+      </div>
+    @endif
     <div id="search_contents">
-
+      <ul>
+        @php
+        foreach ($search_condition as $key => $value) {
+          if($value){
+            switch ($key) {
+              case 'progress':
+                echo "<li class='search_conditions is_p'> $i_search_title[$key] : $i_prges[$value] </li>";
+                break;
+              case 'category_no':
+                foreach ($categories as $category) {
+                  if($category->id == $value){
+                    echo "<li class='search_conditions is_c'> $i_search_title[$key] : $category->name </li>";
+                  }
+                }
+                break;
+              case 'maker_no':
+                foreach ($makers as $maker) {
+                  if($maker->id == $value){
+                    echo "<li class='search_conditions is_m'> $i_search_title[$key] : $maker->name </li>";
+                  }
+                }
+                break;
+              default:
+                echo "<li class='search_conditions'> $i_search_title[$key] : $value </li>";
+                break;
+            }
+          }
+        }
+        @endphp
+      </ul>
     </div>
   </div>
   <table class="table table-striped table-hover">
@@ -43,7 +77,7 @@
             </div>
           </td>
           <td class="">
-            <div class="">{{ $prges[$ir->p_status] }}</div>
+            <div class="">{{ $i_prges[$ir->ip_status] }}</div>
           </td>
           <td class="">
             <div class="">{{ chkStr($ir->ic_name) }}</div>
@@ -83,10 +117,22 @@
       @endforelse
     </tbody>
   </table>
-  {{ $items_results->links() }}
+  {{ $items_results->appends([
+    'request_id'  => $request_id,
+    'item_name'   => $item_name,
+    'progress'    => $progress,
+    'category_no' => $category_no,
+    'maker_no'    => $maker_no
+      ])->links() }}
 </div>
 @endsection
 
 @section('search')
-  @include('search.item_form_partial')
+  @include('search.item_form_partial',[
+    'old_request_id'  => $request_id,
+    'old_item_name'   => $item_name,
+    'old_progress'    => $progress,
+    'old_category'    => $category_no,
+    'old_maker'       => $maker_no
+  ])
 @endsection

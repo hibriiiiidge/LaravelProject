@@ -14,46 +14,39 @@
     @endif
     <div id="search_contents">
       <ul>
-    {{-- @foreach ($search_condition as $key => $value) --}}
-          @php
-          foreach ($search_condition as $key => $value) {
-            if($value){
-              switch ($key) {
-                case 'urgency':
-                  echo "<li class='search_conditions s_u'> $search_title[$key] : $urgencys[$value] </li>";
-                  break;
-                case 'base':
-                  echo "<li class='search_conditions s_b'> $search_title[$key] : $value </li>";
-                  break;
-                case 'buy_way':
-                  echo "<li class='search_conditions s_bw'> $search_title[$key] : $buy_ways[$value] </li>";
-                  break;
-                case 'status':
-                  echo "<li class='search_conditions s_sts'> $search_title[$key] : $prges[$value] </li>";
-                  break;
-                case 'prefecture':
-                  echo "<li class='search_conditions s_pref'> $search_title[$key] : $prefs[$value] </li>";
-                  break;
-                case 'staff':
-                  echo "<li class='search_conditions s_stf'> $search_title[$key] : $value </li>";
-                  break;
-                case 'rgst_to':
-                case 'fin_to':
-                  echo "<li class='search_conditions s_to'> $search_title[$key] $value </li>";
-                  break;
-                default:
-                  echo "<li class='search_conditions'> $search_title[$key] : $value </li>";
-                  break;
-              }
+        @php
+        foreach ($search_condition as $key => $value) {
+          if($value){
+            switch ($key) {
+              case 'urgency':
+                echo "<li class='search_conditions s_u'> $search_title[$key] : $urgencys[$value] </li>";
+                break;
+              case 'base':
+                echo "<li class='search_conditions s_b'> $search_title[$key] : $value </li>";
+                break;
+              case 'buy_way':
+                echo "<li class='search_conditions s_bw'> $search_title[$key] : $buy_ways[$value] </li>";
+                break;
+              case 'status':
+                echo "<li class='search_conditions s_sts'> $search_title[$key] : $prges[$value] </li>";
+                break;
+              case 'prefecture':
+                echo "<li class='search_conditions s_pref'> $search_title[$key] : $prefs[$value] </li>";
+                break;
+              case 'staff':
+                echo "<li class='search_conditions s_stf'> $search_title[$key] : $value </li>";
+                break;
+              case 'rgst_to':
+              case 'fin_to':
+                echo "<li class='search_conditions s_to'> $search_title[$key] $value </li>";
+                break;
+              default:
+                echo "<li class='search_conditions'> $search_title[$key] : $value </li>";
+                break;
             }
           }
-          @endphp
-          {{-- @if($key=='rgst_to' || $key=='fin_to')
-              <li class="search_to">{{ $search_title[$key] }}{{ $value }}</li>
-          @else
-              <li class="search_conditions">{{ $search_title[$key] }} :  {{ $value }}</li>
-          @endif --}}
-      {{-- @endforeach --}}
+        }
+        @endphp
       </ul>
     </div>
   </div>
@@ -114,7 +107,6 @@
           <td class="td_route">
             <div class="in_route">{{ chkStr($rr->route_name) }}</div>
           </td>
-
           <td class="td_req_cnt">
             <div class="in_req_cnt">{{ chkStr($rr->i_cnt) }}</div>
           </td>

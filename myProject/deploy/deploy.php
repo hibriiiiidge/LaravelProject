@@ -1,6 +1,6 @@
 <?php
 
-require 'recipe/laravel.php';
+require 'recipe/composer.php';
 
 // デフォルトがUTCなので上書き
 //env('timezone', 'Asia/Tokyo');

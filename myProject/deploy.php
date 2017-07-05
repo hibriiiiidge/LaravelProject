@@ -16,7 +16,7 @@ add('writable_dirs', []);
 
 host('13.114.47.97')
     ->stage('production')
-    ->set('deploy_path', '/var/www/html/');
+    ->set('deploy_path', '/var/www/html');
 
 // host('beta.project.com')
 //     ->stage('beta')

@@ -1,9 +1,9 @@
 <?php
 
-require 'recipe/composer.php';
+require 'recipe/laravel.php';
 
 // デフォルトがUTCなので上書き
-//env('timezone', 'Asia/Tokyo');
+env('timezone', 'Asia/Tokyo');
 
 // デプロイ先のサーバ情報を定義
 //serverList('config/server.yml');

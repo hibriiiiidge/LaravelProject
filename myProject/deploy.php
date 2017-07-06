@@ -19,16 +19,17 @@ add('writable_dirs', []);
 //     ->stage('production')
 //     ->set('deploy_path', '/var/www/html');
 
-host('13.114.47.97', 22)
-    ->user('ubuntu')
-    // ssh agentを使い認証します。
-    ->forwardAgent()
-    ->stage('production')
-    // デプロイ先のベースパスを定義します。
-    ->set('deploy_path', '/var/www/html');
+// host('13.114.47.97', 22)
+//     ->user('ubuntu')
+//     // ssh agentを使い認証します。
+//     ->forwardAgent()
+//     ->stage('production')
+//     // デプロイ先のベースパスを定義します。
+//     ->set('deploy_path', '/var/www/html');
+
+serverList('servers.yml');
 
 // Tasks
-
 desc('Restart PHP-FPM service');
 task('php-fpm:restart', function () {
     // The user must have rights for restart service

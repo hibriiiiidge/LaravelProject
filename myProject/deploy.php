@@ -14,6 +14,7 @@ add('writable_dirs', []);
 
 // Hosts
 
+//serverList('servers.yml');
 host('13.114.47.97')
     ->stage('production')
     ->set('deploy_path', '/var/www/html');

@@ -1,7 +1,0 @@
-dev:
-    host:          13.114.47.97
-    user:          ubuntu
-    identity_file:
-        public_key: "~/.ssh/master.pem"
-    stage:         production
-    deploy_path:   "/var/www/html"

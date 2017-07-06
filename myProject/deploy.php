@@ -45,6 +45,22 @@ after('deploy:failed', 'deploy:unlock');
 
 before('deploy:symlink', 'artisan:migrate');
 
+task('deploy', [
+    'deploy:prepare',
+    'deploy:lock',
+    'deploy:release',
+    'deploy:update_code',
+    'deploy:shared',
+    'deploy:writable',
+    'deploy:vendors',
+    'deploy:clear_paths',
+    'deploy:symlink',
+    'deploy:unlock',
+    'cleanup',
+    'success'
+]);
+
+
 // require 'recipe/laravel.php';
 //
 // // デフォルトがUTCなので上書き

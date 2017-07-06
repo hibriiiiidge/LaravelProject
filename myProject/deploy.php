@@ -19,7 +19,7 @@ add('writable_dirs', []);
 //     ->stage('production')
 //     ->set('deploy_path', '/var/www/html');
 
-host('production', '13.114.47.97', 22)
+host('13.114.47.97', 22)
     ->user('ubuntu')
     // ssh agentを使い認証します。
     ->forwardAgent()

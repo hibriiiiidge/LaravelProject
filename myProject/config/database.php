@@ -56,11 +56,11 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', 'u2system-db.cpvzsbjklwnu.ap-northeast-1.rds.amazonaws.com'),
+            'host' => env('DB_HOST', 'u2system-db.XXXX.ap-northeast-1.rds.amazonaws.com'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'u2system_db'),
-            'username' => env('DB_USERNAME', 'u2system'),
-            'password' => env('DB_PASSWORD', 'unet0493'),
+            'database' => env('DB_DATABASE', ''),
+            'username' => env('DB_USERNAME', ''),
+            'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',

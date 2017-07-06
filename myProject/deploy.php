@@ -15,14 +15,17 @@ add('writable_dirs', []);
 // Hosts
 
 //serverList('servers.yml');
-host('13.114.47.97')
+// host('13.114.47.97')
+//     ->stage('production')
+//     ->set('deploy_path', '/var/www/html');
+
+server('production', '13.114.47.97', 22)
+    ->user('ubuntu')
+    // ssh agentを使い認証します。
+    ->forwardAgent()
     ->stage('production')
-    ->set('deploy_path', '/var/www/html');
-
-// host('beta.project.com')
-//     ->stage('beta')
-//     ->set('deploy_path', '/var/www/project.com');
-
+    // デプロイ先のベースパスを定義します。
+    ->env('deploy_path', '/var/www/html');
 
 // Tasks
 

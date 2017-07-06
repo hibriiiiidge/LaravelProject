@@ -19,13 +19,13 @@ add('writable_dirs', []);
 //     ->stage('production')
 //     ->set('deploy_path', '/var/www/html');
 
-server('production', '13.114.47.97', 22)
+host('production', '13.114.47.97', 22)
     ->user('ubuntu')
     // ssh agentを使い認証します。
     ->forwardAgent()
     ->stage('production')
     // デプロイ先のベースパスを定義します。
-    ->env('deploy_path', '/var/www/html');
+    ->set('deploy_path', '/var/www/html');
 
 // Tasks
 

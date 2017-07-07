@@ -31,12 +31,13 @@ after('deploy:symlink', 'php-fpm:restart');
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
 
-task('deploy:migrate', function(){
-  run('{{bin/php}} {{release_path}}/artisan migrate --force');
-})
+//  task('deploy:migrate', function(){
+//    run('{{bin/php}} {{release_path}}/artisan migrate --force');
+// })
 
 // Migrate database before symlink new release.
-before('deploy:symlink', 'deploy:migrate');
+// before('deploy:symlink', 'deploy:migrate');
+before('deploy:symlink', 'artisan:migrate');
 
 task('deploy', [
     'deploy:prepare',

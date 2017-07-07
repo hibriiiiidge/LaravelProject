@@ -4,7 +4,6 @@ namespace Deployer;
 require 'recipe/laravel.php';
 
 // Configuration
-
 set('repository', 'git@github.com:hibriiiiidge/LaravelProject.git');
 set('git_tty', true); // [Optional] Allocate tty for git on first deployment
 add('shared_files', []);
@@ -13,20 +12,11 @@ add('writable_dirs', []);
 
 
 // Hosts
-
-//serverList('servers.yml');
-// host('13.114.47.97')
-//     ->stage('production')
-//     ->set('deploy_path', '/var/www/html');
-
 host('13.114.47.97')
     ->user('ubuntu')
-    // ssh agentを使い認証します。
-    //->forwardAgent()
     ->port(22)
     ->identityFile('~/.ssh/master.pem')
     ->stage('production')
-    // デプロイ先のベースパスを定義します。
     ->set('deploy_path', '/var/www/html');
 
 // Tasks
@@ -41,9 +31,12 @@ after('deploy:symlink', 'php-fpm:restart');
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
 
-// Migrate database before symlink new release.
+task('deploy:migrate', function(){
+  run('{{bin/php}} {{release_path}}/artisan migrate --force');
+})
 
-before('deploy:symlink', 'artisan:migrate');
+// Migrate database before symlink new release.
+before('deploy:symlink', 'deploy:migrate');
 
 task('deploy', [
     'deploy:prepare',

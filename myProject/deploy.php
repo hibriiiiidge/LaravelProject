@@ -37,7 +37,8 @@ after('deploy:failed', 'deploy:unlock');
 set('release_path', '/var/www/html/releases/1/myProject');
 
 task('deploy:migrate', function () {
-  run('{{bin/php}} {{release_path}}/artisan migrate --force');
+  // run('{{bin/php}} {{release_path}}/artisan migrate --force');
+run('{{bin/php}} /var/www/html/releases/1/myProject/artisan migrate --force');
 });
 
 

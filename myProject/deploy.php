@@ -36,8 +36,8 @@ after('deploy:failed', 'deploy:unlock');
 // });
 
 task('deploy:migrate', function () {
-// run('{{bin/php}} {{release_path}}/artisan migrate --force');
-run('var_dump({{release_path}})');
+run('{{bin/php}} {{release_path}}/myProject/artisan migrate --force');
+//run('var_dump({{release_path}})');
 });
 
 

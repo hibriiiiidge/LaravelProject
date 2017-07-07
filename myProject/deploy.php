@@ -34,11 +34,11 @@ after('deploy:failed', 'deploy:unlock');
 // task('deploy:migrate', function(){
 //   run('{{bin/php}} /var/www/html/releases/1/myProject/artisan migrate --force');
 // });
-set('release_path', '/var/www/html/releases/myProject/myProject');
+set('release_path', '/var/www/html/releases/1/myProject');
 
 task('deploy:migrate', function () {
   run('{{bin/php}} {{release_path}}/artisan migrate --force');
-//run('{{bin/php}} /var/www/html/releases/myProject/myProject/artisan migrate --force');
+  //run('{{bin/php}} /var/www/html/releases/myProject/myProject/artisan migrate --force');
 });
 
 

@@ -32,7 +32,7 @@ host('13.114.47.97')
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
 
-set('release_path', '/var/www/html/releases/2/myProject');    //<-ここは1と固定したままで良いのでしょうか？
+set('release_path', '/var/www/html/releases/1/myProject');    //<-ここは1と固定したままで良いのでしょうか？
 
 task('deploy:migrate', function () {
   run('{{bin/php}} {{release_path}}/artisan migrate --force');

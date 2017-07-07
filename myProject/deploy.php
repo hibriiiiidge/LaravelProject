@@ -20,19 +20,19 @@ host('13.114.47.97')
     ->set('deploy_path', '/var/www/html');
 
 // Tasks
-desc('Restart PHP-FPM service');
-task('php-fpm:restart', function () {
+//desc('Restart PHP-FPM service');
+//task('php-fpm:restart', function () {
     // The user must have rights for restart service
     // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart php-fpm.service
-    run('sudo systemctl restart php-fpm.service');
-});
-after('deploy:symlink', 'php-fpm:restart');
+//    run('sudo systemctl restart php-fpm.service');
+//});
+//after('deploy:symlink', 'php-fpm:restart');
 
 
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
 
-set('release_path', '/var/www/html/releases/1/myProject');    //<-ここは1と固定したままで良いのでしょうか？
+set('release_path', '/var/www/html/releases/2/myProject');    //<-ここは1と固定したままで良いのでしょうか？
 
 task('deploy:migrate', function () {
   run('{{bin/php}} {{release_path}}/artisan migrate --force');

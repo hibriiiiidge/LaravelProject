@@ -28,6 +28,19 @@ host('13.114.47.97')
 //});
 //after('deploy:symlink', 'php-fpm:restart');
 
+
+// [Optional] if deploy fails automatically unlock.
+after('deploy:failed', 'deploy:unlock');
+
+set('release_path', '/var/www/html/releases/1/myProject');    //<-ここは1と固定したままで良いのでしょうか？
+
+task('deploy:migrate', function () {
+  run('{{bin/php}} {{release_path}}/artisan migrate --force');
+});
+
+// Migrate database before symlink new release.
+after('deploy', 'deploy:migrate');
+
 task('deploy', [
     'deploy:prepare',
     'deploy:lock',
@@ -42,15 +55,3 @@ task('deploy', [
     'cleanup',
     'success'
 ]);
-
-//set('release_path', '/var/www/html/current/myProject');
-set('release_path', '/var/www/html/releases/1/myProject');
-task('deploy:migrate', function () {
-  run('{{bin/php}} {{release_path}}/artisan migrate --force');
-});
-
-// Migrate database before symlink new release.
-after('deploy', 'deploy:migrate');
-
-// [Optional] if deploy fails automatically unlock.
-after('deploy:failed', 'deploy:unlock');

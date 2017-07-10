@@ -32,8 +32,8 @@ after('deploy:symlink', 'php-fpm:restart');
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
 
-//set('release_path', '/var/www/html/releases/1/myProject');    //<-ここは1と固定したままで良いのでしょうか？
-set('release_path', '/var/www/html/current/myProject');
+set('release_path', '/var/www/html/releases/1/myProject');    //<-ここは1と固定したままで良いのでしょうか？
+//set('release_path', '/var/www/html/current/myProject');
 
 task('deploy:migrate', function () {
   run('{{bin/php}} {{release_path}}/artisan migrate --force');

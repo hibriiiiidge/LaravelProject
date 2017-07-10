@@ -20,13 +20,13 @@ host('13.114.47.97')
     ->set('deploy_path', '/var/www/html');
 
 // Tasks
-//desc('Restart PHP-FPM service');
-//task('php-fpm:restart', function () {
+desc('Restart PHP-FPM service');
+task('php-fpm:restart', function () {
     // The user must have rights for restart service
     // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart php-fpm.service
-//    run('sudo systemctl restart php-fpm.service');
-//});
-//after('deploy:symlink', 'php-fpm:restart');
+    run('sudo systemctl restart php7.0-fpm');
+});
+after('deploy:symlink', 'php-fpm:restart');
 
 
 // [Optional] if deploy fails automatically unlock.

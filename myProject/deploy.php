@@ -43,15 +43,14 @@ task('deploy', [
     'success'
 ]);
 
-
-// Migrate database before symlink new release.
-after('deploy', 'deploy:migrate');
-
 //set('release_path', '/var/www/html/current/myProject');
 set('release_path', '/var/www/html/releases/1/myProject');
 task('deploy:migrate', function () {
   run('{{bin/php}} {{release_path}}/artisan migrate --force');
 });
+
+// Migrate database before symlink new release.
+after('deploy', 'deploy:migrate');
 
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');

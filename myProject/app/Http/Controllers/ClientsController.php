@@ -38,6 +38,7 @@ class ClientsController extends Controller
     public function viewRgst(Client $client){
       $rDetail    = new RequestDetail();
       $item       = new Item();
+      $item->all_cnt = 1;
       $itemsCnt   = 1; //削除ボタンの表示・非表示と連動 商品入力フォームの数が ">0" の時に削除ボタンが表示
       $latestSts  = null;
       $prefs      = config('pref'); //都道府県取得
@@ -91,14 +92,13 @@ class ClientsController extends Controller
      *
      */
     public function store(Request $request){
-      //dd($request);
       //@TODO バリデーション
-      // $this->validate($request, [
-      //   'attribute'   => 'required|integer',
-      //   'base'        => 'required|integer',
-      //   'name'        => 'required|string|max:255',
-      //   'kana'        => 'required|string|max:255'
-      // ]);
+      $this->validate($request, [
+        'attribute'   => 'required|integer'
+        // 'base'        => 'required|integer',
+        // 'name'        => 'required|string|max:255',
+        // 'kana'        => 'required|string|max:255'
+      ]);
       ///////////////////////////////////////////////////////////////
       ////                        Client
       ///////////////////////////////////////////////////////////////

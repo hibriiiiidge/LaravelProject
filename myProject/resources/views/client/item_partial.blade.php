@@ -107,7 +107,7 @@
               <tr class="form-group">
                 <th><label for="estimate_price" class="col-lg-12 control-label">見積提示額</label></th>
                 <td>
-                  <div class="by_title no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" @if($item->all_cnt == 1) style="display: none;" @endif>
+                  <div class="by_title no_display{{ $item->no_underscore_id ? "_".$item->no_underscore_id: '' }}" @if($item->all_cnt == 1 ) style="display: none;" @endif>
                     <div class="by_item">
                       (一商品あたり)
                     </div>

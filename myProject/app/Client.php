@@ -8,7 +8,7 @@ class Client extends Model
 {
     protected $table = 'clients';
     protected $primaryKey = 'id';
-    public const ZEROCNT = 3; //初期値として埋める0の数 顧客ID->7桁の0埋め ex. '0000001', '0002034'
+    const ZEROCNT = 3; //初期値として埋める0の数 顧客ID->7桁の0埋め ex. '0000001', '0002034'
 
     protected $fillable = [
       'id', 'attribute', 'base', 'name', 'kana', 'gender', 'job', 'birth', 'tel',

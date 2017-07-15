@@ -73,9 +73,9 @@
                             <li>
                               <a href="{{ route('login') }}">Login</a>
                             </li>
-                            <li>
+                            {{-- <li>
                               <a href="{{ route('register') }}">新規スタッフ登録</a>
-                            </li>
+                            </li> --}}
                         @else
                           @if ( Auth::user()->role==1) {{-- @TODO config設定 定数--}}
                             <li class="dropdown">
@@ -158,6 +158,7 @@
     <script src="{{ asset('js/sidebarEffects.js') }}"></script>
     <script src="{{ asset('js/postal_code_to_address.js') }}"></script>
     <script src="{{ asset('js/bank_branch_code.js') }}"></script>
+    <script src="{{ asset('js/validate.js') }}"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <!-- Datepicker for Bootstrap -->

@@ -134,7 +134,7 @@ class RequestsController extends Controller
                             return $query->whereDate('FIN_SQ.created_at', '<=',$fin_to);
                           })
                           ->orderBy('RD.created_at', 'DESC')
-                          ->paginate(5);
+                          ->paginate(30);
       if($base_no){
         $search_base  = BaseType::findOrFail($base_no);
         $base  = $search_base->short_name;
@@ -142,7 +142,7 @@ class RequestsController extends Controller
       else{
         $base = '';
       }
-      
+
       if($staff_no){
         $search_staff = User::findOrFail($staff_no);
         $staff = $search_staff->name;

@@ -4,7 +4,7 @@
             <div class="panel-body">
               <div class="table-responsive">
                 <table class="table table-striped table-hover" id="client_table">
-                  <tr class="form-group{{ $errors->has('attribute') ? ' has-error' : '' }}">
+                  <tr class="form-group">
                     <th><label for="attribute" class="col-lg-12 control-label">顧客属性</label></th>
                     <td>
                       <div class="col-lg-4" id="client_attribute">
@@ -18,12 +18,12 @@
                       @endif
                     </td>
                   </tr>
-                  <tr class="form-group{{ $errors->has('base') ? ' has-error' : '' }}">
+                  <tr class="form-group">
                     <th><label for="base" class="col-lg-12 control-label">担当拠点</label></th>
                     <td>
                       <div class="col-lg-4">
                           <select id="base" class="form-control" name="base" autofocus>
-                            <option value=" ">未選択</option>
+                            <option value="">未選択</option>
                             @foreach ($baseTypes as $baseType)
                               <option value="{{ $baseType->id }}" {{ $client->base == $baseType->id ? 'selected': '' }}>{{ $baseType->name }}</option>
                             @endforeach
@@ -31,25 +31,31 @@
                       </div>
                     </td>
                   </tr>
-                  <tr class="form-group{{ $errors->has('kana') ? ' has-error' : '' }}">
+                  <tr class="form-group">
                     <th><label for="kana" class="col-lg-12 control-label">フリガナ</label></th>
                     <td>
                       <div class="col-lg-4">
-                          <input id="kana" type="text" class="form-control" name="kana" value="{{ old('kana', $client->kana.' '.$client->first_name_kana) }}" placeholder="ex) ユーズド ネット" autofocus>
+                          @php
+                            $clinet_name_kana = $client->kana ? $client->kana.' '.$client->first_name_kana : "";
+                          @endphp
+                          <input id="kana" type="text" class="form-control" name="kana" value="{{ old('kana', $clinet_name_kana) }}" placeholder="ex) ユーズド ネット">
                           <span class="guide">"セイ"と"ナ"の間に空白</span>
                       </div>
                     </td>
                   </tr>
-                  <tr class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                  <tr class="form-group">
                     <th><label for="name" class="col-lg-12 control-label">名前</label></th>
                     <td>
                       <div class="col-lg-4">
-                          <input id="name" type="text" class="form-control" name="name" value="{{ old('name', $client->name.' '.$client->first_name) }}" placeholder="ex) 柚子度 熱人" autofocus>
+                          @php
+                            $clinet_name = $client->name ? $client->name.' '.$client->first_name : "";
+                          @endphp
+                          <input id="name" type="text" class="form-control" name="name" value="{{ old('name', $clinet_name) }}"  placeholder="ex) 柚子度 熱人">
                           <span class="guide">姓と名の間に空白</span>
                       </div>
                     </td>
                   </tr>
-                  <tr class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
+                  <tr class="form-group">
                     <th><label for="gender" class="col-lg-12 control-label">性別</label></th>
                     <td>
                       <div class="col-lg-12">
@@ -59,7 +65,7 @@
                       </div>
                     </td>
                   </tr>
-                  <tr class="form-group{{ $errors->has('job') ? ' has-error' : '' }}">
+                  <tr class="form-group">
                     <th><label for="job" class="col-lg-12 control-label">職業</label></th>
                     <td>
                       <div class="col-lg-12">
@@ -69,7 +75,7 @@
                       </div>
                     </td>
                   </tr>
-                  <tr class="form-group{{ $errors->has('birthday') ? ' has-error' : '' }}">
+                  <tr class="form-group">
                     <th><label for="birthday" class="col-lg-12 control-label">生年月日</label></th>
                     <td>
                       <div class="col-lg-4">
@@ -78,7 +84,7 @@
                       </div>
                     </td>
                   </tr>
-                  <tr class="form-group{{ $errors->has('tel') ? ' has-error' : '' }}">
+                  <tr class="form-group">
                     <th><label for="tel" class="col-lg-12 control-label">電話番号</label></th>
                     <td>
                       <div class="col-lg-5">
@@ -87,7 +93,7 @@
                       </div>
                     </td>
                   </tr>
-                  <tr class="form-group{{ $errors->has('fax') ? ' has-error' : '' }}">
+                  <tr class="form-group">
                     <th><label for="fax" class="col-lg-12 control-label">FAX番号</label></th>
                     <td>
                       <div class="col-lg-5">
@@ -96,7 +102,7 @@
                       </div>
                     </td>
                   </tr>
-                  <tr class="form-group{{ $errors->has('postal_code') ? ' has-error' : '' }}">
+                  <tr class="form-group">
                     <th><label for="postal_code" class="col-lg-12 control-label">郵便番号</label></th>
                     <td>
                       <div class="col-lg-4">
@@ -105,7 +111,7 @@
                       </div>
                     </td>
                   </tr>
-                  <tr class="form-group{{ $errors->has('prefecture') ? ' has-error' : '' }}">
+                  <tr class="form-group">
                     <th><label for="prefecture" class="col-lg-12 control-label">都道府県</label></th>
                     <td>
                       <div class="col-lg-4">
@@ -118,7 +124,7 @@
                       </div>
                     </td>
                   </tr>
-                  <tr class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+                  <tr class="form-group">
                     <th><label for="address" class="col-lg-12 control-label">住所</label></th>
                     <td>
                       <div class="col-lg-12">
@@ -127,7 +133,7 @@
                       </div>
                     </td>
                   </tr>
-                  <tr class="form-group{{ $errors->has('mail') ? ' has-error' : '' }}">
+                  <tr class="form-group">
                     <th><label for="mail" class="col-lg-12 control-label">メールアドレス</label></th>
                     <td>
                       <div class="col-lg-8">

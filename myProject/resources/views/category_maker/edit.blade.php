@@ -17,7 +17,7 @@
                         <input type="hidden" name="cm_updter" value="{{ Auth::user()->id }}">
                       </div>
                       <div class="form-group">
-                          <div class="col-md-2 col-md-offset-10">
+                          <div class="col-md-2 col-md-offset-10" id="cate_maker_rgst_btn">
                               <button type="submit" class="btn btn-primary">
                                   編集
                               </button>
